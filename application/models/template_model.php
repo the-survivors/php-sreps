@@ -3,6 +3,8 @@
 class template_model extends CI_Model
 {
 
+    HELLO
+
     public function __construct()
     {
         parent::__construct();
