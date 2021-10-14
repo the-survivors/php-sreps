@@ -17,7 +17,7 @@
 }
 </style>
 
-<?php $user_role = $this->session->userdata['user_role'];?>
+<!-- <php $user_role = $this->session->userdata['user_role'];?> -->
 
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -26,7 +26,7 @@
     <!-- <div id="content"> -->
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #E4C2C1;">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -36,47 +36,30 @@
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
 
-            <?php if ($user_role != 'Admin') { ?>
-                <span class="mr-2 my-auto text-gray-800 font-weight-bold"><?= $this->session->userdata['user_fname']; ?></span>
+            <!-- <php if ($user_role != 'Admin') { ?>
+                <span class="mr-2 my-auto text-gray-800 font-weight-bold"><= $this->session->userdata['user_fname']; ?></span>
                 <hr id="nav_line">
-            <?php } ?>
+            <php } ?> -->
                 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                                    
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-800 font-weight-bold"><?= $this->session->userdata['user_role']; ?></span>
+                        <!-- <span class="mr-2 d-none d-lg-inline text-gray-800 font-weight-bold"><= $this->session->userdata['user_role']; ?></span> -->
                     
-                        <?php switch ($user_role) { 
+                        <!-- <php switch ($user_role) {  -->
 
-                        case "Academic Counsellor": ?>
+                        <!-- case "Academic Counsellor": ?> -->
                             <img class="rounded-circle user_logo" src="<?= base_url('assets/img/user_icon/ac_icon.png') ?>">
 
-                        <?php break; 
+                        <!-- <php break;  -->
 
-                        case "Education Agent": ?>
-                            <img class="rounded-circle user_logo" src="<?= base_url('assets/img/user_icon/ea_icon.png') ?>">
+                        <!-- // Admin
+                        default: ?> -->
 
-                        <?php break; 
+                        <!-- <php break;
 
-                        case "Education Partner": ?>
-                            <img class="rounded-circle user_logo" src="<?= base_url('assets/img/user_icon/ep_icon.png') ?>">
-
-                        <?php break; 
-
-                        case "Employer": ?>
-                            <img class="rounded-circle user_logo" src="<?= base_url('assets/img/user_icon/e_icon.png') ?>">
-
-                        <?php break; 
-
-                        // Admin
-                        default: ?>
-
-                        <img class="rounded-circle user_logo" src="<?= base_url('assets/img/user_icon/a_icon.png') ?>">
-
-                        <?php break;
-
-                        } ?>
+                        } ?> -->
                         
                     </a>
                     

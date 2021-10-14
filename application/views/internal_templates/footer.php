@@ -2,7 +2,7 @@
 <footer class="sticky-footer">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; iJEES - Interactive Joint Education Employability System 2021</span>
+                        <span>Copyright &copy; People Health Pharmacy (PHP) Inc. 2021</span>
                     </div>
                 </div>
 </footer>
