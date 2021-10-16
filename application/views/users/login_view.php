@@ -26,13 +26,13 @@
                                     <img src="assets/img/logo-circle.png" alt="IMG">
                                 </div>
 
-                                <form class="login100-form validate-form">
+                                <form class="user" method="post" action=" <?=base_url('users/login/verify_users'); ?>">
                                     <span class="login100-form-title">
                                         PHP - SRePS
                                     </span>
 
                                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="text" name="email" placeholder="Email">
+                                        <input class="input100" type="text" name="user_email" placeholder="Email" required>
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -40,7 +40,7 @@
                                     </div>
 
                                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                        <input class="input100" type="password" name="pass" placeholder="Password">
+                                        <input class="input100" type="password" name="user_password" placeholder="Password" required>
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
