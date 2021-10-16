@@ -83,8 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
 
-	<center><h1>1 plus 1 is 10</h1></center>
+  <center><h1>1 plus 1 is 10</h1></center>
 </body>
 </html>

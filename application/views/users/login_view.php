@@ -1,31 +1,72 @@
-<script>
-
+<!-- Set base url to javascript variable-->
+<script type="text/javascript">
+    var base_url = "<?php echo base_url(); ?>";
 </script>
 
-<body>
-	<!-- Main Content -->
-    <h1>Login Page</h1>
-    <?=$this->session->flashdata('message')?> 
-    <form class="user" method="post" action=" <?=base_url('users/login/verify_users'); ?>">
-    <!-- Email-->
-        <div class="form-row pt-5 px-3">
-            <div class="form-group col-md-12 px-2">
-                <input type="email" name="user_email" id="email"  placeholder="Enter your email address" value="<?=set_value('user_email');?>" required>
-                <?= form_error('user_email','<small class="text-danger pl-3">','</small>');?>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Content Row (Start here)-->
+
+                    <div class="limiter">
+                        <div class="container-login100">
+                            <div class="wrap-login100">
+                                <div class="login100-pic js-tilt" data-tilt>
+                                    <img src="assets/img/logo-circle.png" alt="IMG">
+                                </div>
+
+                                <form class="login100-form validate-form">
+                                    <span class="login100-form-title">
+                                        PHP - SRePS
+                                    </span>
+
+                                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                        <input class="input100" type="text" name="email" placeholder="Email">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                                        <input class="input100" type="password" name="pass" placeholder="Password">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="container-login100-form-btn">
+                                        <button class="login100-form-btn">
+                                            Login
+                                        </button>
+                                    </div>
+                                    <br><br><br><br><br><br><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        $('.js-tilt').tilt({
+                            scale: 1.1
+                        })
+                    </script>
+                    <!-- /. Content Row -->
+
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-        </div>
-        <!-- Password and confirm password -->
-        <div class="form-row pt-3 pb-3 px-3">
-            <div class="form-group col-md-12 px-2">
-                <input type="password" name="user_password" id="password" placeholder="Enter your password" required>
-                <?= form_error('user_password','<small class="text-danger pl-3">','</small>');?>
-            </div>
-        </div>
-        <!-- Submit button -->
-        <div class="pt-1 pr-4">
-            <button type="submit" class="btn btn-success">Login <i class="fas fa-check"></i></button>
-        </div>
-        <br>
-        <br>
-    </form>
-</body>
+            <!-- End of Main Content -->
