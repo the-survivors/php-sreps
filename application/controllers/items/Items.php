@@ -142,7 +142,8 @@ class Items extends CI_Controller
             'item_expiry_date'=>htmlspecialchars($this->input->post('item_expiry_date')),
             'item_description'=>htmlspecialchars($this->input->post('item_description')),
             'item_price'=>htmlspecialchars($this->input->post('item_price')),
-			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity'))
+			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity')),
+            'item_updated_date'=>date('y-m-d') // current date
 		];
       
         $this->items_model->update($data, $item_id);

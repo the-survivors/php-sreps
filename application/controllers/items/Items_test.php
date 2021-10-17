@@ -14,8 +14,9 @@ class Items_test extends CI_Controller
     {
         $this->test_items_in_array();
         $this->test_count_of_items();
+        //$this->test_insert_item();
         $this->test_items_list();
-       //$this->test_submit_added_item();
+        $this->test_update_item();
         echo $this->unit->report();
         //echo phpinfo();
     }
@@ -32,12 +33,12 @@ class Items_test extends CI_Controller
     public function test_count_of_items(){
         $items = $this->items_model->select_all();
         $items_total = count($items);
-        $this->unit->run($items_total, 23, 'Counts total number of Items');
+        $this->unit->run($items_total, 25, 'Counts total number of Items');
     }
 
     // cehcks if an item can be added in the database
     // determines whether records increase by 1 (using insert)
-    public function test_submit_added_item() {
+    public function test_insert_item() {
 
         $before_adding = count($this->items_model->select_all());
         $after_adding = $before_adding + 1;
@@ -64,5 +65,27 @@ class Items_test extends CI_Controller
         $second_item_name = $items[1]->item_name;
         $this->unit->run($first_item_name, 'Diabetmin', 'Item 1 in the list');
         $this->unit->run($second_item_name, 'Glucophage XR 500mg Tablet', 'Item 2 in the list');
+    }
+
+    // --------------------- EDIT AN ITEM TESTING --------------------------//
+
+    // checks if a specific item can be selected for editing
+    public function test_select_item(){
+        $item = $this->items_model->select_item(1);
+        $this->unit->run($item->item_name, 'Diabetmin', 'Item with ID: 1');
+    }
+    
+    // checks if a specific item's values can be edited
+    public function test_update_item(){
+        $before_editing = $this->items_model->select_item(4);
+        $this->unit->run($before_editing->item_name, 'item4', 'Before editing Item with ID: 4');
+
+        $data = [
+            'item_name'=>'editeditem4'
+        ];
+        $this->items_model->update($data, 4);
+
+        $after_editing = $this->items_model->select_item(4);
+        $this->unit->run($after_editing->item_name, 'editeditem4', 'After editing Item with ID: 4');
     }
 }
