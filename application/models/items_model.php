@@ -9,6 +9,17 @@ class items_model extends CI_Model
         $this->load->database();
     }
 
+    function select_all()
+    {
+        return $this->db->get('items')->result();
+    }
+
+    function select_item($item_id)
+    {
+        $this->db->where('item_id',$item_id);
+        return $this->db->get('items')->row();
+    }
+
     function insert($data)
     {
         $this->db->insert('items', $data);
@@ -19,15 +30,15 @@ class items_model extends CI_Model
         }
     }
 
-    // function update($data, $id)
-    // {
-    //     $this->db->where('uni_id', $id);
-    //     if ($this->db->update('universities', $data)) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+    function update($data, $item_id)
+    {
+        $this->db->where('item_id', $item_id);
+        if ($this->db->update('items', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // function delete($id)
     // {
@@ -40,10 +51,7 @@ class items_model extends CI_Model
     //     }
     // }
 
-    function select_all()
-    {
-        return $this->db->get('items')->result();
-    }
+    
 
     // function select_condition($condition)
     // {

@@ -109,6 +109,50 @@ class Items extends CI_Controller
         redirect('items/Items');
     }
 
+    function edit_item($item_id)
+    {
+        $data['title'] = 'PHP-SRePS | Edit an Item';
+        $data['include_js'] ='item_edit';
+        $data['item_data'] = $this->items_model->select_item($item_id); 
+
+		$this->load->view('internal_templates/header', $data);
+        $this->load->view('internal_templates/sidenav');
+        $this->load->view('internal_templates/topbar');
+        $this->load->view('items/items_edit_view');
+        $this->load->view('internal_templates/footer'); 
+    }
+
+    function submit_edited_item($item_id)
+    {
+        if($_FILES['item_pic']['name'] != "") {
+            $original_details = $this->items_model->select_item($item_id);
+            unlink('./assets/img/items/'.$original_details->item_pic);
+			$item_pic = $this->upload_img('./assets/img/items', 'item_pic');
+			$data = [
+				'item_pic' => $item_pic['file_name'],
+			];
+			$this->items_model->update($data, $item_id);
+		}
+
+        $data=
+		[
+            'item_subcategory_id'=>htmlspecialchars($this->input->post('item_subcategory_id')),
+            'item_supplier'=>htmlspecialchars($this->input->post('item_supplier')),
+            'item_name'=>htmlspecialchars($this->input->post('item_name')),
+            'item_expiry_date'=>htmlspecialchars($this->input->post('item_expiry_date')),
+            'item_description'=>htmlspecialchars($this->input->post('item_description')),
+            'item_price'=>htmlspecialchars($this->input->post('item_price')),
+			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity'))
+		];
+      
+        $this->items_model->update($data, $item_id);
+
+        $this->session->set_flashdata('edit_message', 1); 
+        $this->session->set_flashdata('item_name', $this->input->post('item_name')); 
+
+        redirect('items/Items');
+    }
+
     public function upload_img($path, $file_input_name) 
     {
         if ($_FILES){
@@ -126,5 +170,4 @@ class Items extends CI_Controller
             }
         }
     }
-
 }

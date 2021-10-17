@@ -23,6 +23,17 @@ td{
 </script>
 <?php } ?>
 
+<!-- Pop up after user edit an existing item-->
+<?php if($this->session->flashdata('edit_message')){?>
+<script>
+    var item_name = "<?php echo $this->session->flashdata('item_name');?>";
+    Swal.fire({
+        icon: 'success',
+        text: '"' + item_name + '" has been edited',
+    })
+</script>
+<?php } ?>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
