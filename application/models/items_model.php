@@ -40,18 +40,16 @@ class items_model extends CI_Model
         }
     }
 
-    // function delete($id)
-    // {
-    //     $this->db->where('uni_id', $id);
-    //     $this->db->delete('universities');
-    //     if ($this->db->affected_rows() > 0) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    
+    function delete($item_id)
+    {
+        $this->db->where('item_id', $item_id);
+        $this->db->delete('items');
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // function select_condition($condition)
     // {

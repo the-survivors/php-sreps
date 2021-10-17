@@ -16,7 +16,8 @@ class Items_test extends CI_Controller
         $this->test_count_of_items();
         //$this->test_insert_item();
         $this->test_items_list();
-        $this->test_update_item();
+       // $this->test_update_item();
+        $this->test_delete_item();
         echo $this->unit->report();
         //echo phpinfo();
     }
@@ -87,5 +88,31 @@ class Items_test extends CI_Controller
 
         $after_editing = $this->items_model->select_item(4);
         $this->unit->run($after_editing->item_name, 'editeditem4', 'After editing Item with ID: 4');
+    }
+
+    // --------------------- DELETE AN ITEM TESTING --------------------------//
+
+    // checks if an item has been deleted from the database
+    public function test_delete_item(){
+
+        // add dummy data that will be deleted
+        $data=[
+            'item_pic'=>'delete_test.png',
+            'item_subcategory_id'=>'999',
+            'item_supplier'=>'delete test supplier',
+            'item_name'=>'delete test name',
+            'item_expiry_date'=>'2021-10-17',
+            'item_description'=>'delete description',
+            'item_price'=>'RM99.99',
+			'item_quantity'=>'99'
+        ];
+        $this->items_model->insert($data);
+        $this->unit->run(count($this->items_model->select_all()), 26, 'Before deleting an item, total count is: 25');
+        echo count($this->items_model->select_all());
+
+        // deletes dummy data that has been added
+        $this->items_model->delete(65);
+        $this->unit->run(count($this->items_model->select_all()), 25, 'After deleting an item, total count is: 24');
+        echo count($this->items_model->select_all());
     }
 }

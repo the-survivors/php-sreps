@@ -40,9 +40,9 @@ class Items extends CI_Controller
 
         foreach($items as $item) {
             $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
-			$view = '<span><button type="button" onclick="view_emp('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_emp"><span class="fas fa-eye"></span></button></span>';
-            $edit_opt = '<span class = "px-1"><a type="button" href = "'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
-            $delete = '<span><button type="button" onclick="delete_emp('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
+			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_emp"><span class="fas fa-eye"></span></button></span>';
+            $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
+            $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
 			$data [] = [ 
@@ -54,7 +54,6 @@ class Items extends CI_Controller
                 "RM$item->item_price",
                 $function,
                 $item->item_updated_date
-                
             ];
 
 		}
@@ -87,11 +86,14 @@ class Items extends CI_Controller
 
         if($_FILES['item_pic']['name'] != "") {
 			$item_pic= $this->upload_img('./assets/img/items', 'item_pic');
-		}
-        
+            $item_pic_data = $item_pic['file_name'];
+		} else {
+            $item_pic_data = htmlspecialchars($this->input->post('item_pic'));
+        }
+
         $data=
 		[
-            'item_pic'=>htmlspecialchars($this->input->post('item_pic')),
+            'item_pic'=>htmlspecialchars($item_pic_data),
             'item_subcategory_id'=>htmlspecialchars($this->input->post('item_subcategory_id')),
             'item_supplier'=>htmlspecialchars($this->input->post('item_supplier')),
             'item_name'=>htmlspecialchars($this->input->post('item_name')),
@@ -152,6 +154,13 @@ class Items extends CI_Controller
         $this->session->set_flashdata('item_name', $this->input->post('item_name')); 
 
         redirect('items/Items');
+    }
+
+    function delete_item()
+    {
+        $item = $this->items_model->select_item($this->input->post('item_id'));
+        unlink('./assets/img/items/'.$item->item_pic);
+        $this->items_model->delete($this->input->post('item_id'));
     }
 
     public function upload_img($path, $file_input_name) 
