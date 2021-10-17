@@ -9,8 +9,19 @@ td{
 </style>
 <!-- Set base url to javascript variable-->
 <script type="text/javascript">
-    var base_url = "<?php echo base_url();?>";
+    var base_url = "<?= base_url();?>";
 </script>
+
+<!-- Pop up after user added a new item-->
+<?php if($this->session->flashdata('insert_message')){?>
+<script>
+    var item_name = "<?= $this->session->flashdata('item_name');?>";
+    Swal.fire({
+        icon: 'success',
+        text: '"' + item_name + '" has been added',
+    })
+</script>
+<?php } ?>
 
 <body id="page-top">
 
@@ -31,19 +42,19 @@ td{
                     <h1 class="h3 mb-0 text-gray-800">Items</h1>
                 </div>
 
-                <!-- Breadcrumn -->
+                <!-- Breadcrumb -->
                 <div class="row" >
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('Items');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
+                                <a href="<?= base_url('items/Items');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
                             </li>
                             <li class="breadcrumb-item active">Items</li>
                         </ol>
                     </div>
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                        <a type="button" href = "<?= base_url(''); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item<i class="fas fa-plus pl-2"></i></a>
+                        <a type="button" href = "<?= base_url('items/Items/add_item'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item<i class="fas fa-plus pl-2"></i></a>
                         </div>
                     </div>
                 </div>

@@ -16,15 +16,8 @@ class Items extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'IT Admin | Items';
+        $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
-
-         $answer = $this->items_model->select_all();
-        //  foreach ($answer as $ans)
-        //  var_dump($ans);
-        //  die;
-
-        $data['items'] = $this->items_model->select_all();
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -46,9 +39,7 @@ class Items extends CI_Controller
 		$base_url = base_url();
 
         foreach($items as $item) {
-            $edit_link = $base_url."internal/level_2/Employer/Employer_emps/edit_emp/".$item->item_id;
-            // echo $item;
-            // die;
+            $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
 			$view = '<span><button type="button" onclick="view_emp('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_emp"><span class="fas fa-eye"></span></button></span>';
             $edit_opt = '<span class = "px-1"><a type="button" href = "'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_emp('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
@@ -79,6 +70,61 @@ class Items extends CI_Controller
 		exit();
     }
 
+    function add_item()
+    {
+        $data['title'] = 'PHP-SRePS | Add New Item';
+        $data['item_subcategory_data'] = $this->items_model->select_all(); 
 
+		$this->load->view('internal_templates/header', $data);
+        $this->load->view('internal_templates/sidenav');
+        $this->load->view('internal_templates/topbar');
+        $this->load->view('items/items_add_view');
+        $this->load->view('internal_templates/footer');  
+    }
+
+    function submit_added_item()
+    {
+
+        if($_FILES['item_pic']['name'] != "") {
+			$item_pic= $this->upload_img('./assets/img/items', 'item_pic');
+		}
+        
+        $data=
+		[
+            'item_pic'=>htmlspecialchars($this->input->post('item_pic')),
+            'item_subcategory_id'=>htmlspecialchars($this->input->post('item_subcategory_id')),
+            'item_supplier'=>htmlspecialchars($this->input->post('item_supplier')),
+            'item_name'=>htmlspecialchars($this->input->post('item_name')),
+            'item_expiry_date'=>htmlspecialchars($this->input->post('item_expiry_date')),
+            'item_description'=>htmlspecialchars($this->input->post('item_description')),
+            'item_price'=>htmlspecialchars($this->input->post('item_price')),
+			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity'))
+		];
+
+        $this->items_model->insert($data);
+
+        $this->session->set_flashdata('insert_message', 1); 
+        $this->session->set_flashdata('item_name', $this->input->post('item_name')); 
+
+        redirect('items/Items');
+    }
+
+    public function upload_img($path, $file_input_name) 
+    {
+        if ($_FILES){
+            $config['upload_path'] = $path;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload($file_input_name)) 
+            {
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
+                The file format must be in "png, jpg or jpeg"</div>');
+                redirect('items/Item');
+            } else {
+                $doc_data = $this->upload->data();
+                return $doc_data;
+            }
+        }
+    }
 
 }
