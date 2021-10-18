@@ -154,7 +154,7 @@ label{
                                     <div class="form-row pt-4">
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <label for="emp_title">Item Name</label>
-                                            <input type="text" class="form-control" id="item_name" name = "item_name" placeholder="Enter item name" value="<?=$item_data->item_name?>" required>
+                                            <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter item name" value="<?=$item_data->item_name?>" required>
                                         </div>
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <label for="item_expiry_date">Item Expiry Date (if applicable)</label>
@@ -165,8 +165,7 @@ label{
                                     <div class="form-row pt-4">
                                         <div class="form-group col-md-12 px-4 pr-5">
                                             <label for="item_description">Item Description</label>
-                                            <textarea type="text" class="form-control" rows="4" id="item_description" name = "item_description" placeholder="Enter item description" value="<?=$item_data->item_description?>" required><?=$item_data->item_description?></textarea>
-                                            <!-- <div style = "color:red; font-size:0.9em;">*Can enter more than 1 field</div>   -->
+                                            <textarea type="text" class="form-control" rows="4" id="item_description" name="item_description" placeholder="Enter item description" value="<?=$item_data->item_description?>" required><?=$item_data->item_description?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-row pt-4">
@@ -174,15 +173,25 @@ label{
                                             <label for="emp_title">Item Price Per Unit (RM)</label>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">RM</span>
-                                                <input type="number" class="form-control" id="item_price" name = "item_price" step="0.01" placeholder="Enter item price per unit" value="<?=$item_data->item_price?>" required>
+                                                <input type="number" class="form-control" id="item_price" name="item_price" step="0.01" placeholder="Enter item price per unit" value="<?=$item_data->item_price?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <label for="emp_title">Item Quantity At Hand</label>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon2">Qty</span>
-                                                <input type="number" class="form-control" id="item_quantity" name = "item_quantity" placeholder="Enter item quantity at hand" value="<?=$item_data->item_quantity?>" required>
+                                                <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Enter item quantity at hand" value="<?=$item_data->item_quantity?>" required>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row pt-4">
+                                        <div class="form-group col-md-6 px-4 pr-5">
+                                            <label for="emp_title">Item Restock Level</label>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">Qty</span>
+                                                <input type="number" class="form-control" id="item_quantity" name="item_restock_level" placeholder="Enter item restock level" value="<?=$item_data->item_restock_level?>" required>
+                                            </div>
+                                            <div style = "color:red; font-size:0.9em;">*When the quantity reaches the restock level, the manager will be notified for reordering</div>
                                         </div>
                                     </div>
                                   

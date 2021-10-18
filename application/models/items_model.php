@@ -9,7 +9,7 @@ class items_model extends CI_Model
         $this->load->database();
     }
 
-    function select_all()
+    function select_all_items()
     {
         return $this->db->get('items')->result();
     }
@@ -20,7 +20,7 @@ class items_model extends CI_Model
         return $this->db->get('items')->row();
     }
 
-    function insert($data)
+    function insert_item($data)
     {
         $this->db->insert('items', $data);
         if ($this->db->affected_rows() > 0) {
@@ -30,7 +30,7 @@ class items_model extends CI_Model
         }
     }
 
-    function update($data, $item_id)
+    function update_item($data, $item_id)
     {
         $this->db->where('item_id', $item_id);
         if ($this->db->update('items', $data)) {
@@ -40,7 +40,7 @@ class items_model extends CI_Model
         }
     }
 
-    function delete($item_id)
+    function delete_item($item_id)
     {
         $this->db->where('item_id', $item_id);
         $this->db->delete('items');

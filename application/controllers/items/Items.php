@@ -33,14 +33,14 @@ class Items extends CI_Controller
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-        $items = $this->items_model->select_all();
+        $items = $this->items_model->select_all_items();
 
 		$data = array();
 		$base_url = base_url();
 
         foreach($items as $item) {
             $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
-			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_emp"><span class="fas fa-eye"></span></button></span>';
+			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
             $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
@@ -69,10 +69,68 @@ class Items extends CI_Controller
 		exit();
     }
 
+    function view_item()
+    {
+        $item_details = $this->items_model->select_item($this->input->post('item_id'));
+        // var_dump($item_details);
+        // var_dump('hi');
+        // die;
+
+        $output ='
+        <table class="table table-striped" style = "border:0;">
+            <tbody>
+                <tr style="text-align:center">
+                    <td colspan="2"><img src="'.base_url("assets/img/items/").$item_details->item_pic.'" style="width: 250px; height: 150px; object-fit:contain;">
+                    </td>  
+                </tr>
+                <tr>
+                    <th scope="row">Item No.</th>
+                    <td>'.$item_details->item_id.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Subcategory</th>
+                    <td>'.$item_details->item_subcategory_id.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Name</th>
+                    <td>'.$item_details->item_name.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Description</th>
+                    <td style="white-space: pre-wrap; word-break: break-word; text-align: justify;">'.$item_details->item_description.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Supplier</th>
+                    <td>'.$item_details->item_supplier.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Expiry Date</th>
+                    <td>'.$item_details->item_expiry_date.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>RM'.$item_details->item_price.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Quantity At Hand</th>
+                    <td>'.$item_details->item_quantity.'</td>
+                </tr>
+                <tr>
+                    <th scope="row">Restock Level</th>
+                    <td>'.$item_details->item_restock_level.'</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        ';
+
+        echo $output;
+    }
+
     function add_item()
     {
         $data['title'] = 'PHP-SRePS | Add New Item';
-        $data['item_subcategory_data'] = $this->items_model->select_all(); 
+        $data['item_subcategory_data'] = $this->items_model->select_all_items(); 
 
 		$this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -100,10 +158,11 @@ class Items extends CI_Controller
             'item_expiry_date'=>htmlspecialchars($this->input->post('item_expiry_date')),
             'item_description'=>htmlspecialchars($this->input->post('item_description')),
             'item_price'=>htmlspecialchars($this->input->post('item_price')),
-			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity'))
+			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity')),
+			'item_restock_level'=>htmlspecialchars($this->input->post('item_restock_level'))
 		];
 
-        $this->items_model->insert($data);
+        $this->items_model->insert_item($data);
 
         $this->session->set_flashdata('insert_message', 1); 
         $this->session->set_flashdata('item_name', $this->input->post('item_name')); 
@@ -133,7 +192,7 @@ class Items extends CI_Controller
 			$data = [
 				'item_pic' => $item_pic['file_name'],
 			];
-			$this->items_model->update($data, $item_id);
+			$this->items_model->update_item($data, $item_id);
 		}
 
         $data=
@@ -145,10 +204,11 @@ class Items extends CI_Controller
             'item_description'=>htmlspecialchars($this->input->post('item_description')),
             'item_price'=>htmlspecialchars($this->input->post('item_price')),
 			'item_quantity'=>htmlspecialchars($this->input->post('item_quantity')),
+            'item_restock_level'=>htmlspecialchars($this->input->post('item_restock_level')),
             'item_updated_date'=>date('y-m-d') // current date
 		];
       
-        $this->items_model->update($data, $item_id);
+        $this->items_model->update_item($data, $item_id);
 
         $this->session->set_flashdata('edit_message', 1); 
         $this->session->set_flashdata('item_name', $this->input->post('item_name')); 
@@ -160,7 +220,43 @@ class Items extends CI_Controller
     {
         $item = $this->items_model->select_item($this->input->post('item_id'));
         unlink('./assets/img/items/'.$item->item_pic);
-        $this->items_model->delete($this->input->post('item_id'));
+        $this->items_model->delete_item($this->input->post('item_id'));
+    }
+
+    function items_category_list()
+    {
+        // Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+        $items_categories = $this->items_category_model->select_all_items();
+
+		$data = array();
+		$base_url = base_url();
+
+        foreach($items_categories as $items_category) {
+            $edit_link = $base_url."items/Items/edit_item_category/".$items_category->items_category_id;
+			$view = '<span><button type="button" onclick="view_item_category('.$items_category->items_category_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_emp"><span class="fas fa-eye"></span></button></span>';
+            $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
+            $delete = '<span><button type="button" onclick="delete_item_category('.$items_category->items_category_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
+			$function = $view.$edit_opt.$delete;
+
+			$data [] = [ 
+				'',
+				$items_category->item_category_name
+            ];
+		}
+
+        $output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($items_category),
+			"recordsFiltered" =>count($items_category),
+			"data" => $data
+		);
+
+		echo json_encode($output);
+		exit();
     }
 
     public function upload_img($path, $file_input_name) 

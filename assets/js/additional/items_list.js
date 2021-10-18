@@ -60,16 +60,15 @@ function delete_item(item_id){
       })
 }
 
-// function view_emp(emp_id){
+function view_item(item_id){
 
-//     $.ajax({
-//         url: base_url + "internal/level_2/employer/employer_emps/view_emp",
-//         method:"POST",
-//         data:{ emp_id:emp_id},
-//         success:function(data)
-//         {
-//             $('#emp_information').html(data);
-
-//         }
-//     });
-// }
+    $.ajax({
+        url: base_url + "items/Items/view_item",
+        method:"POST",
+        data:{ item_id:item_id},
+        success:function(data)
+        {
+            $('#item_information').html(data);
+        }
+    });
+}

@@ -50,7 +50,7 @@ td{
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Items</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Items Category</h1>
                 </div>
 
                 <!-- Breadcrumb -->
@@ -101,29 +101,6 @@ td{
                     </div>                   
                 </div>
                 <!-- /. Content Row -->
-
-                <!-- Modal -->
-                <div class="modal fade" id="view_item" tabindex="-1" role="dialog" aria-labelledby="view_itemLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header" style = "background-color:#e56b6f;">
-                            <h5 class="modal-title" id="view_itemLabel" style ="color:white;">Item Information</h5>
-                            <button style ="color:white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" >
-                            <div id="item_information">
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.Modal -->
 
                 </div>
                 <!-- /.container-fluid -->
