@@ -70,8 +70,7 @@ class Login extends CI_Controller
                 // check user role is staff
                 else 
                 {
-                    echo "Hello, Staff";
-                    //redirect('external/homepage');
+                    redirect('users/Staff_dashboard');
                 }
                     
             }
