@@ -34,19 +34,19 @@
 
             <div class="pt-2 sidebar-heading">Master Data</div>
 
-            <!-- Nav Item - Chat <=base_url('user/chat/Chat');?>-->
+            <!-- Nav Item - Course Applicants >-->
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-comment"></i>
-                    <span>Items</span>
+                <a class="nav-link" href="<?=base_url('items/Items/items_categories');?>">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Item Categories</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Course Applicants <=base_url('internal/level_2/academic_counsellor/Ac_course_applicants');?>-->
+            <!-- Nav Item - Chat -->
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Users</span>
+                <a class="nav-link" href="<?=base_url('items/Items');?>">
+                    <i class="fas fa-comment"></i>
+                    <span>Items</span>
                 </a>
             </li>
 
