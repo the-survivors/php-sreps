@@ -19,7 +19,11 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<?php echo base_url()?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <?php  if(isset($bootstrap_css)) {  
+        echo $bootstrap_css;
+    } else {?>
+        <link href="<?php echo base_url()?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <?php } ?>
 
     <!-- DataTables styling-->
     <link href="<?php echo base_url()?>/assets/css/datatables.css" rel="stylesheet">

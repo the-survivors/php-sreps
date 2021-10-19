@@ -54,11 +54,15 @@ class Template extends CI_Controller
         $data['title'] = 'Admin | Dashboard';
         $data['include_js'] = 'admin_dashboard';
 
-        $this->load->view('internal_templates/header');
-        $this->load->view('internal_templates/sidenav');
-        $this->load->view('internal_templates/topbar');
+		// Value for bootstrap css and js plugin that is NOT from SB Admin
+		// $data['bootstrap_css'] = "";
+		// $data['bootstrap_js'] = "";
+
+        $this->load->view('external_templates/header');
+        $this->load->view('external_templates/sidenav');
+        $this->load->view('external_templates/topbar');
         $this->load->view('template_view');
-        $this->load->view('internal_templates/footer');
+        $this->load->view('external_templates/footer');
     }
 
 
