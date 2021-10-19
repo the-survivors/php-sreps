@@ -12,7 +12,7 @@ class user_model extends CI_Model
     function index()
     {
         // select from  users table
-        return $this->db->get('users');
+        return $this->db->get('users')->result();
     }
 
     public function valid_email($user_email)

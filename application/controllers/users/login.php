@@ -20,7 +20,7 @@ class Login extends CI_Controller
         {
             
            // $this->load->view('users/login_view');
-           redirect(Welcome);
+           redirect('Welcome');
         }
         else
         {
@@ -64,15 +64,14 @@ class Login extends CI_Controller
                 else if ($users['user_role']=="Manager")
                 {
                     //redirect('internal/level_2/education_agent/Ea_dashboard');
-                    echo "Hello, Manager";
+                    redirect('users/Dashboard/Manager');
                 }
 
-                // check user role is staff
+                //check user role is staff
                 else 
                 {
-                    redirect('users/Staff_dashboard');
+                    redirect('users/Dashboard/Staff');
                 }
-                    
             }
                 // if password is incorrect
                 else

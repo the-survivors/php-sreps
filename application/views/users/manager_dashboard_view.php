@@ -16,7 +16,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Staff Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Manager Dashboard</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -70,7 +70,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Today total sales</div>
+                                                Toda total sales</div>
                                             <div id="today_total_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
                                         </div>
                                         <div class="col-auto">
