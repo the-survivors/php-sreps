@@ -21,9 +21,20 @@ class sales_model extends CI_Model
         $this->db->insert('sales_item', $data);
     }
 
+    function update_quantity_from_item($item_id, $item_quantity)
+    {
+        $this->db->where('item_id', $item_id);
+        $this->db->set('item_quantity', 'item_quantity-'.$item_quantity.'', FALSE);
+        $this->db->update('items');
+    }
+
     function select_all_from_sales()
     {
-        return $this->db->get('sales')->result();
+        $this->db->select('*');
+        $this->db->from('sales');
+        $this->db->join('users', 'users.user_id = sales.user_id');         
+        $query = $this->db->get()->result();
+        return $query;
     }
 
     function select_sales_item($sale_id)
@@ -45,12 +56,13 @@ class sales_model extends CI_Model
     function fetch_item($item_subcategory_id)  //new function
     {
         $this->db->where('item_subcategory_id', $item_subcategory_id);
+        $this->db->where('item_quantity !=', 0);
         $query = $this->db->get('items');
         
         if ($query->num_rows() > 0) {
             $output = '';
             foreach ($query->result() as $row) {
-                $output .= '<option data-price = "'.$row->item_price.'" data-id="'.$row->item_id.'" value="' . $row->item_name . '">' . $row->item_name . '</option>';
+                $output .= '<option data-quantity = "'.$row->item_quantity.'" data-price = "'.$row->item_price.'" data-id="'.$row->item_id.'" value="' . $row->item_name . '">' . $row->item_name . '</option>';
             }
         } else {
             $output = '<option value="" selected disabled>No item available</option>';

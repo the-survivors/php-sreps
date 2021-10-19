@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    // Setup for datatable
     var t = $("#table_sales_list").DataTable({
         //make table responsive
         "bAutoWidth": false,
@@ -31,24 +33,50 @@ $(document).ready(function () {
 
         var item_name = document.getElementById("item_id").value;
         var item_id = $("#item_id").find(':selected').data('id');
-        var item_price = $("#item_id").find(':selected').data('price')
-        i++;
-        $('#table_body').append('<tr id="row' + i + '" class="dynamic-added">' +
-            '<td style = "width:10%;"><input type="number" name="addmore[][item_id]" class="form-control item_id1" value = "'+item_id+'" readonly  required/></td>' +
-            '<td><input type="text" class="form-control item_name" value = "'+item_name+'"/></td>'+
-            '<td style = "width:5%;"><input type="number" name="addmore[][sale_item_quantity]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" value = "1" required/></td>' +
-            '<td style = "width:5%;"><input type="number" name="addmore[][sale_item_discount]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max = "100" value = "0" required/></td>' +
-            '<td style = "width:22%;:">' +
-            '<input type="number" style = "display:none" class="form-control one_item_price" value = "' + item_price + '"/>' +
-            '<input type="number" style = "display:none" class="form-control ori_one_item_price" value = "' + item_price + '"/>' +
-            '<div class="input-group-prepend">'+
-            '<span class="input-group-text" id="basic-addon1">RM</span>'+
-            '<input type="number" name="addmore[][sale_item_price]" class="form-control sale_item_price" value = "'+item_price+'" readonly/></div>' +
-            '</td>' +
-            '<td style = "width:2%;"><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><span class="fas fa-times"></span></button></td>' +
-            '</tr>');
+        var item_price = $("#item_id").find(':selected').data('price');
+        var item_quantity = $("#item_id").find(':selected').data('quantity');
+
+        //check if the same item has already been added into the table list
+        var already_exist = false;
+        $("#item_list .item_id1").each(function () {
+            var get_value = $(this).val();
+            if (get_value == item_id) {
+                already_exist = true;
+            }
+        });
+
+        //Add item row if the item is a new item
+        if (already_exist == false) {
+            i++;
+            $('#table_body').append('<tr id="row' + i + '" class="dynamic-added">' +
+                '<td style = "width:8%;"><input type="number" name="item_id[]" class="form-control item_id1" value = "' + item_id + '" readonly/></td>' +
+                '<td><input type="text" class="form-control item_name" value = "' + item_name + '" readonly/></td>' +
+                '<td style = "width:10%;"><input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max = "' + item_quantity + '" value = "1" required/></td>' +
+                '<td style = "width:10%;"><input type="number" name="sale_item_discount[]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max = "100" value = "0" required/></td>' +
+                '<td style = "width:15%;">' +
+                '<div class="input-group-prepend">' +
+                '<span class="input-group-text" id="basic-addon1">RM</span>' +
+                '<input type="number"  class="form-control ori_sale_item_price" value = "' + item_price + '" readonly/></div>' +
+                '</td>' +
+                '<td style = "width:15%;:">' +
+                '<input type="number" style = "display:none" class="form-control one_item_price" value = "' + item_price + '"/>' +
+                '<div class="input-group-prepend">' +
+                '<span class="input-group-text" id="basic-addon1">RM</span>' +
+                '<input type="number" name="sale_item_price[]" class="form-control sale_item_price" value = "' + item_price + '" readonly/></div>' +
+                '</td>' +
+                '<td style = "width:2%;">' +
+                '<button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><span class="fas fa-times"></span></button></td>' +
+                '</tr>');
 
             update_total_sales_price();
+        }
+        else{
+            //Display sweetalert pop up message if item has already been added to the list
+            Swal.fire({
+                icon: 'info',
+                text: 'The item has already been added',
+              })
+        }
     });
 
     //function to remove item row upon clicking the red remove button
@@ -59,7 +87,7 @@ $(document).ready(function () {
 
     });
 
-    //ajax for 1st item row item selection dropdown
+    //ajax for fetching items selection dropdown
     $('#item_subcategory_id',).change(function () {
         var item_subcategory_id = document.getElementById("item_subcategory_id").value;
 
@@ -77,21 +105,22 @@ $(document).ready(function () {
     $("#item_list").on("change", 'input', function () {
         var row = $(this).closest("tr");
 
-        if (row.find(".sale_item_quantity").val() >= 1 && row.find(".sale_item_discount").val() >= 0) {
-            console.log(row.find(".sale_item_quantity").val());
+        if (row.find(".sale_item_quantity").val() > 0 && row.find(".sale_item_discount").val() >= 0) {
 
             //update sale_item_price when quantity and discount input field in any row is changed
+            var sale_item_discount = row.find(".sale_item_discount").val();
+            var one_item_price = row.find(".one_item_price").val();
             var sale_item_quantity = row.find(".sale_item_quantity").val();
-            sale_item_discount = row.find(".sale_item_discount").val();
-            one_item_price = row.find(".one_item_price").val();
+            console.log(sale_item_quantity);
 
             var sale_item_price = sale_item_quantity * one_item_price * ((100 - sale_item_discount) / 100);
             sale_item_price = sale_item_price.toFixed(2);
             $('.sale_item_price', row).val(sale_item_price);
-            
+
             var ori_total_sale_item_price = sale_item_quantity * one_item_price;
+            console.log(ori_total_sale_item_price);
             ori_total_sale_item_price = ori_total_sale_item_price.toFixed(2);
-            $('.ori_one_item_price', row).val(ori_total_sale_item_price);
+            $('.ori_sale_item_price', row).val(ori_total_sale_item_price);
 
             update_total_sales_price();
 
@@ -112,7 +141,7 @@ function update_total_sales_price() {
     $("#sale_discounted_price").val(total_discounted_price);
 
     var total_sales_price = 0;
-    $("#item_list .ori_one_item_price").each(function () {
+    $("#item_list .ori_sale_item_price").each(function () {
         var get_value = $(this).val();
         total_sales_price += parseFloat(get_value);
     });
@@ -120,8 +149,8 @@ function update_total_sales_price() {
 
 }
 
+//Fetch the item list with the default subcategory when the page is loaded
 var item_subcategory_id = document.getElementById("item_subcategory_id").value;
-
 $.ajax({
     url: base_url + "sales/sales/fetch_item",
     method: "POST",

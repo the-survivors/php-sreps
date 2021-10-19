@@ -23,6 +23,7 @@ class Sales extends CI_Controller
 		$this->load->view('internal_templates/footer');
 	}
 
+	//function to load receive data from database and load it into datatable
 	public function sales_list()
 	{
 		// Datatables Variables
@@ -38,7 +39,7 @@ class Sales extends CI_Controller
 		foreach ($sales_data as $r) {
 
 			$edit_opt = '<span class = "px-1"><a type="button" href = "" class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
-			$view = '<span><button type="button" onclick="view_course()" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_course"><span class="fas fa-eye"></span></button></span>';
+			$view = '<span><button type="button" onclick="view_course()" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_sales"><span class="fas fa-eye"></span></button></span>';
 			$function = $view . $edit_opt;
 
 			$sales_item_data = $this->sales_model->select_sales_item($r->sale_id);
@@ -51,7 +52,8 @@ class Sales extends CI_Controller
 				'',
 				$r->sale_id,
 				$r->sale_date,
-				$r->sale_total_price,
+				"RM " . $r->sale_total_price,
+				$r->user_fname . " " . $r->user_lname,
 				"<ul>" . $list_html . "</ul>",
 				$function,
 			);
@@ -70,30 +72,47 @@ class Sales extends CI_Controller
 
 	function add_sales()
 	{
-		// print_r($this->input->post('addmore'));
+		//initializing arrays
+		$item_id = $this->input->post('item_id');
+		$sale_item_quantity = $this->input->post('sale_item_quantity');
+		$sale_item_discount = $this->input->post('sale_item_discount');
+		$sale_item_total_price = $this->input->post('sale_item_price');
+
+		// echo $this->input->post('sale_total_price');
 		// die;
-		$data =
-			[
-				'sale_total_price' => htmlspecialchars($this->input->post('sale_total_price')),
-				'sale_discounted_price' => htmlspecialchars($this->input->post('sale_discounted_price')),
-			];
+		//if there are no item added
+		if ($this->input->post('sale_total_price') == 0) {
+			$this->session->set_userdata('no_item_message', '<div id = "alert_message" class="alert alert-danger px-4" role="alert">No item selected, please try again</div>');
 
-		$sale_id = $this->sales_model->insert($data);
-
-		foreach ($this->input->post('addmore') as $key => $r) {
-
+		} else {
+			//initializing sales data and inserting the data into sales table
 			$data =
 				[
-					'sale_id' => $sale_id,
-					'item_id' => $key['item_id']->$r,
-					'sale_item_quantity' => $r['sale_item_quantity'],
-					'sale_item_discount' => $r['sale_item_discount'],
-					'sale_item_total_price' => $r['sale_item_price'],
+					'sale_total_price' => htmlspecialchars($this->input->post('sale_total_price')),
+					'sale_discounted_price' => htmlspecialchars($this->input->post('sale_discounted_price')),
+					'user_id' => 1,
 				];
 
-			$this->sales_model->insert_sales_item($data);
-		}
+			$sale_id = $this->sales_model->insert($data);
 
+			foreach ($item_id as $index => $item_id) {
+				//initializing sales_item data and inserting the data into sales_item table row by row
+				$data =
+					[
+						'sale_id' => $sale_id,
+						'item_id' => $item_id,
+						'sale_item_quantity' => $sale_item_quantity[$index],
+						'sale_item_discount' => $sale_item_discount[$index],
+						'sale_item_total_price' => $sale_item_total_price[$index],
+					];
+
+				$this->sales_model->insert_sales_item($data);
+				
+				//update item_quantity in items table
+				$this->sales_model->update_quantity_from_item($item_id, $sale_item_quantity[$index]);
+			}
+		}
+		
 		redirect('sales/sales/');
 	}
 
