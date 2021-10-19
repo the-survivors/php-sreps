@@ -4,11 +4,23 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 
 <style>
-    /* tr:nth-child(even) {
-  background-color: #E4C2C1;
-  
-} */
-    /* css for hiding select dropdown area */
+.table-striped tbody tr:nth-of-type(odd) {
+  background:white;
+}
+.table-striped tbody tr:nth-of-type(even) {
+  background:#E4C2C1;
+}
+.table-striped thead tr:nth-of-type(odd) {
+  background:#C4C4C4;
+}
+.table-striped{
+    color:black;
+}
+
+#table_view_sale tbody tr:nth-of-type(even) {
+  background:#E4C2C1;
+}
+
 </style>
 
 <?php
@@ -33,19 +45,19 @@ foreach ($subcategory as $s) {
     }, 5000); // <-- time in milliseconds
 </script>
 
-<body id="page-top">
+<body id="page-top" style="background:#FEF2F2;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column" >
 
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="background:#FEF2F2;">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -64,7 +76,7 @@ foreach ($subcategory as $s) {
                         </div>
                         <div class="col-xl-3 ">
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#add_sales">Add Sale <span class="fas fa-plus"></span></button>
+                                <button type="button" style = "background:#FF545D; color:white;" class="btn icon-btn  waves-effect waves-light" data-toggle="modal" data-target="#add_sales">Add Sale <span class="fas fa-plus"></span></button>
                             </div>
                         </div>
                     </div>
@@ -75,19 +87,20 @@ foreach ($subcategory as $s) {
                             <?=$this->session->userdata('no_item_message') ?>
                             <?php $this->session->unset_userdata('no_item_message');; ?>
                             <!-- Card-->
-                            <div class="card ">
+                            <div class="card " style="color:black;">
                                 <div class="card-body">
 
                                     <div class="table-responsive">
-                                        <table id="table_sales_list" class="table ">
+                                        <table id="table_sales_list" class="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Sales ID</th>
                                                     <th>Sales Date</th>
-                                                    <th>Sales Total Price(RM)</th>
+                                                    <th>Sales Total Price (RM)</th>
+                                                    <th>Total Discounted Price (RM)</th>
                                                     <th>Person in charge</th>
-                                                    <th>Items</th>
+                                                    <th>Categories</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -148,11 +161,8 @@ foreach ($subcategory as $s) {
 
                                                 </select>
                                             </div>
-                                            <div class="col-xl-1">
-                                                <button type="button" name="add" id="add" class="btn btn-success"><span class="fas fa-plus"></span></button>
-                                            </div>
-                                            <div class="col-xl-3" id = "repeat_message">
-                                                
+                                            <div class="col-xl-3">
+                                                <button type="button" name="add" id="add" class="btn btn-success">Add Item  <span class="fas fa-plus"></span></button>
                                             </div>
                                         </div>
                                         <table class="table" id="item_list">
@@ -219,11 +229,9 @@ foreach ($subcategory as $s) {
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" id = "view_sale_model">
 
                                 </div>
-
-
                                 <div class="modal-footer">
                                 </div>
                             </div>
@@ -237,11 +245,3 @@ foreach ($subcategory as $s) {
 
             </div>
             <!-- End of Main Content -->
-
-            <?php
-
-
-            ?>
-
-            <script type="text/javascript">
-            </script>

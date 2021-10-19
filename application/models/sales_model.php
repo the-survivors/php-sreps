@@ -32,7 +32,7 @@ class sales_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('sales');
-        $this->db->join('users', 'users.user_id = sales.user_id');         
+        $this->db->join('users', 'users.user_id = sales.user_id');      
         $query = $this->db->get()->result();
         return $query;
     }
@@ -42,7 +42,28 @@ class sales_model extends CI_Model
         $this->db->select('*');
         $this->db->from('sales_item');
         $this->db->where('sale_id', $sale_id);
-        $this->db->join('items', 'items.item_id = sales_item.item_id');         
+        $this->db->join('items', 'items.item_id = sales_item.item_id');    
+        $this->db->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id');      
+        $this->db->join('items_category', 'items_category.item_category_id  = items_subcategory.item_category_id');       
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    function select_one_sale($sale_id)
+    {
+        $this->db->where('sale_id', $sale_id);
+        return $this->db->get('sales')->row();
+    }
+
+    function get_category_only($sale_id)
+    {
+        $this->db->select('*');
+        $this->db->from('sales_item');
+        $this->db->where('sale_id', $sale_id);
+        $this->db->join('items', 'items.item_id = sales_item.item_id');    
+        $this->db->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id');      
+        $this->db->join('items_category', 'items_category.item_category_id  = items_subcategory.item_category_id');  
+        $this->db->group_by('items_category.item_category_id');                                          
         $query = $this->db->get()->result();
         return $query;
     }

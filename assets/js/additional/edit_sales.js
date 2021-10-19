@@ -1,46 +1,31 @@
+//Fetch the item list with the default subcategory when the page is loaded
+var item_subcategory_id = document.getElementById("item_subcategory_id").value;
+$.ajax({
+    url: base_url + "sales/sales/fetch_item",
+    method: "POST",
+    data: { item_subcategory_id: $("#item_subcategory_id").val() },
+    success: function (data) {
+        $('#item_id').html(data);
+    }
+});
+
 $(document).ready(function () {
 
-    // Setup for datatable
-    var t = $("#table_sales_list").DataTable({
-        //make table responsive
-        "bAutoWidth": false,
-        ajax: {
-            url: base_url + "sales/sales/sales_list",
-            type: "GET",
-        },
-        "columnDefs": [{
-            "width": "12%",
-            "targets": [7]
-        },
-        {
-            "width": "5%",
-            "targets": [0]
-        },
-        {
-            "width": "5%",
-            "targets": [1]
-        },
-        {
-            "width": "20%",
-            "targets": [6]
-        },
-        {
-            "searchable": false,
-            "targets": 0
-        }
-        ]
+    //ajax for fetching items selection dropdown
+    $('#item_subcategory_id',).change(function () {
+        var item_subcategory_id = document.getElementById("item_subcategory_id").value;
+
+        $.ajax({
+            url: base_url + "sales/sales/fetch_item",
+            method: "POST",
+            data: { item_subcategory_id: $("#item_subcategory_id").val() },
+            success: function (data) {
+                $('#item_id').html(data);
+            }
+        });
     });
 
-    t.on('order.dt search.dt', function () {
-        t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1;
-        });
-    }).draw();
-
-
-
     //function to add item row upon clicking the green add button
-    var i = 0;
     $('#add').click(function () {
 
         var item_name = document.getElementById("item_id").value;
@@ -99,20 +84,6 @@ $(document).ready(function () {
 
     });
 
-    //ajax for fetching items selection dropdown
-    $('#item_subcategory_id',).change(function () {
-        var item_subcategory_id = document.getElementById("item_subcategory_id").value;
-
-        $.ajax({
-            url: base_url + "sales/sales/fetch_item",
-            method: "POST",
-            data: { item_subcategory_id: $("#item_subcategory_id").val() },
-            success: function (data) {
-                $('#item_id').html(data);
-            }
-        });
-    });
-
     //function is trigger when the quantity and discount input field from any row is changed or modified                 
     $("#item_list").on("change", 'input', function () {
         var row = $(this).closest("tr");
@@ -139,7 +110,6 @@ $(document).ready(function () {
         }
     });
 
-
 }); // end of ready function
 
 //update sale_total_price & sale_discounted_price  when quantity and discount input field in any row is changed
@@ -158,31 +128,5 @@ function update_total_sales_price() {
         total_sales_price += parseFloat(get_value);
     });
     $("#sale_total_price").val(total_sales_price);
-
-}
-
-//Fetch the item list with the default subcategory when the page is loaded
-var item_subcategory_id = document.getElementById("item_subcategory_id").value;
-$.ajax({
-    url: base_url + "sales/sales/fetch_item",
-    method: "POST",
-    data: { item_subcategory_id: $("#item_subcategory_id").val() },
-    success: function (data) {
-        $('#item_id').html(data);
-    }
-});
-
-function view_sale(sale_id) {
-
-    $.ajax({
-        url: base_url + "sales/sales/view_sale",
-        method:"POST",
-        data:{ sale_id:sale_id},
-        success:function(data)
-        {
-            $('#view_sale_model').html(data);
-
-        }
-    });
 
 }
