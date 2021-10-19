@@ -56,8 +56,8 @@ class Sales extends CI_Controller
 				'',
 				$r->sale_id,
 				$r->sale_date,
-				"RM " . $r->sale_total_price,
-				"RM " . $r->sale_discounted_price,
+				"RM " . number_format($r->sale_total_price, 2, '.', ''),
+				"RM " . number_format($r->sale_discounted_price, 2, '.', ''),
 				$r->user_fname . " " . $r->user_lname,
 				"<ul class = 'category_list'>" . $list_html . "</ul>",
 				$function,
@@ -136,6 +136,7 @@ class Sales extends CI_Controller
 		$counter = 0;
 		foreach ($sale_item_data as $r) {
 			$counter++;
+			//implement background color for even number row
 			if($counter%2 == 0){$style = 'style = "background:#E4C2C1;"';} else{$style = '';}
 			$sale_row_html .= '<tr '.$style.'>
 								<td>' . $counter . '</td>
@@ -144,7 +145,7 @@ class Sales extends CI_Controller
 								<td>' . $r->item_name . '</td>
 								<td>' . $r->sale_item_quantity . '</td>
 								<td>' . $r->sale_item_discount . '%</td>
-								<td>RM ' . $r->sale_item_discount . '</td>
+								<td>RM ' . number_format($r->sale_item_total_price, 2, '.', '') . '</td>
 							   <tr>';
 		}
 
@@ -175,7 +176,7 @@ class Sales extends CI_Controller
 			<div class="col-xl-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon1">RM</span>
-					<input type="number"  style="font-weight:600; float:right;" class="form-control" value="' . $sale_data->sale_total_price . '" readonly />
+					<input type="number"  style="font-weight:600; float:right;" class="form-control" value="' . number_format($sale_data->sale_total_price, 2, '.', '') . '" readonly />
 				</div>
 			</div>
 		</div>
@@ -185,7 +186,7 @@ class Sales extends CI_Controller
 			<div class="col-xl-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon2">RM</span>
-					<input type="number" style="font-weight:600; float:right;" class="form-control" value="' . $sale_data->sale_discounted_price . '" readonly />
+					<input type="number" style="font-weight:600; float:right;" class="form-control" value="' . number_format($sale_data->sale_discounted_price, 2, '.', '') . '" readonly />
 				</div>
 			</div>
 		</div>

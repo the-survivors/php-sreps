@@ -17,10 +17,6 @@
     color:black;
 }
 
-#table_view_sale tbody tr:nth-of-type(even) {
-  background:#E4C2C1;
-}
-
 </style>
 
 <?php
