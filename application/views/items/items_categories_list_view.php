@@ -1,6 +1,6 @@
 
 <style>
-th{
+th, label{
     color:black;
 }
 td{
@@ -33,6 +33,24 @@ td{
     })
 </script>
 <?php } ?>
+<script>
+$('#edit_item_category').on('show.bs.modal', function(e) {
+        var item_category_id = $(e.relatedTarget).data('id');
+        alert(item_category_id);
+
+        $.ajax({
+            url: base_url + "items/Items/fetch_item_category",
+            method:"POST",
+            data:{ item_category_id:item_category_id},
+            success:function(data)
+            {
+                $('#item_category_name').val(data.item_category_name);
+                alert($('#item_category_name').val(data.item_category_name));
+
+            }
+        });
+    });
+</script>
 
 <body id="page-top">
 
@@ -65,7 +83,8 @@ td{
                     </div>
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                        <a type="button" href = "<?= base_url('items/Items/add_item_category'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item Category<i class="fas fa-plus pl-2"></i></a>
+                        <button type="button" class="btn" style="background-color: #FF545D; color: white;" data-toggle="modal" data-target="#add_item_category">Add New Item Category<i class="fas fa-plus pl-2"></i></button>
+                        <!-- <a type="button" href = "<?= base_url('items/Items/add_item_category'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item Category<i class="fas fa-plus pl-2"></i></a> -->
                         </div>
                     </div>
                 </div>
@@ -98,6 +117,62 @@ td{
                 </div>
                 <!-- /. Content Row -->
 
+                <div>
+                <!-- Add New Item Category Modal -->
+                <div class="modal fade" id="add_item_category" tabindex="-1" role="dialog" aria-labelledby="add_item_categoryLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header" style = "background-color:#e56b6f;">
+                            <h5 class="modal-title" id="add_item_categoryLabel" style ="color:white;">Add New Item Category</h5>
+                            <button style ="color:white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form method="post" action=" <?= base_url('items/Items/add_item_category'); ?>">
+                            <div class="modal-body">
+
+                                <div class="form-row pt-2" style="background-color: #E1DFE2">
+                                    <div class="form-group col-md-12 px-4 pr-5">
+                                        <label for="item_category_name" class="font-weight-bold">Item Category Name</label>
+                                        <input type="text" class="form-control" id="item_category_name" name="item_category_name" placeholder="Enter item category name" required>
+                                    </div>
+                                </div>
+
+                            <div class="modal-footer">
+                                <button  type="submit" class="btn" style="background-color: #FF545D; color: white; float:right;" >Submit<i class="fas fa-check pl-2"></i></button>
+                                <button type="button" class="btn btn-secondary float-right ml-2" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Add New Item Category Modal -->
+                </div>
+                
+                <div>
+                <!-- Edit Item Category Modal -->
+                <div class="modal fade" id="edit_item_category" tabindex="-1" role="dialog" aria-labelledby="edit_item_categoryLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header" style = "background-color:#e56b6f;">
+                            <h5 class="modal-title" id="edit_item_categoryLabel" style ="color:white;">Edit Item Category</h5>
+                            <button style ="color:white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="edit_item_category_information">
+
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Edit Item Category Modal -->
+                </div>
+                
                 </div>
                 <!-- /.container-fluid -->
 

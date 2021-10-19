@@ -38,6 +38,28 @@ $(document).ready(function(){
         } );
     } ).draw();
 
+    // $('#edit_item_category').on('show.bs.modal', function(e) {
+    //     var item_category_id = $(e.relatedTarget).data('id');
+    //     alert(item_category_id);
+
+    //     $.ajax({
+    //         url: base_url + "items/Items/fetch_item_category",
+    //         method:"POST",
+    //         data:{ item_category_id:item_category_id},
+    //         success:function(data)
+    //         {
+    //             $('#item_category_name').val(data.item_category_name);
+    //             alert($('#item_category_name').val(data.item_category_name));
+
+    //         }
+    //     });
+    // });
+
+    // $('edit_data').on(function () {
+    //     var item_category_id = $(this).attr("id");
+    //     alert(item_category_id)
+    // })
+
 }); // end of ready function
 
 function delete_item(item_id){
@@ -93,7 +115,7 @@ function delete_item_category(item_category_id){
 
     Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "Deleting this will delete ALL ITS RELATED SUB-CATEGORIES (if any). You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -122,4 +144,16 @@ function delete_item_category(item_category_id){
           
         }
       })
+}
+
+function edit_item_category (item_category_id){
+$.ajax({
+    url: base_url + "items/Items/edit_item_category",
+    method:"POST",
+    data:{ item_category_id:item_category_id},
+    success:function(data)
+    {
+        $('#edit_item_category_information').html(data);
+    }
+});
 }

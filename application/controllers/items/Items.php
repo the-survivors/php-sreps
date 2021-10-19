@@ -224,10 +224,29 @@ class Items extends CI_Controller
         $this->items_model->delete_item($this->input->post('item_id'));
     }
 
-    // --------------------- ITEM CATEGORIES --------------------------//
+    public function upload_img($path, $file_input_name) 
+    {
+        if ($_FILES){
+            $config['upload_path'] = $path;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload($file_input_name)) 
+            {
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
+                The file format must be in "png, jpg or jpeg"</div>');
+                redirect('items/Item');
+            } else {
+                $doc_data = $this->upload->data();
+                return $doc_data;
+            }
+        }
+    }
+
+    // --------------------- ITEM CATEGORIES --------------------------// 
     public function items_categories(){
         $data['title'] = 'PHP-SRePS | Item Categories';
         $data['include_js'] = 'items_list';
+        //$$data['item_category_data'] = $this->items_model->select_all_item_categories();
 
         // $item_categories = $this->items_model->select_item_categories_grouping();
         // var_dump($this->items_model->select_all_item_categories());
@@ -238,6 +257,9 @@ class Items extends CI_Controller
         //     var_dump($a->item_total_subcategories);
         //     var_dump('ok') ;
         // }
+
+        //var_dump($this->items_model->select_item_categories_grouping());
+
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -259,13 +281,15 @@ class Items extends CI_Controller
 		$base_url = base_url();
 
         foreach($item_categories as $item_category) {
-            $edit_link = $base_url."items/Items/edit_item_category/".$item_category->item_category_id;
             $item_subcategories_page_link = $base_url."items/Items/item_subcategories_list/".$item_category->item_category_id;
             $item_subcategories_page = '<span class="px-1"><a type="button" href="'.$item_subcategories_page_link.'"class="btn" style="background-color: #BAA0CA; color: white;><i class="fas fa-plus pl-2"></i>Add Sub-Category<span class="fas fa-plus pl-2"></span></a></span>';
-			$view = '<span><button type="button" onclick="view_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
-            $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
+			
+            $item_subcategories_page2 = '<span class="px-1"><a type="button" href="'.$item_subcategories_page_link.'"class="btn icon-btn btn-xs btn-info waves-effect waves-light"><i class="fas fa-eye"></i></a></span>';
+            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light edit_item_category" data-toggle="modal" data-id="'.$item_category->item_category_id.'" data-target="#edit_item_category"><span class="fas fa-pencil-alt"></span></button></span>';
+            $view = '<span><button type="button" onclick="view_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
+            //$edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
-			$function = $item_subcategories_page.$view.$edit_opt.$delete;
+			$function = $item_subcategories_page2.$view.$edit_opt.$delete;
 
 			$data [] = [ 
 				'',
@@ -347,18 +371,6 @@ class Items extends CI_Controller
 
     function add_item_category()
     {
-        $data['title'] = 'PHP-SRePS | Add New Item Category';
-        $data['item_category_data'] = $this->items_model->select_all_item_categories(); 
-
-		$this->load->view('internal_templates/header', $data);
-        $this->load->view('internal_templates/sidenav');
-        $this->load->view('internal_templates/topbar');
-        $this->load->view('items/items_categories_add_view');
-        $this->load->view('internal_templates/footer');  
-    }
-
-    function submit_added_item_category()
-    {
         $data=
 		[
             'item_category_name'=>htmlspecialchars($this->input->post('item_category_name'))
@@ -372,17 +384,41 @@ class Items extends CI_Controller
         redirect('items/Items/items_categories');
     }
 
-    function edit_item_category($item_category_id)
+    function edit_item_category() // just editing the CATEGORY. has no relation with the sub
     {
-        $data['title'] = 'PHP-SRePS | Edit an Item Category';
-        $data['item_category_data'] = $this->items_model->select_item_category($item_category_id); 
+        $item_category_details = $this->items_model->select_item_category($this->input->post('item_category_id'));
+        // var_dump(base_url("items/Items/edit_item_category/").$item_category_details->item_category_id);
+        // var_dump('hi');
+        // die;
 
-        var_dump($this->items_model->select_item_category($item_category_id));
-		$this->load->view('internal_templates/header', $data);
-        $this->load->view('internal_templates/sidenav');
-        $this->load->view('internal_templates/topbar');
-        $this->load->view('items/items_categories_edit_view');
-        $this->load->view('internal_templates/footer'); 
+        //var_dump($item_category_details);
+        //$base_url = base_url();
+        //$edit_link = base_url("items/Items/edit_item_category/".$item_category_details->item_category_id);
+        
+        //var_dump($edit_link);
+
+        $output ='
+        <form method="post" action="'.base_url('items/Items/submit_edited_item_category/'.$item_category_details->item_category_id).'">
+        <div class="form-row pt-2" style="background-color: #E1DFE2">
+            <div class="form-group col-md-12 px-4 pr-5">
+                <label for="item_category_name" class="font-weight-bold" style="color: black">Item Category Name</label>
+                <input type="text" class="form-control" id="item_category_name" name="item_category_name" placeholder="Enter item category name" value="'.$item_category_details->item_category_name.'" required>
+            </div>
+        </div>
+            
+                    <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-secondary float-right ml-2" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn float-right" style="background-color: #FF545D; color: white;" >Submit<i class="fas fa-check pl-2"></i></button>
+
+                    </div>
+                    
+                </tr>
+            
+        </form>
+        ';
+
+        echo $output;
     }
 
     function submit_edited_item_category($item_category_id)
@@ -405,21 +441,5 @@ class Items extends CI_Controller
         $this->items_model->delete_item_category($this->input->post('item_category_id'));
     }
 
-    public function upload_img($path, $file_input_name) 
-    {
-        if ($_FILES){
-            $config['upload_path'] = $path;
-            $config['allowed_types'] = 'jpeg|jpg|png';
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload($file_input_name)) 
-            {
-                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
-                The file format must be in "png, jpg or jpeg"</div>');
-                redirect('items/Item');
-            } else {
-                $doc_data = $this->upload->data();
-                return $doc_data;
-            }
-        }
-    }
+    
 }
