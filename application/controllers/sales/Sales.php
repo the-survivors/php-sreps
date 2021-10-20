@@ -13,6 +13,10 @@ class Sales extends CI_Controller
 
 	public function index()
 	{
+		$this->session->set_userdata('user_id', 1);
+		$this->session->set_userdata('user_fname', 'Regis');
+		$this->session->set_userdata('user_lname', 'Thong');
+
 		$data['title'] = 'Sales';
 		$data['include_js'] = 'sales_list';
 		$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
@@ -23,7 +27,7 @@ class Sales extends CI_Controller
 		$this->load->view('internal_templates/footer');
 	}
 
-	//function to load receive data from database and load it into datatable
+	//function to load received data from database and load it into datatable
 	public function sales_list()
 	{
 		// Datatables Variables
@@ -94,7 +98,7 @@ class Sales extends CI_Controller
 				[
 					'sale_total_price' => htmlspecialchars($this->input->post('sale_total_price')),
 					'sale_discounted_price' => htmlspecialchars($this->input->post('sale_discounted_price')),
-					'user_id' => 1,
+					'user_id' => $this->session->userdata('user_id'),
 				];
 
 			$sale_id = $this->sales_model->insert($data);
@@ -115,6 +119,8 @@ class Sales extends CI_Controller
 				//update item_quantity in items table
 				$this->sales_model->update_quantity_from_item($item_id, $sale_item_quantity[$index]);
 			}
+
+			$this->session->set_userdata('add_sale_message', 1);
 		}
 
 		redirect('sales/sales/');
@@ -137,8 +143,12 @@ class Sales extends CI_Controller
 		foreach ($sale_item_data as $r) {
 			$counter++;
 			//implement background color for even number row
-			if($counter%2 == 0){$style = 'style = "background:#E4C2C1;"';} else{$style = '';}
-			$sale_row_html .= '<tr '.$style.'>
+			if ($counter % 2 == 0) {
+				$style = 'style = "background:#E4C2C1;"';
+			} else {
+				$style = '';
+			}
+			$sale_row_html .= '<tr ' . $style . '>
 								<td>' . $counter . '</td>
 								<td>' . $r->item_id . '</td>
 								<td>' . $r->item_subcategory_name . '</td>
@@ -195,19 +205,77 @@ class Sales extends CI_Controller
 		echo $output;
 	}
 
-
+	//Function is loaded when user clicked on the pencil icon in the sales table
 	function load_edit_page($sale_id)
 	{
 		$data['title'] = 'Edit Sales';
 		$data['include_js'] = 'edit_sales';
 		$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
+		$data['sales_data'] = $this->sales_model->select_one_sale($sale_id);
 		$data['sales_item_data'] = $this->sales_model->select_sales_item($sale_id);
 		$data['no_sales_item_data'] = count($this->sales_model->select_sales_item($sale_id));
-
+		$data['sale_id'] = $sale_id;
 
 		//loading views and passing data to view
 		$this->load->view('internal_templates/header', $data);
 		$this->load->view('sales/sales_edit_view');
 		$this->load->view('internal_templates/footer');
+	}
+
+	function edit_sales($sale_id)
+	{
+		//initializing arrays
+		$item_id = $this->input->post('item_id');
+		$sale_item_quantity = $this->input->post('sale_item_quantity');
+		$sale_item_discount = $this->input->post('sale_item_discount');
+		$sale_item_total_price = $this->input->post('sale_item_price');
+
+		//if there are no item added
+		if ($this->input->post('sale_total_price') == 0) {
+			$this->session->set_userdata('no_item_message', '<div id = "alert_message" class="alert alert-danger px-4" role="alert">No item selected for edit, please try again</div>');
+		} else {
+			//initializing sales data and editing the data in sales table
+			$data =
+				[
+					'sale_total_price' => htmlspecialchars($this->input->post('sale_total_price')),
+					'sale_discounted_price' => htmlspecialchars($this->input->post('sale_discounted_price')),
+					'user_id' => 1,
+				];
+
+			$this->sales_model->update_sale($data, $sale_id);
+
+			//select old sales item data
+			$old_sales_item_data =  $this->sales_model->select_sales_item($sale_id);
+
+			//return item quantity of old sales item back to item table
+			foreach ($old_sales_item_data as $row) {
+
+				$this->sales_model->return_quantity_to_item($row->item_id, $row->sale_item_quantity);
+			}
+
+			//delete old sales item data before inserting new one
+			$this->sales_model->delete_sales_item($sale_id);
+
+			foreach ($item_id as $index => $item_id) {
+				//initializing sales_item data and inserting the new data into sales_item table row by row
+				$data =
+					[
+						'sale_id' => $sale_id,
+						'item_id' => $item_id,
+						'sale_item_quantity' => $sale_item_quantity[$index],
+						'sale_item_discount' => $sale_item_discount[$index],
+						'sale_item_total_price' => $sale_item_total_price[$index],
+					];
+
+				$this->sales_model->insert_sales_item($data);
+
+				//update item_quantity in items table
+				$this->sales_model->update_quantity_from_item($item_id, $sale_item_quantity[$index]);
+			}
+
+			$this->session->set_userdata('edit_sale_message', 1);
+		}
+
+		redirect('sales/sales/');
 	}
 }

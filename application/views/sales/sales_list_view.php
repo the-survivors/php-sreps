@@ -1,22 +1,22 @@
 <!-- Plug in for sweetalert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 
 <style>
-.table-striped tbody tr:nth-of-type(odd) {
-  background:white;
-}
-.table-striped tbody tr:nth-of-type(even) {
-  background:#E4C2C1;
-}
-.table-striped thead tr:nth-of-type(odd) {
-  background:#C4C4C4;
-}
-.table-striped{
-    color:black;
-}
+    .table-striped tbody tr:nth-of-type(odd) {
+        background: white;
+    }
 
+    .table-striped tbody tr:nth-of-type(even) {
+        background: #E4C2C1;
+    }
+
+    .table-striped thead tr:nth-of-type(odd) {
+        background: #C4C4C4;
+    }
+
+    .table-striped {
+        color: black;
+    }
 </style>
 
 <?php
@@ -47,7 +47,7 @@ foreach ($subcategory as $s) {
     <div id="wrapper">
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column" >
+        <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
@@ -72,7 +72,7 @@ foreach ($subcategory as $s) {
                         </div>
                         <div class="col-xl-3 ">
                             <div class="d-flex justify-content-end">
-                                <button type="button" style = "background:#FF545D; color:white;" class="btn icon-btn  waves-effect waves-light" data-toggle="modal" data-target="#add_sales">Add Sale <span class="fas fa-plus"></span></button>
+                                <button type="button" style="background:#FF545D; color:white;" class="btn icon-btn  waves-effect waves-light" data-toggle="modal" data-target="#add_sales">Add Sale <span class="fas fa-plus"></span></button>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@ foreach ($subcategory as $s) {
                     <div class="row">
                         <div class="col-xl-12">
                             <!-- Display no item message if it exist-->
-                            <?=$this->session->userdata('no_item_message') ?>
-                            <?php $this->session->unset_userdata('no_item_message');; ?>
+                            <?= $this->session->userdata('no_item_message') ?>
+                            <?php $this->session->unset_userdata('no_item_message'); ?>
                             <!-- Card-->
                             <div class="card " style="color:black;">
                                 <div class="card-body">
@@ -124,17 +124,35 @@ foreach ($subcategory as $s) {
                                 <!-- Add sale form -->
                                 <form method="post" action=" <?= base_url('sales/sales/add_sales'); ?>">
                                     <div class="modal-body">
-                                        <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
-                                            <div class="px-1 py-auto mb-2">
-                                                <h5 class="py-1" style=" font-weight:600; ">
-                                                    <span style="color:white;">
-                                                        <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur");
-                                                                        echo date('Y-m-d'); ?></center>
-                                                    </span>
-                                                </h5>
+                                        <!-- Green box for data and person in charge -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
+                                                    <div class="px-1 py-auto mb-2">
+                                                        <h5 class="py-1" style=" font-weight:600; ">
+                                                            <span style="color:white;">
+                                                                <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur");
+                                                                                echo date('Y-m-d'); ?></center>
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:auto; height:auto;">
+                                                        <div class="px-3 py-auto ">
+                                                            <h5 class=" pt-1" style=" font-weight:600; ">
+                                                                <span style="color:white;">
+                                                                    <center>Updated by: <?= $this->session->userdata('user_fname').' '.$this->session->userdata('user_lname')?></center>
+                                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-1">
+                                        <div class="row mb-1" style="color: black;">
                                             <div class="col-xl-4">
                                                 <h6>Subcategory</h6>
                                             </div>
@@ -158,11 +176,11 @@ foreach ($subcategory as $s) {
                                                 </select>
                                             </div>
                                             <div class="col-xl-3">
-                                                <button type="button" name="add" id="add" class="btn btn-success">Add Item  <span class="fas fa-plus"></span></button>
+                                                <button type="button" name="add" id="add" class="btn btn-success">Add Item <span class="fas fa-plus"></span></button>
                                             </div>
                                         </div>
                                         <table class="table" id="item_list">
-                                            <thead>
+                                            <thead style="color: black;">
                                                 <tr>
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Item</th>
@@ -203,10 +221,8 @@ foreach ($subcategory as $s) {
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary mb-2">CONFIRM</button>
+                                        <button type="submit" style="background:#FF545D; color:white;" class="btn mb-2">CONFIRM <span class="fas fa-check"></span></button>
                                     </div>
                                 </form>
                                 <!-- End of add sale form -->
@@ -225,8 +241,8 @@ foreach ($subcategory as $s) {
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body" id = "view_sale_model">
-
+                                <div class="modal-body" id="view_sale_model">
+                                    <!-- Sales detail will be appended here with ajax upon clicking the view button-->
                                 </div>
                                 <div class="modal-footer">
                                 </div>
@@ -241,3 +257,27 @@ foreach ($subcategory as $s) {
 
             </div>
             <!-- End of Main Content -->
+
+            <script>
+                function sweetalert_message($message) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Sale has been ' + $message + ' successfully '
+                    })
+                }
+            </script>
+            <!-- Check if session is set. If yes, display message-->
+            <?php if ($this->session->userdata('add_sale_message')) { ?>
+                <script>
+                    sweetalert_message('added');
+                </script>
+            <?php }
+            $this->session->unset_userdata('add_sale_message'); ?>
+
+            <!-- Check if session is set. If yes, display message-->
+            <?php if ($this->session->userdata('edit_sale_message')) { ?>
+                <script>
+                    sweetalert_message('edited');
+                </script>
+            <?php }
+            $this->session->unset_userdata('edit_sale_message'); ?>

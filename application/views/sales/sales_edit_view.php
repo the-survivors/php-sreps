@@ -1,18 +1,10 @@
 <!-- Plug in for sweetalert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 
 <style>
-    /* tr:nth-child(even) {
-  background-color: #E4C2C1;
-  
-} */
-    /* css for hiding select dropdown area */
 </style>
 
 <?php
-
 //putting passed subcategory_data array into new array
 $subcategory = $subcategory_data;
 
@@ -34,7 +26,7 @@ foreach ($subcategory as $s) {
     }, 5000); // <-- time in milliseconds
 </script>
 
-<body id="page-top">
+<body id="page-top" style="background:#FEF2F2;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -46,7 +38,7 @@ foreach ($subcategory as $s) {
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="background:#FEF2F2;">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -68,7 +60,7 @@ foreach ($subcategory as $s) {
                         </div>
                         <div class="col-xl-3">
                             <div class="d-flex justify-content-end">
-                                <a type="button" href="<?= base_url('sales/sales/'); ?>" class="btn btn-primary">Back<i class="fas fa-undo pl-1"></i></a>
+                                <a type="button" href="<?= base_url('sales/sales/'); ?>" style="background:#FF545D; color:white;" class="btn">Back<i class="fas fa-undo pl-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -77,25 +69,43 @@ foreach ($subcategory as $s) {
                         <div class="col-xl-12">
                             <!-- Display no item message if it exist-->
                             <?= $this->session->userdata('no_item_message') ?>
-                            <?php $this->session->unset_userdata('no_item_message');; ?>
+                            <?php $this->session->unset_userdata('no_item_message'); ?>
                             <!-- Card-->
                             <div class="card ">
                                 <div class="card-body">
 
                                     <!-- Edit sale form -->
-                                    <form method="post" action=" <?= base_url('sales/sales/add_sales'); ?>">
+                                    <form method="post" action=" <?= base_url('sales/sales/edit_sales/' . $sale_id . ''); ?>">
                                         <div class="modal-body">
-                                            <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
-                                                <div class="px-1 py-auto mb-2">
-                                                    <h5 class="py-1" style=" font-weight:600; ">
-                                                        <span style="color:white;">
-                                                            <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur");
-                                                                            echo date('Y-m-d'); ?></center>
-                                                        </span>
-                                                    </h5>
+                                            <!-- Green box for data and person in charge -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
+                                                        <div class="px-1 py-auto mb-2">
+                                                            <h5 class="py-1" style=" font-weight:600; ">
+                                                                <span style="color:white;">
+                                                                    <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur");
+                                                                                    echo date('Y-m-d'); ?></center>
+                                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex justify-content-end">
+                                                        <div class="mb-5" style="background-color:#1dd3b0; border-radius:10px; width:auto; height:auto;">
+                                                            <div class="px-3 py-auto ">
+                                                                <h5 class=" pt-1" style=" font-weight:600; ">
+                                                                    <span style="color:white;">
+                                                                        <center>Updated by: <?=$sales_data->user_fname.' '.$sales_data->user_lname?></center>
+                                                                    </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-1">
+                                            <div class="row mb-1" style="color: black;">
                                                 <div class="col-xl-4">
                                                     <h6>Subcategory</h6>
                                                 </div>
@@ -123,7 +133,7 @@ foreach ($subcategory as $s) {
                                                 </div>
                                             </div>
                                             <table class="table" id="item_list">
-                                                <thead>
+                                                <thead style="color: black;">
                                                     <tr>
                                                         <th scope="col">ID</th>
                                                         <th scope="col">Item</th>
@@ -138,29 +148,30 @@ foreach ($subcategory as $s) {
                                                     <?php
                                                     $counter = 1;
                                                     foreach ($sales_item_data as $row) { ?>
-                                                        <tr id="row<?=$counter?>" class="dynamic-added">
-                                                            <td style="width:8%;"><input type="number" name="item_id[]" class="form-control item_id1" value="<?=$row->item_id?>" readonly /></td>
-                                                            <td><input type="text" class="form-control item_name" value="<?=$row->item_name?>" readonly /></td>
-                                                            <td style="width:10%;"><input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max="<?=$row->item_quantity?>" value="<?=$row->sale_item_quantity?>" required /></td>
-                                                            <td style="width:10%;"><input type="number" name="sale_item_discount[]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max="100" value="<?=$row->sale_item_discount?>" required /></td>
+                                                        <tr id="row<?= $counter ?>" class="dynamic-added">
+                                                            <td style="width:8%;"><input type="number" name="item_id[]" class="form-control item_id1" value="<?= $row->item_id ?>" readonly /></td>
+                                                            <td><input type="text" class="form-control item_name" value="<?= $row->item_name ?>" readonly /></td>
+                                                            <td style="width:10%;"><input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max="<?= $row->item_quantity ?>" value="<?= $row->sale_item_quantity ?>" required /></td>
+                                                            <td style="width:10%;"><input type="number" name="sale_item_discount[]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max="100" value="<?= $row->sale_item_discount ?>" required /></td>
                                                             <td style="width:15%;">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text" id="basic-addon1">RM</span>
-                                                                    <input type="number" class="form-control ori_sale_item_price" value="<?=$row->sale_item_quantity*$row->item_price?>" readonly />
+                                                                    <input type="number" class="form-control ori_sale_item_price" value="<?= $row->sale_item_quantity * $row->item_price ?>" readonly />
                                                                 </div>
                                                             </td>
                                                             <td style="width:15%;">
-                                                                <input type="number" style="display:none" class="form-control one_item_price" value="<?=$row->item_price?>" />
+                                                                <input type="number" style="display:none" class="form-control one_item_price" value="<?= $row->item_price ?>" />
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text" id="basic-addon1">RM</span>
-                                                                    <input type="number" name="sale_item_price[]" class="form-control sale_item_price" value="<?=$row->sale_item_total_price?>" readonly />
+                                                                    <input type="number" name="sale_item_price[]" class="form-control sale_item_price" value="<?= $row->sale_item_total_price ?>" readonly />
                                                                 </div>
                                                             </td>
                                                             <td style="width:2%;">
-                                                                <button type="button" name="remove" id="<?=$counter?>" class="btn btn-danger btn_remove"><span class="fas fa-times"></span></button>
+                                                                <button type="button" name="remove" id="<?= $counter ?>" class="btn btn-danger btn_remove"><span class="fas fa-times"></span></button>
                                                             </td>
                                                         </tr>
-                                                    <?php $counter++; } ?>
+                                                    <?php $counter++;
+                                                    } ?>
 
                                                 </tbody>
                                             </table>
@@ -172,7 +183,7 @@ foreach ($subcategory as $s) {
                                                 <div class="col-xl-4">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">RM</span>
-                                                        <input type="number" id="sale_total_price" name="sale_total_price" style="font-weight:600; float:right;" class="form-control sale_total_price" min="0" value="0" readonly />
+                                                        <input type="number" id="sale_total_price" name="sale_total_price" style="font-weight:600; float:right;" class="form-control sale_total_price" min="0" value="<?= $sales_data->sale_total_price ?>" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,15 +193,14 @@ foreach ($subcategory as $s) {
                                                 <div class="col-xl-4">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">RM</span>
-                                                        <input type="number" id="sale_discounted_price" name="sale_discounted_price" style="font-weight:600; float:right;" class="form-control sale_discounted_price" min="0" value="0" readonly />
+                                                        <input type="number" id="sale_discounted_price" name="sale_discounted_price" style="font-weight:600; float:right;" class="form-control sale_discounted_price" min="0" value="<?= $sales_data->sale_discounted_price ?>" readonly />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary mb-2">CONFIRM</button>
+                                            <button type="submit" style="background:#FF545D; color:white;" class="btn mb-2">CONFIRM <span class="fas fa-check"></span></button>
                                         </div>
                                     </form>
 

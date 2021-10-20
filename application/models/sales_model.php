@@ -28,6 +28,29 @@ class sales_model extends CI_Model
         $this->db->update('items');
     }
 
+    function update_sale($data, $sale_id)
+    {
+        $this->db->where('sale_id', $sale_id);
+        if ($this->db->update('sales', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function return_quantity_to_item($item_id, $item_quantity)
+    {
+        $this->db->where('item_id', $item_id);
+        $this->db->set('item_quantity', 'item_quantity+'.$item_quantity.'', FALSE);
+        $this->db->update('items');
+    }
+
+    function delete_sales_item($sale_id)
+    {
+        $this->db->where('sale_id', $sale_id);
+        $this->db->delete('sales_item');
+    }
+
     function select_all_from_sales()
     {
         $this->db->select('*');
@@ -51,8 +74,12 @@ class sales_model extends CI_Model
 
     function select_one_sale($sale_id)
     {
+        $this->db->select('*');
+        $this->db->from('sales');
         $this->db->where('sale_id', $sale_id);
-        return $this->db->get('sales')->row();
+        $this->db->join('users', 'users.user_id = sales.user_id');    
+        $query = $this->db->get()->row();
+        return $query;
     }
 
     function get_category_only($sale_id)
@@ -74,7 +101,7 @@ class sales_model extends CI_Model
     }
 
 
-    function fetch_item($item_subcategory_id)  //new function
+    function fetch_item($item_subcategory_id) 
     {
         $this->db->where('item_subcategory_id', $item_subcategory_id);
         $this->db->where('item_quantity !=', 0);
@@ -91,14 +118,5 @@ class sales_model extends CI_Model
 
         return $output;
     }
-
-    // function select_all()
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('sales');
-    //     $this->db->join('sales_item', 'sales_item.sale_id = sales.sale_id');           
-    //     $query = $this->db->get()->result();
-    //     return $query;
-    // }
 
 }

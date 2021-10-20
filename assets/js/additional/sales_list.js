@@ -1,3 +1,14 @@
+//Fetch the item list with the default subcategory when the page is loaded
+var item_subcategory_id = document.getElementById("item_subcategory_id").value;
+$.ajax({
+    url: base_url + "sales/sales/fetch_item",
+    method: "POST",
+    data: { item_subcategory_id: $("#item_subcategory_id").val() },
+    success: function (data) {
+        $('#item_id').html(data);
+    }
+});
+
 $(document).ready(function () {
 
     // Setup for datatable
@@ -119,16 +130,16 @@ $(document).ready(function () {
 
         if (row.find(".sale_item_quantity").val() > 0 && row.find(".sale_item_discount").val() >= 0) {
 
-            //update sale_item_price when quantity and discount input field in any row is changed
             var sale_item_discount = row.find(".sale_item_discount").val();
             var one_item_price = row.find(".one_item_price").val();
             var sale_item_quantity = row.find(".sale_item_quantity").val();
-            console.log(sale_item_quantity);
 
+            //update sale_item_price when quantity and discount input field in any row is changed
             var sale_item_price = sale_item_quantity * one_item_price * ((100 - sale_item_discount) / 100);
             sale_item_price = sale_item_price.toFixed(2);
             $('.sale_item_price', row).val(sale_item_price);
 
+            //update original sale_item_price when quantity and discount input field in any row is changed
             var ori_total_sale_item_price = sale_item_quantity * one_item_price;
             console.log(ori_total_sale_item_price);
             ori_total_sale_item_price = ori_total_sale_item_price.toFixed(2);
@@ -145,6 +156,7 @@ $(document).ready(function () {
 //update sale_total_price & sale_discounted_price  when quantity and discount input field in any row is changed
 function update_total_sales_price() {
 
+    //update sale_total_price when quantity and discount input field in any row is changed
     var total_discounted_price = 0;
     $("#item_list .sale_item_price").each(function () {
         var get_value = $(this).val();
@@ -152,6 +164,7 @@ function update_total_sales_price() {
     });
     $("#sale_discounted_price").val(total_discounted_price);
 
+    //update sale_discounted_price  when quantity and discount input field in any row is changed
     var total_sales_price = 0;
     $("#item_list .ori_sale_item_price").each(function () {
         var get_value = $(this).val();
@@ -161,17 +174,7 @@ function update_total_sales_price() {
 
 }
 
-//Fetch the item list with the default subcategory when the page is loaded
-var item_subcategory_id = document.getElementById("item_subcategory_id").value;
-$.ajax({
-    url: base_url + "sales/sales/fetch_item",
-    method: "POST",
-    data: { item_subcategory_id: $("#item_subcategory_id").val() },
-    success: function (data) {
-        $('#item_id').html(data);
-    }
-});
-
+//function will trigger when user click on the view button
 function view_sale(sale_id) {
 
     $.ajax({
@@ -184,5 +187,5 @@ function view_sale(sale_id) {
 
         }
     });
-
 }
+
