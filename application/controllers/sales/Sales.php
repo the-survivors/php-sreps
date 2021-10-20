@@ -16,15 +16,25 @@ class Sales extends CI_Controller
 		$this->session->set_userdata('user_id', 1);
 		$this->session->set_userdata('user_fname', 'Regis');
 		$this->session->set_userdata('user_lname', 'Thong');
+		$this->session->set_userdata('user_role', 'staff');
 
-		$data['title'] = 'Sales';
-		$data['include_js'] = 'sales_list';
-		$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
+		//directed to monthly sales if the user is the manager
+		if ($this->session->userdata('user_role') == 'manager') {
+			$month = date('m');
+			$year = date('Y');
+			$this->initial_monthly_sales_list($month, $year);
+		}
+		//directed to sales list page with if the user is a staff
+		else {
+			$data['title'] = 'Sales';
+			$data['include_js'] = 'sales_list';
+			$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
 
-		//loading views and passing data to view
-		$this->load->view('internal_templates/header', $data);
-		$this->load->view('sales/sales_list_view');
-		$this->load->view('internal_templates/footer');
+			//loading views and passing data to view
+			$this->load->view('internal_templates/header', $data);
+			$this->load->view('sales/sales_list_view');
+			$this->load->view('internal_templates/footer');
+		}
 	}
 
 	//function to load received data from database and load it into datatable
@@ -278,4 +288,61 @@ class Sales extends CI_Controller
 
 		redirect('sales/sales/');
 	}
+
+	////////////////// Function for manager pages /////////////////////////////
+
+	public function daily_sales_list($date)
+	{
+		//check if the user is the manager
+		if ($this->session->userdata('user_role') != 'manager') {
+			redirect('sales/sales/');
+		}
+
+		$data['title'] = 'Sales';
+		$data['selected'] = 'daily';
+		$data['sales_data'] = $this->sales_model->select_daily_sales($date);
+		$data['date'] = $date;
+
+		$this->load->view('internal_templates/header', $data);
+		$this->load->view('sales/sales_daily_view');
+		$this->load->view('internal_templates/footer');
+	}
+
+	public function weekly_sales_list($month, $year)
+	{
+
+
+		$data['title'] = 'Sales';
+		$data['selected'] = 'weekly';
+		$data['sales_data'] = $this->sales_model->delete_sales_item($month, $year);
+
+
+		$this->load->view('internal_templates/header', $data);
+		$this->load->view('sales/sales_monthly_view');
+		$this->load->view('internal_templates/footer');
+	}
+
+	//loads monthly sales page
+	public function initial_monthly_sales_list($month,$year)
+	{
+		//check if the user is the manager
+		if ($this->session->userdata('user_role') != 'manager') {
+			redirect('sales/sales/');
+		}
+
+		$data['title'] = 'Sales';
+		$data['selected'] = 'monthly';
+		$data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
+		
+		$this->load->view('internal_templates/header', $data);
+		$this->load->view('sales/sales_monthly_view');
+		$this->load->view('internal_templates/footer');
+	}
+
+	//When manager clicks on any month button in the monthly sales page
+	public function monthly_sales_list($month = 0,$year= 0)
+	{
+		$this->initial_monthly_sales_list($month,$year);
+	}
+
 }

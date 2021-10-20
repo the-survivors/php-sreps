@@ -231,7 +231,7 @@ foreach ($subcategory as $s) {
                     </div>
                     <!-- End of modal for adding sales-->
 
-                    <!-- Modal for adding sales-->
+                    <!-- Modal for viewing sales-->
                     <div class="modal fade" id="view_sales" tabindex="-1" role="dialog" aria-labelledby="view_salesLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
@@ -249,7 +249,7 @@ foreach ($subcategory as $s) {
                             </div>
                         </div>
                     </div>
-                    <!-- End of modal for adding sales-->
+                    <!-- End of modal for viewing sales-->
 
 
                 </div>
