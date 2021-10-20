@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var t = $("#items_table").DataTable({
+    var t1 = $("#items_table").DataTable({
         //make table responsive
         "bAutoWidth":false,
         ajax: {
@@ -17,7 +17,7 @@ $(document).ready(function(){
         ]
     });
 
-    var t = $("#item_categories_table").DataTable({
+    var t2 = $("#item_categories_table").DataTable({
         //make table responsive
         "bAutoWidth":false,
         ajax: {
@@ -32,33 +32,84 @@ $(document).ready(function(){
         ]
     });
 
-    t.on( 'order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+    // getting sub category id from url path
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);
+
+    var t3 = $("#item_subcategories_table").DataTable({
+        //make table responsive
+        "bAutoWidth":false,
+        ajax: {
+            url: base_url + "items/Items/items_subcategories_list/" + id,
+            type: "GET",
+        },
+        "columnDefs": [
+            {
+                "searchable": false,
+                "targets": 0
+            }
+        ]
+    });
+
+    // getting sub category id from url path
+    var url2 = window.location.pathname;
+    var id2 = url2.substring(url2.lastIndexOf('/') + 1);
+
+    var t4 = $("#items_in_subcategory_table").DataTable({
+        //make table responsive
+        "bAutoWidth":false,
+        ajax: {
+            url: base_url + "items/Items/items_in_subcategory_list/" + id2,
+            type: "GET",
+        },
+        "columnDefs": [
+            {
+                "searchable": false,
+                "targets": 0
+            }
+        ]
+    });
+
+    t1.on( 'order.dt search.dt', function () {
+        t1.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
     } ).draw();
 
-    // $('#edit_item_category').on('show.bs.modal', function(e) {
-    //     var item_category_id = $(e.relatedTarget).data('id');
-    //     alert(item_category_id);
+    t2.on( 'order.dt search.dt', function () {
+        t2.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
-    //     $.ajax({
-    //         url: base_url + "items/Items/fetch_item_category",
-    //         method:"POST",
-    //         data:{ item_category_id:item_category_id},
-    //         success:function(data)
-    //         {
-    //             $('#item_category_name').val(data.item_category_name);
-    //             alert($('#item_category_name').val(data.item_category_name));
+    t3.on( 'order.dt search.dt', function () {
+        t3.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
-    //         }
-    //     });
-    // });
+    t4.on( 'order.dt search.dt', function () {
+        t4.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
-    // $('edit_data').on(function () {
-    //     var item_category_id = $(this).attr("id");
-    //     alert(item_category_id)
-    // })
+    // item's subcategory dropdown (dependent on what was chosen for item's category)
+    $('#item_category').change(function () {
+        var item_category = document.getElementById("item_category").value;
+
+        if(item_category != ""){
+            $.ajax({
+                url: base_url + "items/Items/fetch_subcategories",
+                method:"POST",
+                data:{item_category_id:$("#item_category").val()},
+                success:function(data)
+                {   
+                 $('#item_subcategory').html(data);
+                }
+            });
+        }
+    });
 
 }); // end of ready function
 
@@ -156,4 +207,52 @@ $.ajax({
         $('#edit_item_category_information').html(data);
     }
 });
+}
+
+// --------------------- ITEM SUBCATEGORIES --------------------------//
+function delete_item_subcategory(item_subcategory_id){
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Deleting this will delete ALL ITS RELATED ITEMS (if any). You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: base_url + "items/Items/delete_item_subcategory",
+                method:"POST",
+                data:{ item_subcategory_id:item_subcategory_id},
+                success:function(data)
+                {
+                    Swal.fire(
+                        'Deleted!',
+                        'Item subcategory has been deleted.',
+                        'success'
+                    )
+
+                    //reload datatable
+                    var xin_table = $("#item_subcategories_table").DataTable();
+                    xin_table.ajax.reload(null, false);
+                }
+            });
+          
+        }
+      })
+}
+
+function edit_item_subcategory (item_subcategory_id){
+    $.ajax({
+        url: base_url + "items/Items/edit_item_subcategory",
+        method:"POST",
+        data:{ item_subcategory_id:item_subcategory_id},
+        success:function(data)
+        {
+            $('#edit_item_subcategory_information').html(data);
+        }
+    });
 }

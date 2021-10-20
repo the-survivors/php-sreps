@@ -11,13 +11,26 @@ class items_model extends CI_Model
 
     function select_all_items()
     {
-        return $this->db->get('items')->result();
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id');
+        return $this->db->get()->result();
+
+        //return $this->db->get('items')->result();
     }
 
     function select_item($item_id)
     {
-        $this->db->where('item_id',$item_id);
-        return $this->db->get('items')->row();
+        $this->db->select('*')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('item_id', $item_id);
+        return $this->db->get()->row();
+
+        // $this->db->where('item_id',$item_id);
+        // return $this->db->get('items')->row();
     }
 
     function insert_item($data)
@@ -68,15 +81,6 @@ class items_model extends CI_Model
         return $this->db->get()->result();
     }
 
-    // function select_item_category_and_sub($item_category_id) // selecting item and its item categories though
-    // {
-    //     $this->db->select('')
-    //     ->from('items_category')
-    //     ->join('items_subcategory', 'items_subcategory.item_category_id = items_category.item_category_id', 'left')
-    //     ->where('items_category.item_category_id', $item_category_id);
-    //     return $this->db->get()->row();
-    // }
-
     function select_item_category($item_category_id) // just selecting a CATEGORY. no relation with SUB
     {
         $this->db->where('item_category_id',$item_category_id);
@@ -117,7 +121,6 @@ class items_model extends CI_Model
         }
     }
 
-
     // -------- ITEM SUBCATEGORIES -------- //
    
     function select_all_item_subcategories()
@@ -125,8 +128,73 @@ class items_model extends CI_Model
         return $this->db->get('items_subcategory')->result();
     }
 
+    function select_all_items_in_subcategory($item_subcategory_id){
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('items.item_subcategory_id', $item_subcategory_id);
+        return $this->db->get()->result();
+    }
+
+    // function select_item_subcategories_by_category($item_category_id)
+    // {
+    //     $this->db->select('')
+    //     ->from('items_subcategory')
+    //     ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+    //     ->where('items_subcategory.item_category_id', $item_category_id);
+    //     return $this->db->get()->result();
+    // }
+
+    function select_item_subcategories_grouping($item_category_id) // relating it to items and categories table
+    {
+        //taking everything in items_subcategory table even if there is no related record in items table
+        $this->db->select('items_subcategory.item_subcategory_id, item_subcategory_name, COUNT(item_id) AS total_items_in_subcategory')
+        ->from('items_subcategory')
+        ->join('items', 'items.item_subcategory_id = items_subcategory.item_subcategory_id', 'left')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_subcategory_id', 'left')
+        ->group_by('items_subcategory.item_subcategory_id')
+        ->where('items_subcategory.item_category_id', $item_category_id);
+        return $this->db->get()->result();
+    }
+
+    function select_item_subcategory($item_subcategory_id)
+    {
+        $this->db->where('item_subcategory_id', $item_subcategory_id)
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id');
+        return $this->db->get('items_subcategory')->row();
+        // $this->db->select('')
+        // ->from('items_subcategory')
+        // //->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        // ->where('items_subcategory.item_category_id', $item_subcategory_id);
+        // return $this->db->get('items_subcategory')->row();
+    }
+
+    function insert_item_subcategory($data)
+    {
+        $this->db->insert('items_subcategory', $data);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function update_item_subcategory($data, $item_subcategory_id)
+    {
+        $this->db->where('item_subcategory_id', $item_subcategory_id);
+        if ($this->db->update('items_subcategory', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function delete_item_subcategory($item_subcategory_id) 
     {
+        $this->db->where('item_subcategory_id', $item_subcategory_id);
+        $this->db->delete('items');
+
         $this->db->where('item_subcategory_id', $item_subcategory_id);
         $this->db->delete('items_subcategory');
         if ($this->db->affected_rows() > 0) {
@@ -134,6 +202,24 @@ class items_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function fetch_item_subcategories($item_category_id)  //new function
+    {
+        $this->db->where('item_category_id', $item_category_id)
+        ->order_by('item_subcategory_name', 'ASC');
+        $query = $this->db->get('items_subcategory');
+
+        if ($query->num_rows() > 0) {
+            $output = '<option value="" selected disabled>Item Subcategory</option>';
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->item_subcategory_id . '">' . $row->item_subcategory_name . '</option>';
+            }
+        } else {
+            $output = '<option value="" selected disabled>No item subcategories available</option>';
+        }
+
+        return $output;
     }
 
     // function select_condition($condition)

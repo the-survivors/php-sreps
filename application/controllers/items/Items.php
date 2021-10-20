@@ -40,16 +40,18 @@ class Items extends CI_Controller
 		$base_url = base_url();
 
         foreach($items as $item) {
+
             $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
 			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
             $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
+            //$item_subc = '<div class="badge badge-success text-wrap" style="width: 8rem;">'.$item->item_category_name.'</div>';
 			$data [] = [ 
 				// '',
 				$item->item_id,
-				$item->item_subcategory_id,
+				$item->item_category_name,
 				$item->item_name,
                 $item->item_quantity,
                 "RM$item->item_price",
@@ -90,7 +92,7 @@ class Items extends CI_Controller
                 </tr>
                 <tr>
                     <th scope="row">Subcategory</th>
-                    <td>'.$item_details->item_subcategory_id.'</td>
+                    <td><div class="badge badge-info text-wrap">'.$item_details->item_subcategory_name.'</div></td>
                 </tr>
                 <tr>
                     <th scope="row">Name</th>
@@ -109,7 +111,7 @@ class Items extends CI_Controller
                     <td>'.$item_details->item_expiry_date.'</td>
                 </tr>
                 <tr>
-                    <th scope="row">Price</th>
+                    <th scope="row">Price Per Unit</th>
                     <td>RM'.$item_details->item_price.'</td>
                 </tr>
                 <tr>
@@ -131,13 +133,21 @@ class Items extends CI_Controller
     function add_item()
     {
         $data['title'] = 'PHP-SRePS | Add New Item';
-        $data['item_data'] = $this->items_model->select_all_items(); 
+        $data['include_js'] = 'items_list';
+        $data['item_data'] = $this->items_model->select_all_items();
+        $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
+        $data['item_categories_data'] = $this->items_model->select_all_item_categories();
 
 		$this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
         $this->load->view('internal_templates/topbar');
         $this->load->view('items/items_add_view');
         $this->load->view('internal_templates/footer');  
+    }
+
+    function fetch_subcategories()
+    {
+        echo $this->items_model->fetch_item_subcategories($this->input->post('item_category_id'));
     }
 
     function submit_added_item()
@@ -174,9 +184,15 @@ class Items extends CI_Controller
     function edit_item($item_id)
     {
         $data['title'] = 'PHP-SRePS | Edit an Item';
-        $data['include_js'] ='item_edit';
+        $data['include_js'] = 'items_list';
         $data['item_data'] = $this->items_model->select_item($item_id); 
+        $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
+        $data['item_categories_data'] = $this->items_model->select_all_item_categories();
 
+        //var_dump($item_id);
+        //die;
+        // var_dump($this->items_model->select_item($item_id)); 
+        // die;
 		$this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
         $this->load->view('internal_templates/topbar');
@@ -246,20 +262,6 @@ class Items extends CI_Controller
     public function items_categories(){
         $data['title'] = 'PHP-SRePS | Item Categories';
         $data['include_js'] = 'items_list';
-        //$$data['item_category_data'] = $this->items_model->select_all_item_categories();
-
-        // $item_categories = $this->items_model->select_item_categories_grouping();
-        // var_dump($this->items_model->select_all_item_categories());
-        // var_dump("ok");
-        // var_dump($item_categories);
-
-        // foreach( $item_categories as $a) {
-        //     var_dump($a->item_total_subcategories);
-        //     var_dump('ok') ;
-        // }
-
-        //var_dump($this->items_model->select_item_categories_grouping());
-
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -281,15 +283,12 @@ class Items extends CI_Controller
 		$base_url = base_url();
 
         foreach($item_categories as $item_category) {
-            $item_subcategories_page_link = $base_url."items/Items/item_subcategories_list/".$item_category->item_category_id;
-            $item_subcategories_page = '<span class="px-1"><a type="button" href="'.$item_subcategories_page_link.'"class="btn" style="background-color: #BAA0CA; color: white;><i class="fas fa-plus pl-2"></i>Add Sub-Category<span class="fas fa-plus pl-2"></span></a></span>';
-			
-            $item_subcategories_page2 = '<span class="px-1"><a type="button" href="'.$item_subcategories_page_link.'"class="btn icon-btn btn-xs btn-info waves-effect waves-light"><i class="fas fa-eye"></i></a></span>';
+            $item_subcategories_page_link = $base_url."items/Items/items_subcategories/".$item_category->item_category_id;
+
+            $view = '<span><a type="button" href="'.$item_subcategories_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
             $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light edit_item_category" data-toggle="modal" data-id="'.$item_category->item_category_id.'" data-target="#edit_item_category"><span class="fas fa-pencil-alt"></span></button></span>';
-            $view = '<span><button type="button" onclick="view_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
-            //$edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
-			$function = $item_subcategories_page2.$view.$edit_opt.$delete;
+			$function = $view.$edit_opt.$delete;
 
 			$data [] = [ 
 				'',
@@ -311,64 +310,6 @@ class Items extends CI_Controller
 		exit();
     }
 
-    function view_item_category()
-    {
-        $item_details = $this->items_model->select_item($this->input->post('item_id'));
-        // var_dump($item_details);
-        // var_dump('hi');
-        // die;
-
-        $output ='
-        <table class="table table-striped" style = "border:0;">
-            <tbody>
-                <tr style="text-align:center">
-                    <td colspan="2"><img src="'.base_url("assets/img/items/").$item_details->item_pic.'" style="width: 250px; height: 150px; object-fit:contain;">
-                    </td>  
-                </tr>
-                <tr>
-                    <th scope="row">Item No.</th>
-                    <td>'.$item_details->item_id.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Subcategory</th>
-                    <td>'.$item_details->item_subcategory_id.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Name</th>
-                    <td>'.$item_details->item_name.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Description</th>
-                    <td style="white-space: pre-wrap; word-break: break-word; text-align: justify;">'.$item_details->item_description.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Supplier</th>
-                    <td>'.$item_details->item_supplier.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Expiry Date</th>
-                    <td>'.$item_details->item_expiry_date.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Price</th>
-                    <td>RM'.$item_details->item_price.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Quantity At Hand</th>
-                    <td>'.$item_details->item_quantity.'</td>
-                </tr>
-                <tr>
-                    <th scope="row">Restock Level</th>
-                    <td>'.$item_details->item_restock_level.'</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        ';
-
-        echo $output;
-    }
-
     function add_item_category()
     {
         $data=
@@ -387,15 +328,6 @@ class Items extends CI_Controller
     function edit_item_category() // just editing the CATEGORY. has no relation with the sub
     {
         $item_category_details = $this->items_model->select_item_category($this->input->post('item_category_id'));
-        // var_dump(base_url("items/Items/edit_item_category/").$item_category_details->item_category_id);
-        // var_dump('hi');
-        // die;
-
-        //var_dump($item_category_details);
-        //$base_url = base_url();
-        //$edit_link = base_url("items/Items/edit_item_category/".$item_category_details->item_category_id);
-        
-        //var_dump($edit_link);
 
         $output ='
         <form method="post" action="'.base_url('items/Items/submit_edited_item_category/'.$item_category_details->item_category_id).'">
@@ -441,5 +373,190 @@ class Items extends CI_Controller
         $this->items_model->delete_item_category($this->input->post('item_category_id'));
     }
 
+    // --------------------- ITEM SUBCATEGORIES --------------------------// 
+    public function items_subcategories($item_category_id){
+        $data['title'] = 'PHP-SRePS | Item Subcategories';
+        $data['include_js'] = 'items_list';
+        $data['item_category_data'] = $this->items_model->select_item_category($item_category_id);
+       
+        $this->load->view('internal_templates/header', $data);
+        $this->load->view('internal_templates/sidenav');
+        $this->load->view('internal_templates/topbar');
+        $this->load->view('items/items_subcategories_list_view');
+        $this->load->view('internal_templates/footer');
+    }
     
+    function items_subcategories_list($item_category_id)
+    {
+        // Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+       // $item = $this->item_category_data;
+        
+        $item_subcategories = $this->items_model->select_item_subcategories_grouping($item_category_id);
+        
+		$data = array();
+		$base_url = base_url();
+
+        foreach($item_subcategories as $item_subcategory) {
+
+            $item_page_link = $base_url."items/Items/items_in_subcategory/".$item_subcategory->item_subcategory_id;
+
+            $view = '<span><a type="button" href="'.$item_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
+            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light" data-toggle="modal" data-id="'.$item_subcategory->item_subcategory_id.'" data-target="#edit_item_subcategory"><span class="fas fa-pencil-alt"></span></button></span>';
+            $delete = '<span><button type="button" onclick="delete_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete"><span class="fas fa-trash"></span></button></span>';
+			$function = $view.$edit_opt.$delete;
+
+			$data [] = [ 
+				'',
+				$item_subcategory->item_subcategory_name,
+				$item_subcategory->total_items_in_subcategory,
+                $function
+            ];
+
+		}
+
+        $output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($item_subcategories),
+			"recordsFiltered" =>count($item_subcategories),
+			"data" => $data
+		);
+
+		echo json_encode($output);
+		exit();
+    }
+
+    function add_item_subcategory($item_category_id)
+    {
+        $data=
+		[
+            'item_category_id' => $item_category_id,
+            'item_subcategory_name'=>htmlspecialchars($this->input->post('item_subcategory_name'))
+		];
+
+        $this->items_model->insert_item_subcategory($data);
+
+        $this->session->set_flashdata('insert_message', 1); 
+        $this->session->set_flashdata('item_subcategory_name', $this->input->post('item_subcategory_name')); 
+
+        // $link = "items/Items/items_subcategories/'.$this->input->post('item_category_id').'";
+        // redirect($link);
+
+        $base_url = base_url();
+        redirect($base_url."items/Items/items_subcategories/".$item_category_id);
+    }
+
+    function edit_item_subcategory()
+    {
+        $item_subcategory_details = $this->items_model->select_item_subcategory($this->input->post('item_subcategory_id'));
+
+        $output ='
+        <form method="post" action="'.base_url('items/Items/submit_edited_item_subcategory/'.$item_subcategory_details->item_subcategory_id).'">
+        <div class="form-row pt-2" style="background-color: #E1DFE2">
+            <div class="form-group col-md-12 px-4 pr-5">
+                <label for="item_subcategory_name" class="font-weight-bold" style="color: black">Item Subcategory Name</label>
+                <input type="text" class="form-control" id="item_subcategory_name" name="item_subcategory_name" placeholder="Enter item subcategory name" value="'.$item_subcategory_details->item_subcategory_name.'" required>
+            </div>
+        </div>
+        <div class="modal-footer">      
+            <button type="button" class="btn btn-secondary float-right ml-2" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn float-right" style="background-color: #FF545D; color: white;" >Submit<i class="fas fa-check pl-2"></i></button>
+        </div>
+                    
+        </tr>
+            
+        </form>
+        ';
+
+        echo $output;
+    }
+
+    function submit_edited_item_subcategory($item_subcategory_id)
+    {
+        $data=
+		[
+            'item_subcategory_name'=>htmlspecialchars($this->input->post('item_subcategory_name'))
+		];
+      
+        $this->items_model->update_item_subcategory($data, $item_subcategory_id);
+
+        $this->session->set_flashdata('edit_message', 1);
+        $this->session->set_flashdata('item_subcategory_name', $this->input->post('item_subcategory_name'));
+        
+        $item_subcategory_id = $this->items_model->select_item_subcategory($item_subcategory_id);
+
+        $base_url = base_url();
+        redirect($base_url."items/Items/items_subcategories/".$item_subcategory_id->item_category_id);
+    }
+    
+    function delete_item_subcategory()
+    {
+        $this->items_model->delete_item_subcategory($this->input->post('item_subcategory_id'));
+    }
+
+
+    public function items_in_subcategory($item_subcategory_id){
+        $data['title'] = 'PHP-SRePS | Items';
+        $data['include_js'] = 'items_list';
+        $data['item_subcategory_data'] = $this->items_model->select_item_subcategory($item_subcategory_id);
+        // $data['item_subcategory_data'] = $this->items_model->select_all_items_in_subcategory($item_subcategory_id);
+// $test = $this->items_model->select_item_subcategory($item_subcategory_id);
+//         var_dump($test -> item_category_name);
+        // var_dump($this->items_model->select_item_subcategory($item_subcategory_id));
+        // die;
+        //  var_dump($this->items_model->select_all_items_in_subcategory($item_subcategory_id));
+        //  var_dump($item_subcategory_id);
+        // var_dump($this->session->data());
+        // die;
+        $this->load->view('internal_templates/header', $data);
+        $this->load->view('internal_templates/sidenav');
+        $this->load->view('internal_templates/topbar');
+        $this->load->view('items/items_in_subcategory_list_view');
+        $this->load->view('internal_templates/footer');
+    }
+
+    function items_in_subcategory_list($item_subcategory_id)
+    {
+        // Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+        
+        $items_in_subcategory = $this->items_model->select_all_items_in_subcategory($item_subcategory_id);
+        
+		$data = array();
+		$base_url = base_url();
+
+        foreach($items_in_subcategory as $item) {
+
+            //$item_page_link = $base_url."items/Items/items_in_subcategory/".$item_subcategory->item_subcategory_id;
+
+            //$view = '<span><a type="button" href="'.$item_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
+            // $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_subcategory('.$item->item_subcategory_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light" data-toggle="modal" data-id="'.$item->item_subcategory_id.'" data-target="#edit_item_subcategory"><span class="fas fa-pencil-alt"></span></button></span>';
+            // $delete = '<span><button type="button" onclick="delete_item_subcategory('.$item->item_subcategory_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete"><span class="fas fa-trash"></span></button></span>';
+			// $function = $edit_opt.$delete;
+
+			$data [] = [ 
+				'',
+				$item->item_name,
+                $item->item_quantity,
+                $item->item_restock_level,
+            ];
+
+		}
+
+        $output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($items_in_subcategory),
+			"recordsFiltered" =>count($items_in_subcategory),
+			"data" => $data
+		);
+
+		echo json_encode($output);
+		exit();
+    }
+
 }

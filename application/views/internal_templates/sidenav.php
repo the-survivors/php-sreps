@@ -34,19 +34,19 @@
 
             <div class="pt-2 sidebar-heading">Master Data</div>
 
-            <!-- Nav Item - Course Applicants >-->
-            <li class="nav-item">
-                <a class="nav-link" href="<?=base_url('items/Items/items_categories');?>">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Item Categories</span>
+             <!-- Nav Item - Items -->
+             <li class="nav-item">
+                <a class="nav-link" href="<?=base_url('items/Items');?>">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Items</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Chat -->
+            <!-- Nav Item -Item Categories >-->
             <li class="nav-item">
-                <a class="nav-link" href="<?=base_url('items/Items');?>">
-                    <i class="fas fa-comment"></i>
-                    <span>Items</span>
+                <a class="nav-link" href="<?=base_url('items/Items/items_categories');?>">
+                <i class="fas fa-tags"></i>
+                    <span>Item Categories</span>
                 </a>
             </li>
 
@@ -54,31 +54,6 @@
         
         // Admin
         default: ?> -->
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Master Data</div>
-
-        <!-- Nav Item - Accounts Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#accounts_collapse"
-                aria-expanded="true" aria-controls="accounts_collapse">
-                <i class="fas fa-user"></i>
-                <span>User Accounts</span>
-            </a>
-            <div id="accounts_collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Admin_user_acc');?>">All Users</a>
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Users_information/students_info');?>">Students</a>
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Users_information/ac_info');?>">Academic Counsellors</a>
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Users_information/ea_info');?>">Education Agents</a>
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Users_information/ep_info');?>">Education Partners</a>
-                    <a class="collapse-item" href="<?=base_url('internal/admin_panel/Users_information/employer_info');?>">Employers</a>
-                </div>
-            </div>
-        </li>
     
     <!-- <php break;
 

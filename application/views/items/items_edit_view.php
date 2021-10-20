@@ -1,5 +1,10 @@
 <script src="<?php echo base_url()?>/assets/vendor/jquery/jquery.min.js"></script>
 
+<!-- Set base url to javascript variable-->
+<script type="text/javascript">
+    var base_url = "<?php echo base_url();?>";
+</script>
+
 <style>
 label{
     color:black;
@@ -119,21 +124,37 @@ label{
 
                                     <div class="form-row pt-4">
                                         <div class="form-group col-md-6 px-4 pr-5">
-                                            <label for="item_subcategory_id">Item Sub-Category</label>
-                                            <select name="item_subcategory_id" id="item_subcategory_id" class="form-control form-select border-bottom" required>
-                                                <option value="<?=$item_data->item_subcategory_id?>" selected><?=$item_data->item_subcategory_id?></option>
-                                                <option value="1">Atlantic Laboratories</option>
-                                                <option value="2">Biofer Technologies</option>
-                                            </select>
-                                            <!-- <select name="item_subcategory_id" id="item_subcategory_id" class="form-control form-select form-select-md">
-                                                <option value="" selected disabled>Item Sub-Category</option>
-                                                <php
-                                                    foreach($item_subcategory_data as $item_subcategory) {
-                                                        echo '<option value="'.$item_subcategory->uni_id.'">'.$item_subcategory->item_subcategory_name.'</option>';
+                                            <label for="item_category_id">Item Category</label>
+                                            <select name="item_category_id" id="item_category" class="form-control form-select form-select-md" required>
+                                                <option value="<?=$item_data->item_category_id?>" selected disabled><?=$item_data->item_category_name?></option>
+                                                <?php
+                                                    foreach($item_categories_data as $item_category) {
+                                                        echo '<option value="'.$item_category->item_category_id.'">'.$item_category->item_category_name.'</option>';
                                                     }
                                                 ?>
-                                            </select> -->
+                                            </select>
                                         </div>
+                                        <div class="form-group col-md-6 px-4 pr-5">
+                                            <label for="item_subcategory_id">Item Subcategory</label>
+                                            <select name="item_subcategory_id" id="item_subcategory" class="form-control form-select form-select-md" required>
+                                                <option value="<?=$item_data->item_subcategory_id?>" selected><?= $item_data->item_subcategory_name ?></option>
+                                                <!-- <php
+                                                    foreach($item_subcategories_data as $item_subcategory) {
+                                                        echo '<option value="'.$item_subcategory->item_subcategory_id.'">'.$item_subcategory->item_subcategory_name.'</option>';
+                                                    }
+                                                ?> -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row pt-4">
+                                        <div class="form-group col-md-12 px-4 pr-5">
+                                            <label for="emp_title">Item Name</label>
+                                            <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter item name" value="<?=$item_data->item_name?>" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row pt-4">
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <label for="item_supplier">Item Supplier</label>
                                             <select name="item_supplier" id="item_supplier" class="form-control form-select border-bottom" required>
@@ -147,14 +168,7 @@ label{
                                                 <option value="Quantum Medical Solutions">Quantum Medical Solutions</option>
                                                 <option value="SM Pharmaceuticals">SM Pharmaceuticals</option>
                                                 <option value="Y.S.P. Industries">Y.S.P. Industries</option>
-                                                
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-row pt-4">
-                                        <div class="form-group col-md-6 px-4 pr-5">
-                                            <label for="emp_title">Item Name</label>
-                                            <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter item name" value="<?=$item_data->item_name?>" required>
                                         </div>
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <label for="item_expiry_date">Item Expiry Date (if applicable)</label>
@@ -162,6 +176,7 @@ label{
                                             <div style = "color:red; font-size:0.9em;">*If not applicable, skip</div>
                                         </div>
                                     </div>
+                                    
                                     <div class="form-row pt-4">
                                         <div class="form-group col-md-12 px-4 pr-5">
                                             <label for="item_description">Item Description</label>
@@ -180,7 +195,7 @@ label{
                                             <label for="emp_title">Item Quantity At Hand</label>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon2">Qty</span>
-                                                <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Enter item quantity at hand" value="<?=$item_data->item_quantity?>" required>
+                                                <input type="number" min="0" class="form-control" id="item_quantity" name="item_quantity" placeholder="Enter item quantity at hand" value="<?=$item_data->item_quantity?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +204,7 @@ label{
                                             <label for="emp_title">Item Restock Level</label>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon2">Qty</span>
-                                                <input type="number" class="form-control" id="item_quantity" name="item_restock_level" placeholder="Enter item restock level" value="<?=$item_data->item_restock_level?>" required>
+                                                <input type="number" min="0" class="form-control" id="item_quantity" name="item_restock_level" placeholder="Enter item restock level" value="<?=$item_data->item_restock_level?>" required>
                                             </div>
                                             <div style = "color:red; font-size:0.9em;">*When the quantity reaches the restock level, the manager will be notified for reordering</div>
                                         </div>
