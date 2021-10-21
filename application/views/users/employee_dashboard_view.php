@@ -1,8 +1,6 @@
 <script src="<?php echo base_url() ?>/assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/vendor/chart.js/Chart.min.js"></script>
-<br>
-<br>
-<!-- <?php echo number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>; -->
+
 <body id="page-top">
 
     <!-- Page Wrapper -->

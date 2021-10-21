@@ -64,7 +64,7 @@ $(document).ready(function () {
         data: {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sept","Oct","Nov","Dec"],
             datasets: [{
-                label: "Total Sales (RM)",
+                label: "Total Sales Price (RM)",
                 lineTension: 0.3,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
                 borderColor: "rgba(78, 115, 223, 1)",
@@ -76,7 +76,7 @@ $(document).ready(function () {
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: [Jan, Feb, Mar, Apr, May, Jun, Jul,Aug,Sept,Oct,Nov,Dec],
+                data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6],month[7],month[8],month[9],month[10],month[11]],
             }],
         },
         options: {
@@ -138,7 +138,6 @@ $(document).ready(function () {
                 callbacks: {
                     label: function (tooltipItem, chart) {
                         var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                       // return datasetLabel+' '+ datasetLabel2 +': ' + number_format(tooltipItem.yLabel);
                         return datasetLabel +': ' + number_format(tooltipItem.yLabel);
                     }
                 }

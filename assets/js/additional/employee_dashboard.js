@@ -29,20 +29,6 @@ $(document).ready(function () {
     };
     update_items_count();
 
-    // function update_today_sales_count() {
-    //     $('#today_total_counter').animate({
-    //         counter: counter3
-    //     }, {
-    //         duration: 2000,
-    //         easing: 'swing',
-    //         step: function (now) {
-    //             $(this).text(Math.ceil(now));
-    //         },
-    //         complete: update_today_sales_count
-    //     });
-    // };
-    // update_today_sales_count();
-
     function update_items_low_on_stock_count() {
         $('#items_low_on_stock').animate({
             counter: counter3

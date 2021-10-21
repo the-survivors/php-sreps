@@ -1,8 +1,21 @@
 <script src="<?php echo base_url() ?>/assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/vendor/chart.js/Chart.min.js"></script>
-<br>
-<br>
-<!-- <?php echo number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>; -->
+
+<script>
+    var month = [];
+    var i=0;
+</script>
+<?php foreach($monthly_sales as $row){
+    if($row[0]->total_sales_month==null){?>
+        <script>month[i]=0;</script>
+   <?php }
+    else{?>
+        <script>month[i]=<?=$row[0]->total_sales_month ?>;</script>
+    <?php } ?>
+    <script>i++;</script>
+     <?php 
+}
+?>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -18,7 +31,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Employee Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Manager Dashboard</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -127,20 +140,6 @@
                 var counter1 = <?=number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>;
                 var counter2 = <?= $total_items ?>;
                 var counter3 = <?= $items_low_on_stock ?>;
-
-                //total sales
-                var Jan = <?= $monthly_sales[0] ?>;
-                var Feb = <?= $monthly_sales[1] ?>;
-                var Mar = <?= $monthly_sales[2] ?>;
-                var Apr = <?= $monthly_sales[3] ?>;
-                var May = <?= $monthly_sales[4] ?>;
-                var Jun = <?= $monthly_sales[5] ?>;
-                var Jul = <?= $monthly_sales[6] ?>;
-                var Aug = <?= $monthly_sales[7] ?>;
-                var Sept = <?=$monthly_sales[8] ?>;
-                var Oct = <?= $monthly_sales[9] ?>;
-                var Nov = <?= $monthly_sales[10] ?>;
-                var Dec = <?= $monthly_sales[11] ?>;
 
                 // Bar Chart
                 var ctx = document.getElementById("item_by_category_barChart");
