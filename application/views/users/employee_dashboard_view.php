@@ -32,9 +32,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TODAY TOTAL SALES </div>
-                                                <!-- <div id="sales_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">RM</div> -->
-                                                <div  class="h5 mb-0 font-weight-bold text-gray-800 counting_number">RM</div>
-                                                 <div id="sales_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number"></div>
+                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800 " style="float: left;" >RM</div><div id="sales_counter" style="float: left;" class="h5 mb-0 font-weight-bold text-gray-800 counting_number"></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-book-open fa-2x text-gray-300"></i>

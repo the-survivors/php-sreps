@@ -51,15 +51,15 @@ class sales_model extends CI_Model
     //     return $this->db->get()->result();
     }
 
-    // public function get_monthly_sales($date1, $date2, $table, $attribute)
-    // {
-    //     $this->db->select('SUM(sale_total_price) AS total_sales_today');
-    //     // $this->db->join('sales', 'sales.sales_id = ' . $table . '.sales_id');
-    //     $this->db->where($table . "." . $attribute . " BETWEEN '" . $date1 . " 00:00:00' AND '" . $date2 . " 23:59:59' ");
-    //     return $this->db->count_all_results($table);
-    //    // return $this->db->get()->result($table);
+    public function get_monthly_sales($date1, $date2, $table, $attribute)
+    {
+        $this->db->select('SUM(sale_total_price) AS total_sales_today');
+        // $this->db->join('sales', 'sales.sales_id = ' . $table . '.sales_id');
+        $this->db->where($table . "." . $attribute . " BETWEEN '" . $date1 . " 00:00:00' AND '" . $date2 . " 23:59:59' ");
+        return $this->db->count_all_results($table);
+       // return $this->db->get()->result($table);
       
-    // }
+    }
     // public function get_monthly_sales($date1, $date2, $table, $attribute)
     // {
     //     $this->db->select('SUM(sale_total_price) AS total_sales_today')
@@ -71,16 +71,16 @@ class sales_model extends CI_Model
       
     // }
 
-    public function get_monthly_sales($date1, $date2)
-    {
-        $this->db->select('SUM(sale_total_price) AS total_sales_month')
-        ->from('sales');
-        // $this->db->join('sales', 'sales.sales_id = ' . $table . '.sales_id');
-        $this->db->where( 'sale_date'. " BETWEEN '" . $date1 . " 00:00:00' AND '" . $date2 . " 23:59:59' ");
-       // return $this->db->count_all_results($table);
-        return $this->db->get()->result();
+    // public function get_monthly_sales($date1, $date2)
+    // {
+    //     $this->db->select('SUM(sale_total_price) AS total_sales_month')
+    //     ->from('sales');
+    //     // $this->db->join('sales', 'sales.sales_id = ' . $table . '.sales_id');
+    //     $this->db->where( 'sale_date'. " BETWEEN '" . $date1 . " 00:00:00' AND '" . $date2 . " 23:59:59' ");
+    //    // return $this->db->count_all_results($table);
+    //     return $this->db->get()->result();
       
-    }
+    // }
 
     
     

@@ -82,7 +82,7 @@ class Dashboard extends CI_Controller
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date=date('Y-m-d');
        // $date=date('Y-m-d H:i:s');
-       // var_dump($date1);
+        var_dump($data['total_items_by_category']);
 
 
         $data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
@@ -149,14 +149,14 @@ class Dashboard extends CI_Controller
         $this->load->view('internal_templates/footer');
     }
 
-    // public function get_monthly_sales($date1, $date2) //total sales
-    // {
-    //     $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2,'sales','sale_date') ;
-    //     return $total_per_month;
-    // }
     public function get_monthly_sales($date1, $date2) //total sales
     {
-        $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2) ;
+        $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2,'sales','sale_date') ;
         return $total_per_month;
     }
+    // public function get_monthly_sales($date1, $date2) //total sales
+    // {
+    //     $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2) ;
+    //     return $total_per_month;
+    // }
 }
