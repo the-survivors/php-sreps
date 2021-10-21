@@ -9,6 +9,7 @@ class Sales extends CI_Controller
 		$this->load->model([
 			'sales_model'
 		]);
+		date_default_timezone_set("Asia/Kuala_Lumpur");
 	}
 
 	public function index()
@@ -16,13 +17,11 @@ class Sales extends CI_Controller
 		$this->session->set_userdata('user_id', 1);
 		$this->session->set_userdata('user_fname', 'Regis');
 		$this->session->set_userdata('user_lname', 'Thong');
-		$this->session->set_userdata('user_role', 'staff');
+		$this->session->set_userdata('user_role', 'manager');
 
 		//directed to monthly sales if the user is the manager
 		if ($this->session->userdata('user_role') == 'manager') {
-			$month = date('m');
-			$year = date('Y');
-			$this->initial_monthly_sales_list($month, $year);
+			$this->daily_sales_list(date('Y-m-d'));
 		}
 		//directed to sales list page with if the user is a staff
 		else {
@@ -45,7 +44,7 @@ class Sales extends CI_Controller
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-		$sales_data = $this->sales_model->select_all_from_sales();
+		$sales_data = $this->sales_model->select_daily_sales(date('Y-m-d'));
 
 		$data = array();
 		$base_url = base_url();
@@ -219,7 +218,7 @@ class Sales extends CI_Controller
 	function load_edit_page($sale_id)
 	{
 		$data['title'] = 'Edit Sales';
-		$data['include_js'] = 'edit_sales';
+		$data['include_js'] = 'sales_edit';
 		$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
 		$data['sales_data'] = $this->sales_model->select_one_sale($sale_id);
 		$data['sales_item_data'] = $this->sales_model->select_sales_item($sale_id);
@@ -289,8 +288,9 @@ class Sales extends CI_Controller
 		redirect('sales/sales/');
 	}
 
-	////////////////// Function for manager pages /////////////////////////////
+	///////////////////////////// Function for manager pages /////////////////////////////
 
+	//loads daily sales page
 	public function daily_sales_list($date)
 	{
 		//check if the user is the manager
@@ -302,28 +302,42 @@ class Sales extends CI_Controller
 		$data['selected'] = 'daily';
 		$data['sales_data'] = $this->sales_model->select_daily_sales($date);
 		$data['date'] = $date;
+		$data['include_js'] = 'sales_daily';
 
 		$this->load->view('internal_templates/header', $data);
 		$this->load->view('sales/sales_daily_view');
 		$this->load->view('internal_templates/footer');
 	}
 
-	public function weekly_sales_list($month, $year)
+	//loads weekly sales page
+	public function weekly_sales_list($start_date = 0, $end_date = 0)
 	{
 
+		//check if the user is the manager
+		if ($this->session->userdata('user_role') != 'manager') {
+			redirect('sales/sales/');
+		}
+
+		//get date of 7days from today by default
+		if ($end_date == 40) {
+			$end = strtotime("+7 day");
+			$end_date = date('Y-m-d', $end);
+		}
 
 		$data['title'] = 'Sales';
 		$data['selected'] = 'weekly';
-		$data['sales_data'] = $this->sales_model->delete_sales_item($month, $year);
-
+		$data['sales_data'] = $this->sales_model->select_weekly_sales($start_date, $end_date);
+		$data['start_date'] = $start_date;
+		$data['end_date'] = $end_date;
+		$data['include_js'] = 'sales_weekly';
 
 		$this->load->view('internal_templates/header', $data);
-		$this->load->view('sales/sales_monthly_view');
+		$this->load->view('sales/sales_weekly_view');
 		$this->load->view('internal_templates/footer');
 	}
 
 	//loads monthly sales page
-	public function initial_monthly_sales_list($month,$year)
+	public function monthly_sales_list($month = 0, $year = 0)
 	{
 		//check if the user is the manager
 		if ($this->session->userdata('user_role') != 'manager') {
@@ -333,16 +347,12 @@ class Sales extends CI_Controller
 		$data['title'] = 'Sales';
 		$data['selected'] = 'monthly';
 		$data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
-		
+		$data['month'] = $month;
+		$data['year'] = $year;
+		$data['include_js'] = 'sales_monthly';
+
 		$this->load->view('internal_templates/header', $data);
 		$this->load->view('sales/sales_monthly_view');
 		$this->load->view('internal_templates/footer');
 	}
-
-	//When manager clicks on any month button in the monthly sales page
-	public function monthly_sales_list($month = 0,$year= 0)
-	{
-		$this->initial_monthly_sales_list($month,$year);
-	}
-
 }

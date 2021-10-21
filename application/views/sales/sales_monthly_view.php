@@ -1,8 +1,5 @@
 <!-- Plug in for sweetalert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="<?php echo base_url() ?>/assets/vendor/jquery/jquery.min.js"></script>
-<script src="<?php echo base_url('assets/vendor/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js') ?>"></script>
 
 <style>
     .table-striped tbody tr:nth-of-type(odd) {
@@ -14,11 +11,17 @@
     }
 
     .table-striped thead tr:nth-of-type(odd) {
-        background: #C4C4C4;
+        background: #EBE8E8;
     }
 
     .table-striped {
         color: black;
+    }
+    .period{
+        background:#FF545D !important;
+    }
+    .period:hover {
+        background-color: #e04a51 !important;
     }
 </style>
 
@@ -46,52 +49,95 @@
                         <h1 class="h3 mb-0 text-gray-800">Monthly Sales</h1>
                     </div>
 
-                    <div class="row my-5">
+                    <div class="row mt-5 mb-4">
                         <!-- Month and year selection -->
-                        <div class="col-xl-6">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" onclick="load_table(1)" class="btn btn-dark month">Jan</button>
-                                <button type="button" onclick="load_table(2)" class="btn btn-dark month">Feb</button>
-                                <button type="button" onclick="load_table(3)" class="btn btn-dark month">Mar</button>
-                                <button type="button" onclick="load_table(4)" class="btn btn-dark month">Apr</button>
-                                <button type="button" onclick="load_table(5)" class="btn btn-dark month">May</button>
-                                <button type="button" onclick="load_table(6)" class="btn btn-dark month">Jun</button>
-                                <button type="button" onclick="load_table(7)" class="btn btn-dark month">Jul</button>
-                                <button type="button" onclick="load_table(8)" class="btn btn-dark month">Aug</button>
-                                <button type="button" onclick="load_table(9)" class="btn btn-dark month">Sep</button>
-                                <button type="button" onclick="load_table(10)" class="btn btn-dark month">Oct</button>
-                                <button type="button" onclick="load_table(11)" class="btn btn-dark month">Nov</button>
-                                <button type="button" onclick="load_table(12)" class="btn btn-dark month">Dec</button>
+                        <div class="col-xl-2">
+                            <div class="" style="background-color:#FFE699; border-radius:10px; width:10.0em; height:auto;">
+                                <div class="px-3 py-auto "> <span style="color:white;">
+                                        <form class="form-inline">
+                                            <div class="form-group">
+                                                <label style="color:black; font-weight:500; " class="mr-2 py-3 " for="year">Year</label>
+                                                <select id="year" class="form-control form-select form-select-lg year">
+                                                    <option value="<?= $year ?>" selected><?= $year ?></option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2015">2015</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </span>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="col-xl-1">
-                            <select id="year" class="form-control form-select form-select-lg year">
-                                <option value="2023">2023</option>
-                                <option value="2022">2022</option>
-                                <option value="2021" selected>2021</option>
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                                <option value="2018">2018</option>
-                                <option value="2017">2017</option>
-                                <option value="2016">2016</option>
-                                <option value="2015">2015</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-5">
+                        <div class="col-xl-10">
                             <!-- Button group for daily, weekly & monthly -->
                             <div class="d-flex justify-content-end">
-                                <div class="btn-group" role="group" aria-label="page_chooser">
-                                    <?php date_default_timezone_set("Asia/Kuala_Lumpur");?> 
-                                    <a type="button" href = "<?php echo base_url('sales/sales/daily_sales_list/'.date('Y-m-d'));?>" class="btn btn-danger <?php if ($selected == 'daily') {
-                                                                                echo 'active';
-                                                                            } ?>">Daily</a>
-                                    <a type="button" href ="" class="btn btn-danger <?php if ($selected == 'weekly') {
-                                                                                echo 'active';
-                                                                            } ?>">Weekly</a>
-                                    <a type="button" class="btn btn-danger <?php if ($selected == 'monthly') {
-                                                                                echo 'active';
-                                                                            } ?>">Monthly</a>
+                                <div class="btn-group" role="group" aria-label="page_chooser" ">
+                                    <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
+                                    <a style="color:white; <?php if ($selected == 'daily') {echo 'background:#e04a51 !important ';} ?>" id = "period1" type="button" href="<?php echo base_url('sales/sales/daily_sales_list/' . date('Y-m-d')); ?>" class="btn btn-lg period">Daily</a>
+                                    <a style="color:white; <?php if ($selected == 'weekly') {echo 'background:#e04a51 !important ';} ?>" id = "period2" type="button" href="<?php echo base_url('sales/sales/weekly_sales_list/' . date('Y-m-d').'/40'); ?>" class="btn btn-lg period">Weekly</a>
+                                    <a style="color:white; <?php if ($selected == 'monthly') {echo 'background:#e04a51 !important ';} ?>" id = "period3" type="button" class="btn btn-lg period">Monthly</a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-12">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" onclick="load_table(<?php if ($month == 1) {
+                                                                                echo $month;
+                                                                            } else {
+                                                                                echo $month - 1;
+                                                                            } ?>)" class="btn btn-dark month"><span style="" class="fas fa-chevron-left"></span></button>
+                                <button type="button" onclick="load_table(1)" class="btn btn-dark <?php if ($month == 1) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Jan</button>
+                                <button type="button" onclick="load_table(2)" class="btn btn-dark <?php if ($month == 2) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Feb</button>
+                                <button type="button" onclick="load_table(3)" class="btn btn-dark <?php if ($month == 3) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Mar</button>
+                                <button type="button" onclick="load_table(4)" class="btn btn-dark <?php if ($month == 4) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Apr</button>
+                                <button type="button" onclick="load_table(5)" class="btn btn-dark <?php if ($month == 5) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">May</button>
+                                <button type="button" onclick="load_table(6)" class="btn btn-dark <?php if ($month == 6) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Jun</button>
+                                <button type="button" onclick="load_table(7)" class="btn btn-dark <?php if ($month == 7) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Jul</button>
+                                <button type="button" onclick="load_table(8)" class="btn btn-dark <?php if ($month == 8) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Aug</button>
+                                <button type="button" onclick="load_table(9)" class="btn btn-dark <?php if ($month == 9) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Sep</button>
+                                <button type="button" onclick="load_table(10)" class="btn btn-dark <?php if ($month == 10) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Oct</button>
+                                <button type="button" onclick="load_table(11)" class="btn btn-dark <?php if ($month == 11) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Nov</button>
+                                <button type="button" onclick="load_table(12)" class="btn btn-dark <?php if ($month == 12) {
+                                                                                                        echo 'active';
+                                                                                                    } ?> month">Dec</button>
+
+                                <button type="button" onclick="load_table(<?php if ($month == 12) {
+                                                                                echo $month;
+                                                                            } else {
+                                                                                echo $month + 1;
+                                                                            } ?>)" class="btn btn-dark month"><span style="" class="fas fa-chevron-right"></span></button>
                             </div>
                         </div>
                     </div>
@@ -121,17 +167,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="table_body">
-                                                        <?php 
-                                                            
+                                                        <?php
+
                                                         ?>
-                                                        <?php foreach ($sales_data as $row) { 
+                                                        <?php foreach ($sales_data as $row) {
                                                             //get category list for each sale in point form
                                                             $sales_category_data = $this->sales_model->get_category_only($row->sale_id);
-                                                            $list_html ='';
+                                                            $list_html = '';
                                                             foreach ($sales_category_data as $q) {
                                                                 $list_html .= '<li>' . $q->item_category_name . '</li>';
                                                             }
-                                                            ?>
+                                                        ?>
                                                             <tr>
                                                                 <td></td>
                                                                 <td><?= $row->sale_id ?></td>
@@ -139,7 +185,9 @@
                                                                 <td>RM <?= number_format($row->sale_total_price, 2, '.', '') ?></td>
                                                                 <td>RM <?= number_format($row->sale_discounted_price, 2, '.', '') ?></td>
                                                                 <td><?= $row->user_fname . " " . $row->user_lname ?></td>
-                                                                <td><ul><?= $list_html ?></ul></td>
+                                                                <td>
+                                                                    <ul><?= $list_html ?></ul>
+                                                                </td>
                                                                 <td><span><button type="button" onclick="view_sale(<?= $row->sale_id ?>)" class="btn icon-btn btn-lg btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_sales"><span style="color:black;" class="fas fa-eye"></span></button></span></td>
                                                             </tr>
                                                         <?php } ?>
@@ -179,63 +227,3 @@
 
                     </div>
                     <!-- End of Main Content -->
-
-
-                    <script>
-                        $(document).ready(function() {
-                            var t = $("#table_monthly_sales_list").DataTable({
-                                //make table responsive
-                                "bAutoWidth": false,
-                                "columnDefs": [{
-                                        "width": "10%",
-                                        "targets": [1]
-                                    },
-                                    {
-                                        "width": "5%",
-                                        "targets": [0]
-                                    },
-                                    {
-                                        "searchable": false,
-                                        "targets": 0
-                                    }
-                                ]
-                            });
-
-                            t.on('order.dt search.dt', function() {
-                                t.column(0, {
-                                    search: 'applied',
-                                    order: 'applied'
-                                }).nodes().each(function(cell, i) {
-                                    cell.innerHTML = i + 1;
-                                });
-                            }).draw();
-
-
-                        }); // end of ready function
-
-                        //function will trigger when user click on the view button
-                        function view_sale(sale_id) {
-
-                            $.ajax({
-                                url: base_url + "sales/sales/view_sale",
-                                method: "POST",
-                                data: {
-                                    sale_id: sale_id
-                                },
-                                success: function(data) {
-                                    $('#view_sale_model').html(data);
-
-                                }
-                            });
-                        }
-
-                        function load_table(month) {
-
-                            var year = document.getElementById("year").value;
-
-                            window.location.href = base_url + "sales/sales/monthly_sales_list/"+month+"/"+year;
-
-
-                        }
-
-                    </script>

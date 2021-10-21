@@ -119,6 +119,30 @@ class sales_model extends CI_Model
         return $output;
     }
 
+    function select_daily_sales($date)
+    {
+        $this->db->select('*');
+        $this->db->from('sales');
+        $this->db->join('users', 'users.user_id = sales.user_id');
+        $this->db->where('sale_date >=', $date.' 00:00:00');
+        $this->db->where('sale_date <=', $date.' 23:59:59');
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
+
+    function select_weekly_sales($start_date, $end_date)
+    {
+        $this->db->select('*');
+        $this->db->from('sales');
+        $this->db->join('users', 'users.user_id = sales.user_id');
+        $this->db->where('sale_date >=', $start_date);
+        $this->db->where('sale_date <=', $end_date);
+        $query = $this->db->get()->result();
+        return $query;
+
+    }    
+
     function select_monthly_sales($month, $year)
     {
         $start_date = $year . "-" . $month . "-01";
@@ -135,16 +159,6 @@ class sales_model extends CI_Model
 
     }    
 
-    function select_daily_sales($date)
-    {
-        $this->db->select('*');
-        $this->db->from('sales');
-        $this->db->join('users', 'users.user_id = sales.user_id');
-        $this->db->where('sale_date >=', $date.' 00:00:00');
-        $this->db->where('sale_date <=', $date.' 23:59:59');
-        $query = $this->db->get()->result();
 
-        return $query;
-    }
 
 }

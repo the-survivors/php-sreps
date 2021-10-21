@@ -14,11 +14,18 @@
     }
 
     .table-striped thead tr:nth-of-type(odd) {
-        background: #C4C4C4;
+        background: #EBE8E8;
     }
 
     .table-striped {
         color: black;
+    }
+
+    .period{
+        background:#FF545D !important;
+    }
+    .period:hover {
+        background-color: #e04a51 !important;
     }
 </style>
 
@@ -48,23 +55,27 @@
 
                     <div class="row my-5">
                         <div class="col-xl-3">
-                            <!-- Date input -->
-                            <?php date_default_timezone_set("Asia/Kuala_Lumpur");?> 
-                            <input type="date" class = "form-control" id="date" value="<?=$date?>">
+                            <div class="" style="background-color:#FFE699; border-radius:10px; width:17.0em; height:auto;">
+                                <div class="px-3 py-2 "> <span style="color:white;">
+                                        <form class="form-inline">
+                                            <div class="form-group">
+                                                <label style="color:black;" class="mr-2 " for="date">Date</label>
+                                                <!-- Date input -->
+                                                <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
+                                                <input type="date" class="form-control" id="date" value="<?= $date ?>">
+                                            </div>
+                                        </form>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xl-9">
                             <!-- Button group for daily, weekly & monthly -->
                             <div class="d-flex justify-content-end">
                                 <div class="btn-group" role="group" aria-label="page_chooser">
-                                    <a type="button" class="btn btn-danger <?php if ($selected == 'daily') {
-                                                                                echo 'active';
-                                                                            } ?>">Daily</a>
-                                    <a type="button" class="btn btn-danger <?php if ($selected == 'weekly') {
-                                                                                echo 'active';
-                                                                            } ?>">Weekly</a>
-                                    <a type="button" href = "<?php echo base_url('sales/sales/');?>" class="btn btn-danger <?php if ($selected == 'monthly') {
-                                                                                echo 'active';
-                                                                            } ?>">Monthly</a>
+                                    <a style="color:white; <?php if ($selected == 'daily') {echo 'background:#e04a51 !important ';} ?>" id = "period1" type="button" class="btn btn-lg period">Daily</a>
+                                    <a style="color:white; <?php if ($selected == 'weekly') {echo 'background:#e04a51 !important ';} ?>" id = "period2" type="button" href="<?php echo base_url('sales/sales/weekly_sales_list/' . date('Y-m-d').'/40'); ?>" class="btn btn-lg period">Weekly</a>
+                                    <a style="color:white; <?php if ($selected == 'monthly') {echo 'background:#e04a51 !important ';} ?>" id = "period3" type="button" href="<?php echo base_url('sales/sales/monthly_sales_list/' . date('m') . '/' . date('Y')); ?>" class="btn btn-lg period">Monthly</a>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +92,7 @@
                                         <div class="card-body">
 
                                             <div class="table-responsive">
-                                                <table id="table_monthly_sales_list" class="table table-striped">
+                                                <table id="table_daily_sales_list" class="table table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -95,17 +106,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="table_body">
-                                                        <?php 
-                                                            
+                                                        <?php
+
                                                         ?>
-                                                        <?php foreach ($sales_data as $row) { 
+                                                        <?php foreach ($sales_data as $row) {
                                                             //get category list for each sale in point form
                                                             $sales_category_data = $this->sales_model->get_category_only($row->sale_id);
-                                                            $list_html ='';
+                                                            $list_html = '';
                                                             foreach ($sales_category_data as $q) {
                                                                 $list_html .= '<li>' . $q->item_category_name . '</li>';
                                                             }
-                                                            ?>
+                                                        ?>
                                                             <tr>
                                                                 <td></td>
                                                                 <td><?= $row->sale_id ?></td>
@@ -113,7 +124,9 @@
                                                                 <td>RM <?= number_format($row->sale_total_price, 2, '.', '') ?></td>
                                                                 <td>RM <?= number_format($row->sale_discounted_price, 2, '.', '') ?></td>
                                                                 <td><?= $row->user_fname . " " . $row->user_lname ?></td>
-                                                                <td><ul><?= $list_html ?></ul></td>
+                                                                <td>
+                                                                    <ul><?= $list_html ?></ul>
+                                                                </td>
                                                                 <td><span><button type="button" onclick="view_sale(<?= $row->sale_id ?>)" class="btn icon-btn btn-lg btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_sales"><span style="color:black;" class="fas fa-eye"></span></button></span></td>
                                                             </tr>
                                                         <?php } ?>
@@ -153,59 +166,3 @@
 
                     </div>
                     <!-- End of Main Content -->
-
-
-                    <script>
-                        $(document).ready(function() {
-                            var t = $("#table_monthly_sales_list").DataTable({
-                                //make table responsive
-                                "bAutoWidth": false,
-                                "columnDefs": [{
-                                        "width": "10%",
-                                        "targets": [1]
-                                    },
-                                    {
-                                        "width": "5%",
-                                        "targets": [0]
-                                    },
-                                    {
-                                        "searchable": false,
-                                        "targets": 0
-                                    }
-                                ]
-                            });
-
-                            t.on('order.dt search.dt', function() {
-                                t.column(0, {
-                                    search: 'applied',
-                                    order: 'applied'
-                                }).nodes().each(function(cell, i) {
-                                    cell.innerHTML = i + 1;
-                                });
-                            }).draw();
-
-
-                        }); // end of ready function
-
-                        //function will trigger when user click on the view button
-                        function view_sale(sale_id) {
-
-                            $.ajax({
-                                url: base_url + "sales/sales/view_sale",
-                                method: "POST",
-                                data: {
-                                    sale_id: sale_id
-                                },
-                                success: function(data) {
-                                    $('#view_sale_model').html(data);
-
-                                }
-                            });
-                        }
-
-                        $('#date').change(function() {
-                            var date = document.getElementById("date").value;
-                            window.location.href = base_url + "sales/sales/daily_sales_list/"+date;
-                        });
-
-                    </script>

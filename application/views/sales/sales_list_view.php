@@ -11,7 +11,7 @@
     }
 
     .table-striped thead tr:nth-of-type(odd) {
-        background: #C4C4C4;
+        background: #EBE8E8;
     }
 
     .table-striped {
