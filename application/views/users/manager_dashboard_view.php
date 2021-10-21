@@ -3,72 +3,96 @@
 
 <script>
     var month = [];
-    var i=0;
+    var i = 0;
 </script>
-<?php foreach($monthly_sales as $row){
-    if($row[0]->total_sales_month==null){?>
-        <script>month[i]=0;</script>
-   <?php }
-    else{?>
-        <script>month[i]=<?=$row[0]->total_sales_month ?>;</script>
+<?php foreach ($monthly_sales as $row) {
+    if ($row[0]->total_sales_month == null) { ?>
+        <script>
+            month[i] = 0;
+        </script>
+    <?php } else { ?>
+        <script>
+            month[i] = <?= $row[0]->total_sales_month ?>;
+        </script>
     <?php } ?>
-    <script>i++;</script>
-     <?php 
+    <script>
+        i++;
+    </script>
+<?php
 }
 ?>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" style="background-color: #fef2f2">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <div class="row mb-4">
+                        <div class="col-xl-6 col-md-6">
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h1 class="h3 mb-0 mt-4 text-gray-800">Manager's Dashboard</h1>
+                            </div>
+                        </div>
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Manager Dashboard</h1>
+                        <div class="col-xl-6 col-md-6">
+                            <!-- Current Date & Time -->
+                            <div class="align-baseline float-right">
+                                <div class="mt-4" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
+                                    <div class="px-1 py-auto mb-2">
+                                        <h5 class="py-1" style="font-weight:600;">
+                                            <span style="color:white;">
+                                                <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur");
+                                                 echo date('Y-m-d'); ?></center>
+                                            </span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-
-                       <!-- Card 1 - Total Sales(RM) -->
+                        <!-- Card 1 - Total Sales -->
                         <div class="col-xl-4 col-md-6 mb-4">
-                            <!-- <a href="<?php echo base_url('internal/level_2/academic_counsellor/ac_course_applicants'); ?>" style="text-decoration:none"> -->
-                                <div class="card border-left-primary shadow h-100 py-2">
+                            <a href="" style="text-decoration:none">
+                                <div class="card border-left-success shadow h-100 py-2" style="background-color: #c5e9d2 ">
                                     <div class="card-body" href="">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TODAY TOTAL SALES </div>
-                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800 " style="float: left;" >RM</div><div id="sales_counter" style="float: left;" class="h5 mb-0 font-weight-bold text-gray-800 counting_number"></div>
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Sales</div>
+                                                <div class="mr-2 h5 mb-0 font-weight-bold text-gray-800 " style="float: left;">RM</div>
+                                                <div id="sales_counter" style="float: left;" class="h5 mb-0 font-weight-bold text-gray-800 counting_number"></div>
                                             </div>
+
                                             <div class="col-auto">
-                                                <i class="fas fa-book-open fa-2x text-gray-300"></i>
+                                                <i class="fas fa-hand-holding-usd fa-2x" style="color: #40916c"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-
                         <!-- Card 2 - Total Item -->
                         <div class="col-xl-4 col-md-6 mb-4">
+                            <a href = "" style = "text-decoration:none">
                             <!-- <a href="<?php echo base_url('internal/level_2/academic_counsellor/ac_course_applicants'); ?>" style="text-decoration:none"> -->
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
+                            <div class="card border-left-primary shadow h-100 py-2" style="background-color: #bbdefb">
+                                <div class="card-body" href="">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                TOTAL ITEMS</div>
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Items</div>
                                             <div id="items_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
                                         </div>
+
                                         <div class="col-auto">
-                                            <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                                            <i class="fas fa-prescription-bottle-alt fa-2x" style="color: #1565c0"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -76,34 +100,35 @@
                             </a>
                         </div>
 
-                        <!-- Card 3 - Total items running low on stock -->
+                        <!--Card 3 - Items Running Low on Stock -->
                         <div class="col-xl-4 col-md-6 mb-4">
-                            <!-- <a href="<?php echo base_url('internal/level_2/academic_counsellor/ac_course_applicants'); ?>" style="text-decoration:none"> -->
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                ITEMS RUNNING LOW ON STOCKS</div>
-                                            <div id="items_low_on_stock" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                            <a href="" style="text-decoration:none">
+                                <div class="card border-left-danger shadow h-100 py-2" style="background-color: #f9bec7">
+                                    <div class="card-body" href="">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Items Running Low on Stock</div>
+                                                <div id="items_low_on_stock" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <i class="fas fa-cart-arrow-down fa-2x" style="color: #ff0a54"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             </a>
                         </div>
                     </div>
 
                     <!-- Bar Chart -->
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-xl-12 col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Items by Category</h6>
+                            <div class="card h-100 shadow mb-4">
+                                <div class="card-header py-3" style="background-color: #e4c2c1">
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Items By Category</div>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="chart-bar">
                                         <canvas id="item_by_category_barChart"></canvas>
@@ -113,22 +138,23 @@
                         </div>
                     </div>
 
-                     <!-- Line Chart -->
-                     <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="card h-100 shadow">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Total Sales In This Year</h6>
+                    <!-- Line Chart -->
+                    <div class="row mb-4">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card h-100 shadow mb-4">
+                                <div class="card-header py-3" style="background-color: #e4c2c1">
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Total Sales In This Year</div>
                                 </div>
+
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="salesChartArea" ></canvas>
+                                    <div class="chart-bar">
+                                    <canvas id="salesChartArea"></canvas>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -137,7 +163,7 @@
             <!-- End of Main Content -->
 
             <script>
-                var counter1 = <?=number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>;
+                var counter1 = <?= number_format($total_latest_sales[0]->total_sales_today, 2, '.', '') ?>;
                 var counter2 = <?= $total_items ?>;
                 var counter3 = <?= $items_low_on_stock ?>;
 
@@ -147,7 +173,7 @@
                     type: 'bar',
                     data: {
                         labels: [<?php $counter = 0;
-                                    foreach ($total_items_by_category as $row) : ?> "<?php if ($counter < 5) {echo $row['item_category_name'];} $counter++; ?>", <?php endforeach; ?>],
+                                    foreach ($total_items_by_category as $row) : ?> "<?php if ($counter < 5) {echo $row['item_category_name'];}$counter++; ?>", <?php endforeach; ?>],
                         datasets: [{
                             label: "Item",
                             backgroundColor: ["#3bceac", "#ff99c8", "#ca7df9", "#758bfd", "#ffc09f"],

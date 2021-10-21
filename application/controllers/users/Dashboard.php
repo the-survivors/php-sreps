@@ -53,6 +53,7 @@ class Dashboard extends CI_Controller
       
        
         $this->load->view('internal_templates/header', $data);
+        $this->load->view('external_templates/topnav');
         $this->load->view('users/employee_dashboard_view');
         $this->load->view('internal_templates/footer');
     }
@@ -107,6 +108,7 @@ class Dashboard extends CI_Controller
              ];
 
         $this->load->view('internal_templates/header', $data);
+        //$this->load->view('external_templates/topnav');
         $this->load->view('users/manager_dashboard_view');
         $this->load->view('internal_templates/footer');
     }
