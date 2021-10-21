@@ -8,7 +8,7 @@
         font-weight: 600;
     }
 
-    .nav-link:hover {
+    .nav-link:hover, .nav-link.active {
         color: rgba(255, 237, 109, 1) !important;
     }
 
@@ -58,41 +58,12 @@
     <!-- Float left Group -->
     <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item px-2">
-            <a class="nav-link " href="<?php echo base_url('external/universities'); ?>">Universities</a>
+    <li class="nav-item px-2">
+            <a class="nav-link active" href="<?php echo base_url('items/Items/items_low_on_stock'); ?>">Low on Stock</a>
         </li>
 
         <li class="nav-item px-2">
-            <a class="nav-link" href="<?php echo base_url('external/courses'); ?>">Courses</a>
-        </li>
-
-        <li class="nav-item px-2">
-            <a class="nav-link" href="<?php echo base_url('external/compare'); ?>">Comparison</a>
-        </li>
-
-
-        <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown px-2">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Projects
-            </a>
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" style="background-color: #6B9080;" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="<?= base_url('external/Employer_projects'); ?>" style="color: white;">
-                    Employer Projects
-                </a>
-                <a class="dropdown-item" href="<?=base_url('external/Rd_projects');?>" style = "color: white;" >
-                    Research & Development Projects
-                </a>
-            </div>
-        </li>
-
-        <li class="nav-item px-2">
-            <a class="nav-link" href="<?= base_url('external/homepage/about_us'); ?>">About Us</a>
-        </li>
-
-        <li class="nav-item px-2">
-            <a class="nav-link" href="<?= base_url('user/chat/Chat'); ?>">Have a Chat</a>
+            <a class="nav-link" href="<?= base_url('items/Items/items_in_category/1'); ?>">Test</a>
         </li>
 
         <!-- If user is sign in. Will display user name and user logo -->
