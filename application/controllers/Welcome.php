@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		$data['title'] = 'All Users | Login';
 		$data['bootstrap_css'] = '<link rel="icon" type="image/png" href="login/images/icons/favicon.ico"/>
 			<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
 			<link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
