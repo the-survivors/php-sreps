@@ -89,6 +89,21 @@ $(document).ready(function(){
         ]
     });
 
+    var t6 = $("#items_low_on_stock_table").DataTable({
+        //make table responsive
+        "bAutoWidth":false,
+        ajax: {
+            url: base_url + "items/Items/items_low_on_stock_list/",
+            type: "GET",
+        },
+        "columnDefs": [
+            {
+                "searchable": false,
+                "targets": 0
+            }
+        ]
+    });
+
     t1.on( 'order.dt search.dt', function () {
         t1.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
@@ -115,6 +130,12 @@ $(document).ready(function(){
 
     t5.on( 'order.dt search.dt', function () {
         t5.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
+    t6.on( 'order.dt search.dt', function () {
+        t6.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
     } ).draw();

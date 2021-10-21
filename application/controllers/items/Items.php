@@ -540,7 +540,6 @@ class Items extends CI_Controller
     }
 
     // --------------------- ITEMS IN A SPECIFIC CATEGORY (EMPLOYEE) --------------------------// 
-
     function items_in_category($item_category_id){
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
@@ -588,6 +587,59 @@ class Items extends CI_Controller
 			"draw" => $draw,
 			"recordsTotal" => count($items_in_category),
 			"recordsFiltered" =>count($items_in_category),
+			"data" => $data
+		);
+
+		echo json_encode($output);
+		exit();
+    }
+
+     // --------------------- ITEMS LOW ON STOCK (EMPLOYEE) --------------------------// 
+     function items_low_on_stock(){
+        $data['title'] = 'PHP-SRePS | Items Running Low on Stock';
+        $data['include_js'] = 'items_list';
+        $data['items_data'] = $this->items_model->select_all_items_low_on_stock();
+       
+        // var_dump($this->items_model->select_all_items_low_in_stock());
+        // die;
+        $this->load->view('internal_templates/header', $data);
+        $this->load->view('external_templates/topnav');
+        $this->load->view('items/items_low_on_stock_view');
+        $this->load->view('internal_templates/footer');
+    }
+
+    function items_low_on_stock_list(){
+        // Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+        
+        $items_low_on_stock = $this->items_model->select_all_items_low_on_stock();
+        
+		$data = array();
+		$base_url = base_url();
+
+        foreach($items_low_on_stock as $item) {
+
+            $item_pic = '<img src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
+            $item_quantity = '<div class="badge badge-danger text-wrap" style="font-size: 1.0rem">'.$item->item_quantity.'</div>';
+            $restock_level = '<div class="badge badge-dark text-wrap" style="font-size: 1.0rem">'.$item->item_restock_level.'</div>';
+
+			$data [] = [ 
+				'',
+                $item_pic,
+                $item->item_subcategory_name,
+				$item->item_name,
+                $item_quantity,
+                $restock_level,
+            ];
+
+		}
+
+        $output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($items_low_on_stock),
+			"recordsFiltered" =>count($items_low_on_stock),
 			"data" => $data
 		);
 

@@ -64,6 +64,16 @@ class items_model extends CI_Model
         }
     }
 
+    function select_all_items_low_on_stock()
+    {
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('item_quantity = item_restock_level OR item_quantity < item_restock_level');
+        return $this->db->get()->result();
+    }
+
     // -------- ITEM CATEGORIES -------- //
 
     function select_all_item_categories()
@@ -163,11 +173,6 @@ class items_model extends CI_Model
         $this->db->where('item_subcategory_id', $item_subcategory_id)
         ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id');
         return $this->db->get('items_subcategory')->row();
-        // $this->db->select('')
-        // ->from('items_subcategory')
-        // //->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
-        // ->where('items_subcategory.item_category_id', $item_subcategory_id);
-        // return $this->db->get('items_subcategory')->row();
     }
 
     function insert_item_subcategory($data)
