@@ -31,21 +31,36 @@ class Dashboard extends CI_Controller
         // }
     }
 
-    public function Staff()
+    public function Employee()
     {
-        $data['title'] = 'Staff | Dashboard';
-        $data['include_js'] = 'staff_dashboard';
+        $data['title'] = 'Employee | Dashboard';
+        $data['include_js'] = 'employee_dashboard';
 
         //total sales
         $data['total_sales'] = count($this->sales_model->select_all_sales());
         //total items
         $data['total_items'] = count($this->items_model->select_all_items());
+        // total items by category
+        $data['total_items_by_category'] = $this->items_model->show_item_quantity();
+        //total item low on stock
+        $data['items_low_on_stock']= count($this->items_model->show_item_low_on_stock());
         // total sales in latest date
-        $data['total_latest_sales'] = count($this->sales_model->select_latest_sales());
+   
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date=date('Y-m-d');
 
-        //var_dump($data['total_latest_sales']);
+        //$data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
+        $data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
+       // $this->sales_model->select_latest_sales($date);
+        //$test=number_format($data['total_latest_sales'], 2, '.', '');
+        //$test=$this->sales_model->select_latest_sales($date);
+        var_dump($data['total_latest_sales']);
+        $test=10.40;
+        number_format($test, 2, '.', '');
+        var_dump($test);
+       
         $this->load->view('internal_templates/header', $data);
-        $this->load->view('users/staff_dashboard_view');
+        $this->load->view('users/employee_dashboard_view');
         $this->load->view('internal_templates/footer');
     }
 
@@ -58,12 +73,90 @@ class Dashboard extends CI_Controller
         $data['total_sales'] = count($this->sales_model->select_all_sales());
         //total items
         $data['total_items'] = count($this->items_model->select_all_items());
+        //total items by category
+        $data['total_items_by_category'] = $this->items_model->show_item_quantity();
+        //total item low on stock
+        $data['items_low_on_stock']= count($this->items_model->show_item_low_on_stock());
         // total sales in latest date
-        $data['total_latest_sales'] = count($this->sales_model->select_latest_sales());
+   
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date=date('Y-m-d');
+       // $date=date('Y-m-d H:i:s');
+       // var_dump($date1);
 
+
+        $data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
         //var_dump($data['total_latest_sales']);
+         //total sales
+        //  $Jan = $this->get_monthly_sales('2021-01-01', '2021-01-31');
+        //  $Feb = $Jan + $this->get_monthly_sales('2021-02-01', '2021-02-28');
+        //  $Mar = $Feb + $this->get_monthly_sales('2021-03-01', '2021-03-31');
+        //  $Apr = $Mar + $this->get_monthly_sales('2021-04-01', '2021-04-30');
+        //  $May = $Apr + $this->get_monthly_sales('2021-05-01', '2021-05-31');
+        //  $Jun = $May + $this->get_monthly_sales('2021-06-01', '2021-06-30');
+        //  $Jul = $Jun + $this->get_monthly_sales('2021-07-01', '2021-07-31');
+        //  $Aug = $Jul + $this->get_monthly_sales('2021-08-01', '2021-08-31');
+        //  $Sept= $Aug + $this->get_monthly_sales('2021-09-01', '2021-09-30');
+        //  $Oct = $Sept + $this->get_monthly_sales('2021-10-01', '2021-10-31');
+        //  $Nov = $Oct + $this->get_monthly_sales('2021-11-01', '2021-11-30');
+        //  $Dec = $Nov + $this->get_monthly_sales('2021-12-01', '2021-12-31');
+ 
+        //  $Jan =  $this->get_monthly_sales('2021-01-01', '2021-01-31');
+        //  $Feb = $Jan + $this->get_monthly_sales('2021-02-01', '2021-02-28');
+        //  $Mar = $Feb + $this->get_monthly_sales('2021-03-01', '2021-03-31');
+        //  $Apr = $Mar + $this->get_monthly_sales('2021-04-01', '2021-04-30');
+        //  $May = $Apr + $this->get_monthly_sales('2021-05-01', '2021-05-31');
+        //  $Jun = $May + $this->get_monthly_sales('2021-06-01', '2021-06-30');
+        //  $Jul = $Jun + $this->get_monthly_sales('2021-07-01', '2021-07-31');
+        //  $Aug = $Jul + $this->get_monthly_sales('2021-08-01', '2021-08-31');
+        //  $Sept= $Aug + $this->get_monthly_sales('2021-09-01', '2021-09-30');
+        //  $Oct = $Sept+ $this->get_monthly_sales('2021-10-01', '2021-10-31');
+        //  $Nov = $Oct + $this->get_monthly_sales('2021-11-01', '2021-11-30');
+        //  $Dec = $Nov + $this->get_monthly_sales('2021-12-01', '2021-12-31');
+
+         $Jan = $this->get_monthly_sales('2021-01-01', '2021-01-31');
+         $Feb = $this->get_monthly_sales('2021-02-01', '2021-02-28');
+         $Mar = $this->get_monthly_sales('2021-03-01', '2021-03-31');
+         $Apr = $this->get_monthly_sales('2021-04-01', '2021-04-30');
+         $May = $this->get_monthly_sales('2021-05-01', '2021-05-31');
+         $Jun = $this->get_monthly_sales('2021-06-01', '2021-06-30');
+         $Jul = $this->get_monthly_sales('2021-07-01', '2021-07-31');
+         $Aug = $this->get_monthly_sales('2021-08-01', '2021-08-31');
+         $Sept= $this->get_monthly_sales('2021-09-01', '2021-09-30');
+         $Oct = $this->get_monthly_sales('2021-10-01', '2021-10-31');
+         $Nov = $this->get_monthly_sales('2021-11-01', '2021-11-30');
+         $Dec = $this->get_monthly_sales('2021-12-01', '2021-12-31');
+
+         $data['monthly_sales'] =
+             [
+                 $Jan,
+                 $Feb,
+                 $Mar,
+                 $Apr,
+                 $May,
+                 $Jun,
+                 $Jul,
+                 $Aug,
+                 $Sept,
+                 $Oct,
+                 $Nov,
+                 $Dec
+             ];
+
+        var_dump($data['monthly_sales']);
         $this->load->view('internal_templates/header', $data);
         $this->load->view('users/manager_dashboard_view');
         $this->load->view('internal_templates/footer');
+    }
+
+    // public function get_monthly_sales($date1, $date2) //total sales
+    // {
+    //     $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2,'sales','sale_date') ;
+    //     return $total_per_month;
+    // }
+    public function get_monthly_sales($date1, $date2) //total sales
+    {
+        $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2) ;
+        return $total_per_month;
     }
 }

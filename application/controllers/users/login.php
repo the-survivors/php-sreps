@@ -70,7 +70,7 @@ class Login extends CI_Controller
                 //check user role is staff
                 else 
                 {
-                    redirect('users/Dashboard/Staff');
+                    redirect('users/Dashboard/Employee');
                 }
             }
                 // if password is incorrect

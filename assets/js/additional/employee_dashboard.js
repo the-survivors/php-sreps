@@ -8,7 +8,7 @@ $(document).ready(function () {
             duration: 2000,
             easing: 'swing',
             step: function (now) {
-                $(this).text(Math.ceil(now));
+                $(this).text(Number(now).toFixed(2));
             },
             complete: update_sales_count
         });
@@ -29,8 +29,22 @@ $(document).ready(function () {
     };
     update_items_count();
 
-    function update_today_sales_count() {
-        $('#today_total_counter').animate({
+    // function update_today_sales_count() {
+    //     $('#today_total_counter').animate({
+    //         counter: counter3
+    //     }, {
+    //         duration: 2000,
+    //         easing: 'swing',
+    //         step: function (now) {
+    //             $(this).text(Math.ceil(now));
+    //         },
+    //         complete: update_today_sales_count
+    //     });
+    // };
+    // update_today_sales_count();
+
+    function update_items_low_on_stock_count() {
+        $('#items_low_on_stock').animate({
             counter: counter3
         }, {
             duration: 2000,
@@ -38,9 +52,9 @@ $(document).ready(function () {
             step: function (now) {
                 $(this).text(Math.ceil(now));
             },
-            complete: update_today_sales_count
+            complete: update_items_low_on_stock_count
         });
     };
-    update_today_sales_count();
+    update_items_low_on_stock_count();
 
 }); // end of ready function

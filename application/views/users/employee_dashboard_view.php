@@ -2,8 +2,7 @@
 <script src="<?php echo base_url() ?>/assets/vendor/chart.js/Chart.min.js"></script>
 <br>
 <br>
-
-<?php  var_dump($monthly_sales[6]); ?>
+<!-- <?php echo number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>; -->
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -19,29 +18,27 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Manager Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Employee Dashboard</h1>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Card 1 - Total Sales(RM) -->
+                       <!-- Card 1 - Total Sales(RM) -->
                         <div class="col-xl-4 col-md-6 mb-4">
                             <!-- <a href="<?php echo base_url('internal/level_2/academic_counsellor/ac_course_applicants'); ?>" style="text-decoration:none"> -->
                                 <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-body" href="">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    TODAY TOTAL SALES </div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800 counting_number">RM</div>
-                                                <div id="sales_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TODAY TOTAL SALES </div>
+                                                <!-- <div id="sales_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">RM</div> -->
+                                                <div  class="h5 mb-0 font-weight-bold text-gray-800 counting_number">RM</div>
+                                                 <div id="sales_counter" class="h5 mb-0 font-weight-bold text-gray-800 counting_number"></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-book-open fa-2x text-gray-300"></i>
-                                                
                                             </div>
-                                           
                                         </div>
                                     </div>
                                 </div>
@@ -104,23 +101,6 @@
                             </div>
                         </div>
                     </div>
-
-                      <!-- Line Chart -->
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="card h-100 shadow">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Total Sales In This Year</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="salesChartArea" ></canvas>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -129,24 +109,9 @@
             <!-- End of Main Content -->
 
             <script>
-                var counter1 = <?=$total_latest_sales[0]->total_sales_today?>;
+                var counter1 = <?=number_format($total_latest_sales[0]->total_sales_today, 2, '.', '')?>;
                 var counter2 = <?= $total_items ?>;
                 var counter3 = <?= $items_low_on_stock ?>;
-
-                //total sales
-                var Jan = <?= $monthly_sales[0] ?>;
-                var Feb = <?= $monthly_sales[1] ?>;
-                var Mar = <?= $monthly_sales[2] ?>;
-                var Apr = <?= $monthly_sales[3] ?>;
-                var May = <?= $monthly_sales[4] ?>;
-                var Jun = <?= $monthly_sales[5] ?>;
-                var Jul = <?= $monthly_sales[6] ?>;
-                var Aug = <?= $monthly_sales[7] ?>;
-                var Sept = <?=$monthly_sales[8] ?>;
-                var Oct = <?= $monthly_sales[9] ?>;
-                var Nov = <?= $monthly_sales[10] ?>;
-                var Dec = <?= $monthly_sales[11] ?>;
-
 
                 // Bar Chart
                 var ctx = document.getElementById("item_by_category_barChart");
