@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-
-	/**
+	
+	/*
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
@@ -11,13 +11,11 @@ class Welcome extends CI_Controller {
 	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
+	 * Since this controller is set as the default controller in config/routes.php, it's displayed at http://example.com/
 	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 * So any other public methods not prefixed with an underscore will map to /index.php/welcome/<method_name> @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	
 	public function index()
 	{
 		$data['title'] = 'SRePS | Login';
@@ -42,5 +40,12 @@ class Welcome extends CI_Controller {
 		$this->load->view('users/login_view');
 		$this->load->view('internal_templates/footer');
 
+        $this->load->view('external_templates/header');
+        $this->load->view('external_templates/topnav');
+        
+		// $this->load->view('template_view');
+		
+		$this->load->view('users/employee_dashboard_view');
+        $this->load->view('external_templates/footer');
 	}
 }
