@@ -1,10 +1,19 @@
 
 <style>
-th, label{
-    color:black;
+.table-striped tbody tr:nth-of-type(odd) {
+    background: white;
 }
-td{
-    color: rgba(0,0,0,0.7);
+
+.table-striped tbody tr:nth-of-type(even) {
+    background: #E4C2C1;
+}
+
+.table-striped thead tr:nth-of-type(odd) {
+    background: #EBE8E8;
+}
+
+.table-striped {
+    color: black;
 }
 </style>
 <!-- Set base url to javascript variable-->

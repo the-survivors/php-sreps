@@ -7,11 +7,6 @@ class Items extends CI_Controller
     {
         parent::__construct();
         $this->load->model('items_model');
-        // $this->load->model([
-        //     'user_student_model', 'user_ep_model', 'user_ac_model', 'user_ea_model', 'user_e_model',
-        //     'course_applicants_model', 'user_model', 'universities_model', 'employer_projects_model',
-        //     'rd_projects_model'
-        // ]);
     }
 
     // Items page
@@ -42,9 +37,9 @@ class Items extends CI_Controller
         foreach($items as $item) {
 
             $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
-			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-info waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
-            $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-primary waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
-            $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
+			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
+            $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-white waves-effect waves-light"><span class="fas fa-pencil-alt"></span></a></span>';
+            $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
             //$item_subc = '<div class="badge badge-success text-wrap" style="width: 8rem;">'.$item->item_category_name.'</div>';
@@ -285,9 +280,9 @@ class Items extends CI_Controller
         foreach($item_categories as $item_category) {
             $item_subcategories_page_link = $base_url."items/Items/items_subcategories/".$item_category->item_category_id;
 
-            $view = '<span><a type="button" href="'.$item_subcategories_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
-            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light edit_item_category" data-toggle="modal" data-id="'.$item_category->item_category_id.'" data-target="#edit_item_category"><span class="fas fa-pencil-alt"></span></button></span>';
-            $delete = '<span><button type="button" onclick="delete_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
+            $view = '<span><a type="button" href="'.$item_subcategories_page_link.'" class="btn icon-btn btn-xs btn-white waves-effect waves-light"><span class="fas fa-eye"></span></a></span>';
+            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light edit_item_category" data-toggle="modal" data-id="'.$item_category->item_category_id.'" data-target="#edit_item_category"><span class="fas fa-pencil-alt"></span></button></span>';
+            $delete = '<span><button type="button" onclick="delete_item_category('.$item_category->item_category_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light delete" ><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
 			$data [] = [ 
@@ -404,9 +399,9 @@ class Items extends CI_Controller
 
             $item_page_link = $base_url."items/Items/items_in_subcategory/".$item_subcategory->item_subcategory_id;
 
-            $view = '<span><a type="button" href="'.$item_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
-            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light" data-toggle="modal" data-id="'.$item_subcategory->item_subcategory_id.'" data-target="#edit_item_subcategory"><span class="fas fa-pencil-alt"></span></button></span>';
-            $delete = '<span><button type="button" onclick="delete_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete"><span class="fas fa-trash"></span></button></span>';
+            $view = '<span><a type="button" href="'.$item_page_link.'"class="btn icon-btn btn-xs btn-white waves-effect waves-light"><span class="fas fa-eye"></span></a></span>';
+            $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" data-toggle="modal" data-id="'.$item_subcategory->item_subcategory_id.'" data-target="#edit_item_subcategory"><span class="fas fa-pencil-alt"></span></button></span>';
+            $delete = '<span><button type="button" onclick="delete_item_subcategory('.$item_subcategory->item_subcategory_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light delete"><span class="fas fa-trash"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
 			$data [] = [ 
@@ -502,15 +497,7 @@ class Items extends CI_Controller
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['item_subcategory_data'] = $this->items_model->select_item_subcategory($item_subcategory_id);
-        // $data['item_subcategory_data'] = $this->items_model->select_all_items_in_subcategory($item_subcategory_id);
-// $test = $this->items_model->select_item_subcategory($item_subcategory_id);
-//         var_dump($test -> item_category_name);
-        // var_dump($this->items_model->select_item_subcategory($item_subcategory_id));
-        // die;
-        //  var_dump($this->items_model->select_all_items_in_subcategory($item_subcategory_id));
-        //  var_dump($item_subcategory_id);
-        // var_dump($this->session->data());
-        // die;
+      
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
         $this->load->view('internal_templates/topbar');
@@ -531,13 +518,6 @@ class Items extends CI_Controller
 		$base_url = base_url();
 
         foreach($items_in_subcategory as $item) {
-
-            //$item_page_link = $base_url."items/Items/items_in_subcategory/".$item_subcategory->item_subcategory_id;
-
-            //$view = '<span><a type="button" href="'.$item_page_link.'"class="btn fas fa-eye" style="background-color: #BAA0CA; color: white;><span class="fas fa-eye"></span></a></span>';
-            // $edit_opt = '<span class="px-1"><button type="button" onclick="edit_item_subcategory('.$item->item_subcategory_id.')" class="btn icon-btn btn-xs btn-primary waves-effect waves-light" data-toggle="modal" data-id="'.$item->item_subcategory_id.'" data-target="#edit_item_subcategory"><span class="fas fa-pencil-alt"></span></button></span>';
-            // $delete = '<span><button type="button" onclick="delete_item_subcategory('.$item->item_subcategory_id.')" class="btn icon-btn btn-xs btn-danger waves-effect waves-light delete"><span class="fas fa-trash"></span></button></span>';
-			// $function = $edit_opt.$delete;
 
 			$data [] = [ 
 				'',
