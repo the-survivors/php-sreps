@@ -9,7 +9,7 @@ class Items extends CI_Controller
         $this->load->model('items_model');
     }
 
-    // Items page
+    // --------------------- ITEM --------------------------// 
     public function index()
     {
         $data['title'] = 'PHP-SRePS | Items';
@@ -115,7 +115,7 @@ class Items extends CI_Controller
                 </tr>
                 <tr>
                     <th scope="row">Restock Level</th>
-                    <td>'.$item_details->item_restock_level.'</td>
+                    <td><div class="badge badge-dark text-wrap" style="font-size: 1.0rem">'.$item_details->item_restock_level.'</div></td>
                 </tr>
             </tbody>
         </table>
@@ -492,8 +492,8 @@ class Items extends CI_Controller
         $this->items_model->delete_item_subcategory($this->input->post('item_subcategory_id'));
     }
 
-
-    public function items_in_subcategory($item_subcategory_id){
+    // --------------------- ITEMS IN A SPECIFIC SUBCATEGORY (IT ADMIN) --------------------------// 
+    function items_in_subcategory($item_subcategory_id){
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['item_subcategory_data'] = $this->items_model->select_item_subcategory($item_subcategory_id);
@@ -539,4 +539,59 @@ class Items extends CI_Controller
 		exit();
     }
 
+    // --------------------- ITEMS IN A SPECIFIC CATEGORY (EMPLOYEE) --------------------------// 
+
+    function items_in_category($item_category_id){
+        $data['title'] = 'PHP-SRePS | Items';
+        $data['include_js'] = 'items_list';
+        $data['items_data'] = $this->items_model->select_all_items_in_category($item_category_id);
+        $data['items_category_data'] = $this->items_model->select_item_category($item_category_id);
+       
+        //var_dump( $this->items_model->select_item_category());
+        //die;
+        $this->load->view('internal_templates/header', $data);
+        $this->load->view('external_templates/topnav');
+        $this->load->view('items/items_in_category_list_view');
+        $this->load->view('internal_templates/footer');
+    }
+
+    function items_in_category_list($item_category_id){
+        // Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+        
+        $items_in_category = $this->items_model->select_all_items_in_category($item_category_id);
+        
+		$data = array();
+		$base_url = base_url();
+
+        foreach($items_in_category as $item) {
+
+            $item_pic = '<img src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
+            $view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
+            $restock_level = '<div class="badge badge-dark text-wrap" style="font-size: 0.9rem">'.$item->item_restock_level.'</div>';
+
+			$data [] = [ 
+				'',
+                $item_pic,
+                $item->item_subcategory_name,
+				$item->item_name,
+                $item->item_quantity,
+                $restock_level,
+                $view
+            ];
+
+		}
+
+        $output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($items_in_category),
+			"recordsFiltered" =>count($items_in_category),
+			"data" => $data
+		);
+
+		echo json_encode($output);
+		exit();
+    }
 }

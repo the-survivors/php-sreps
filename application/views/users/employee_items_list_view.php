@@ -15,14 +15,6 @@
 .table-striped {
     color: black;
 }
-img {
-    transition:transform 0.25s ease;
-}
-
-img:hover {
-    -webkit-transform:scale(2.0);
-    transform:scale(2.0);
-}
 </style>
 <!-- Set base url to javascript variable-->
 <script type="text/javascript">

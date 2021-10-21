@@ -71,6 +71,15 @@ class items_model extends CI_Model
         return $this->db->get('items_category')->result();
     }
 
+    function select_all_items_in_category($item_category_id){
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('items_category.item_category_id', $item_category_id);
+        return $this->db->get()->result();
+    }
+
     function select_item_categories_grouping() // relating it to sub category table
     {
         //taking everything in items_category table even if there is no related record in items_subcategory table
@@ -136,15 +145,6 @@ class items_model extends CI_Model
         ->where('items.item_subcategory_id', $item_subcategory_id);
         return $this->db->get()->result();
     }
-
-    // function select_item_subcategories_by_category($item_category_id)
-    // {
-    //     $this->db->select('')
-    //     ->from('items_subcategory')
-    //     ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
-    //     ->where('items_subcategory.item_category_id', $item_category_id);
-    //     return $this->db->get()->result();
-    // }
 
     function select_item_subcategories_grouping($item_category_id) // relating it to items and categories table
     {

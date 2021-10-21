@@ -54,7 +54,7 @@ img:hover {
 <body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+<div id="wrapper">
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -63,11 +63,11 @@ img:hover {
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="background:#FEF2F2;">
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Items</h1>
+                    <h1 class="h3 pt-4 mb-0 text-gray-800"><?=$items_category_data->item_category_name?></h1>
                 </div>
 
                 <!-- Breadcrumb -->
@@ -75,14 +75,18 @@ img:hover {
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
+                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tags pr-2"></i>Item Categories</a>
                             </li>
-                            <li class="breadcrumb-item active">Items</li>
+                            <!-- <li class="breadcrumb-item">
+                                <a href="<= base_url('items/Items/items_subcategories/'.$item_subcategory_data->item_category_id);?>"><?=$item_subcategory_data->item_category_name?></a>
+                            </li> -->
+                            <li class="breadcrumb-item active"><?= $items_category_data->item_category_name ?></li>
                         </ol>
                     </div>
+                    <!-- Employee Item Categories Page (select an Item Category) -->
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                        <a type="button" href = "<?= base_url('items/Items/add_item'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item<i class="fas fa-plus pl-2"></i></a>
+                            <a type="button" href="<?= base_url('');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -95,17 +99,16 @@ img:hover {
                             <div class="card-body">
                             
                             <div class="table-responsive">
-                                <table id="items_table" class="table table-striped">
+                                <table id="items_in_category_table" class="table table-striped">
                                     <thead>
                                         <tr>
-                                        <!-- <th>No.</th> -->
                                         <th>No.</th>
-                                        <th>Category</th>
+                                        <th>Image</th>
+                                        <th>Subcategory</th>
                                         <th>Name</th>
                                         <th>Quantity</th>
-                                        <th>Price</th>
+                                        <th>Restock Level</th>
                                         <th>Action</th>
-                                        <th>Last Updated</th>
                                         </tr>
                                     </thead>
                                 </table>

@@ -70,6 +70,25 @@ $(document).ready(function(){
         ]
     });
 
+    // getting sub category id from url path
+    var url3 = window.location.pathname;
+    var id3 = url3.substring(url3.lastIndexOf('/') + 1);
+
+    var t5 = $("#items_in_category_table").DataTable({
+        //make table responsive
+        "bAutoWidth":false,
+        ajax: {
+            url: base_url + "items/Items/items_in_category_list/" + id3,
+            type: "GET",
+        },
+        "columnDefs": [
+            {
+                "searchable": false,
+                "targets": 0
+            }
+        ]
+    });
+
     t1.on( 'order.dt search.dt', function () {
         t1.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
@@ -90,6 +109,12 @@ $(document).ready(function(){
 
     t4.on( 'order.dt search.dt', function () {
         t4.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
+    t5.on( 'order.dt search.dt', function () {
+        t5.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
     } ).draw();
