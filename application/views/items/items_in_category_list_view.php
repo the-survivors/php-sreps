@@ -15,6 +15,7 @@
 .table-striped {
     color: black;
 }
+
 .img_item {
     transition:transform 0.25s ease;
 }
@@ -45,7 +46,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 pt-4 mb-0 text-gray-800"><?=$items_category_data->item_category_name?></h1>
+                    <h1 class="h3 mt-5 mb-2 font-weight-bold" style="color: black"><?=$items_category_data->item_category_name?></h1>
                 </div>
 
                 <!-- Breadcrumb -->
@@ -53,18 +54,15 @@
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tags pr-2"></i>Item Categories</a>
+                                <a href="<?= base_url('items/Items/items_categories_log');?>"><i class="fas fa-tags pr-2"></i>Item Categories</a>
                             </li>
-                            <!-- <li class="breadcrumb-item">
-                                <a href="<= base_url('items/Items/items_subcategories/'.$item_subcategory_data->item_category_id);?>"><?=$item_subcategory_data->item_category_name?></a>
-                            </li> -->
                             <li class="breadcrumb-item active"><?= $items_category_data->item_category_name ?></li>
                         </ol>
                     </div>
                     <!-- Employee Item Categories Page (select an Item Category) -->
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                            <a type="button" href="<?= base_url('');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
+                            <a type="button" href="<?= base_url('items/Items/items_categories_log');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
                         </div>
                     </div>
                 </div>

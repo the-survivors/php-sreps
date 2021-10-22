@@ -67,7 +67,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                    <h1 class="h3 mb-0 text-gray-800">Items</h1>
+                    <h1 class="h3 font-weight-bold" style="color: black">Items</h1>
                 </div>
 
                 <!-- Breadcrumb -->

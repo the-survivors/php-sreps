@@ -59,7 +59,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"><?= $item_category_data->item_category_name ?></h1>
+                    <h1 class="h3 font-weight-bold" style="color: black"><?= $item_category_data->item_category_name ?></h1>
                    
                             <a type="button" href="<?= base_url('items/Items/items_categories');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
                         

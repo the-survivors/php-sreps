@@ -67,7 +67,11 @@
         </li>
 
         <li class="nav-item px-2">
-            <a class="nav-link <?php  if ($selected == 'items') echo 'active'; ?>" href="<?= base_url('items/Items/items_in_category/1'); ?>">Items</a>
+            <a class="nav-link <?php  if ($selected == 'items') echo 'active'; ?>" href="<?= base_url('items/Items/items_categories_log'); ?>">Items</a>
+        </li>
+
+        <li class="nav-item px-2">
+            <a class="nav-link <?php  if ($selected == 'stock') echo 'active'; ?>" href="<?= base_url('items/Items/items_low_on_stock'); ?>">Items Running Low on Stock</a>
         </li>
             
         <li class="nav-item pl-1">

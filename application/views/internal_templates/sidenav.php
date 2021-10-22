@@ -70,12 +70,19 @@
             </a>
         </li>
 
-        <!-- Nav Item - Inventory >-->
+        <!-- Nav Item - Inventory Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "inventory") echo 'active'; ?>"  href="<?=base_url('items/Items/items_categories');?>">
-            <i class="fas fa-dolly-flatbed"></i>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventory_collapse"
+                aria-expanded="true" aria-controls="accounts_collapse">
+                <i class="fas fa-dolly-flatbed"></i>
                 <span>Inventory</span>
             </a>
+            <div id="inventory_collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="<?=base_url('items/Items');?>">All Items</a>
+                    <a class="collapse-item <?php if ($selected == "inventory") echo 'active'; ?>"  href="<?=base_url('items/Items/items_low_on_stock');?>">Items Low on Stock</a>
+                </div>
+            </div>
         </li>
 
         <!-- Nav Item - Reports >-->

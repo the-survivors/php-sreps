@@ -12,6 +12,14 @@ class Items extends CI_Controller
     // --------------------- ITEM --------------------------// 
     public function index()
     {
+        // $user_id = $this->session->userdata('user_id');
+        // $data['user_role'] = $this->session->userdata('user_role');
+        // if ($data['user_role'] == 'Student') {
+        //     // From the User ID, get Student ID  
+        //     $student_details = $this->user_student_model->student_details($user_id);
+        //     $data['student_id'] = $student_details['student_id'];
+        // }
+
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['selected'] = 'items';
@@ -25,6 +33,14 @@ class Items extends CI_Controller
 
     function items_list()
     {
+        // $user_id = $this->session->userdata('user_id');
+        // $data['user_role'] = $this->session->userdata('user_role');
+        // if ($data['user_role'] == 'employee') {
+        //     // From the User ID, get Student ID  
+        //     $student_details = $this->user_student_model->student_details($user_id);
+        //     $data['student_id'] = $student_details['student_id'];
+        // }
+
         // Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -43,7 +59,8 @@ class Items extends CI_Controller
             $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light delete" ><span class="fas fa-trash" style="color: black"></span></button></span>';
 			$function = $view.$edit_opt.$delete;
 
-            //$item_subc = '<div class="badge badge-success text-wrap" style="width: 8rem;">'.$item->item_category_name.'</div>';
+            // if ($data['user_role'] == 'manager') { $function = $view; }
+
 			$data [] = [ 
 				// '',
 				$item->item_id,
@@ -238,7 +255,7 @@ class Items extends CI_Controller
         $this->items_model->delete_item($this->input->post('item_id'));
     }
 
-    public function upload_img($path, $file_input_name) 
+    function upload_img($path, $file_input_name) 
     {
         if ($_FILES){
             $config['upload_path'] = $path;
@@ -257,7 +274,7 @@ class Items extends CI_Controller
     }
 
     // --------------------- ITEM CATEGORIES --------------------------// 
-    public function items_categories(){
+    function items_categories(){
         $data['title'] = 'PHP-SRePS | Item Categories';
         $data['include_js'] = 'items_list';
         $data['selected'] = 'items_categories';
@@ -324,7 +341,7 @@ class Items extends CI_Controller
         redirect('items/Items/items_categories');
     }
 
-    function edit_item_category() // just editing the CATEGORY. has no relation with the sub
+    function edit_item_category()
     {
         $item_category_details = $this->items_model->select_item_category($this->input->post('item_category_id'));
 
@@ -373,7 +390,7 @@ class Items extends CI_Controller
     }
 
     // --------------------- ITEM SUBCATEGORIES --------------------------// 
-    public function items_subcategories($item_category_id){
+    function items_subcategories($item_category_id){
         $data['title'] = 'PHP-SRePS | Item Subcategories';
         $data['include_js'] = 'items_list';
         $data['item_category_data'] = $this->items_model->select_item_category($item_category_id);
@@ -519,17 +536,19 @@ class Items extends CI_Controller
 		$length = intval($this->input->get("length"));
         
         $items_in_subcategory = $this->items_model->select_all_items_in_subcategory($item_subcategory_id);
-        
+    
 		$data = array();
 		$base_url = base_url();
 
         foreach($items_in_subcategory as $item) {
 
+            $restock_level = '<div class="badge badge-dark text-wrap" style="font-size: 0.9rem">'.$item->item_restock_level.'</div>';
+
 			$data [] = [ 
 				'',
 				$item->item_name,
                 $item->item_quantity,
-                $item->item_restock_level,
+                $restock_level
             ];
 
 		}
@@ -546,6 +565,18 @@ class Items extends CI_Controller
     }
 
     // --------------------- ITEMS IN A SPECIFIC CATEGORY (EMPLOYEE) --------------------------// 
+    function items_categories_log(){
+        $data['title'] = 'PHP-SRePS | Item by Category';
+        $data['include_js'] = 'items_list';
+        $data['items_categories_data'] = $this->items_model->select_all_item_categories();
+        $data['selected'] = 'items';
+
+        $this->load->view('external_templates/header', $data);
+        $this->load->view('external_templates/topnav');
+        $this->load->view('items/items_categories_log_view');
+        $this->load->view('external_templates/footer');
+    }
+
     function items_in_category($item_category_id){
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
@@ -603,13 +634,20 @@ class Items extends CI_Controller
 
      // --------------------- ITEMS LOW ON STOCK (EMPLOYEE) --------------------------// 
      function items_low_on_stock(){
+        
+        // $user_id = $this->session->userdata('user_id');
+        // $data['user_role'] = $this->session->userdata('user_role');
+        // if ($data['user_role'] == 'employee') {
+        //     // From the User ID, get Student ID  
+        //     $student_details = $this->user_student_model->student_details($user_id);
+        //     $data['student_id'] = $student_details['student_id'];
+        // }
+
         $data['title'] = 'PHP-SRePS | Items Running Low on Stock';
         $data['include_js'] = 'items_list';
         $data['items_data'] = $this->items_model->select_all_items_low_on_stock();
-        $data['selected'] = 'sales';
-       
-        // var_dump($this->items_model->select_all_items_low_in_stock());
-        // die;
+        $data['selected'] = 'stock';
+
         $this->load->view('internal_templates/header', $data);
         $this->load->view('external_templates/topnav');
         $this->load->view('items/items_low_on_stock_view');
@@ -629,7 +667,7 @@ class Items extends CI_Controller
 
         foreach($items_low_on_stock as $item) {
 
-            $item_pic = '<img src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
+            $item_pic = '<img class="img_item" src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
             $item_quantity = '<div class="badge badge-danger text-wrap" style="font-size: 1.0rem">'.$item->item_quantity.'</div>';
             $restock_level = '<div class="badge badge-dark text-wrap" style="font-size: 1.0rem">'.$item->item_restock_level.'</div>';
 
@@ -654,4 +692,37 @@ class Items extends CI_Controller
 		echo json_encode($output);
 		exit();
     }
+
+    // -------------------REFERENCE (TO BE DELETED LATER)----------------------------
+    
+    // public function index()
+    // {
+    //     $data['title'] = "iJEES | R&D Projects";
+    //     $data['include_js'] = 'rd_projects_list';
+    //     $data['include_css'] = 'projects';
+    //     // Get RDs that are approved and their details
+    //     $data['rds'] = $this->rd_projects_model->approved_rdps();
+
+    //     // Check if session is established. Get User ID from session.
+    //     $user_id = $this->session->userdata('user_id');
+    //     $data['user_role'] = $this->session->userdata('user_role');
+    //     if ($data['user_role'] == 'Education Partner') {
+    //         // From the User ID, get Education Partner ID  
+    //         $ep_details = $this->user_ep_model->ep_details($user_id);
+    //         $data['ep_id'] = $ep_details['ep_id'];
+
+    //         $this->load->view('internal/templates/header', $data);
+    //         $this->load->view('internal/templates/sidenav');
+    //         $this->load->view('internal/templates/topbar');
+    //         $this->load->view('external/rd_projects_view');
+    //         $this->load->view('internal/templates/footer');
+    //     } else {
+    //         $data['ep_id'] = '';
+    //         // var_dump($eps);
+    //         // die;
+    //         $this->load->view('external/templates/header', $data);
+    //         $this->load->view('external/rd_projects_view', $data);
+    //         $this->load->view('external/templates/footer', $data);
+    //     }
+    // }
 }

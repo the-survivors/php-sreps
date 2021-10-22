@@ -15,11 +15,11 @@
 .table-striped {
     color: black;
 }
-img {
+.img_item {
     transition:transform 0.25s ease;
 }
 
-img:hover {
+.img_item:hover {
     -webkit-transform:scale(2.0);
     transform:scale(2.0);
 }
@@ -33,7 +33,7 @@ img:hover {
 <body id="page-top">
 
     <!-- Page Wrapper -->
-<div id="wrapper">
+    <div id="wrapper">
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -46,7 +46,7 @@ img:hover {
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 pt-4 mb-0 text-gray-800">Items Running Low on Stock</h1>
+                    <h1 class="h3 mt-5 mb-2 font-weight-bold" style="color: black">Items Running Low on Stock</h1>
                 </div>
 
                 <!-- Breadcrumb -->
