@@ -164,9 +164,11 @@ class Sales extends CI_Controller
 			} else {
 				$style = '';
 			}
+			$item_pic = '<img class="img_item" src="'.base_url("assets/img/items/").$r->item_pic.'" style="width: 50px; height: 50px; object-fit:contain;">';
+
 			$sale_row_html .= '<tr ' . $style . '>
 								<td>' . $counter . '</td>
-								<td>' . $r->item_id . '</td>
+								<td>' . $item_pic . '</td>
 								<td>' . $r->item_subcategory_name . '</td>
 								<td>' . $r->item_name . '</td>
 								<td>' . $r->sale_item_quantity . '</td>
@@ -177,6 +179,14 @@ class Sales extends CI_Controller
 
 		$output = '
 		<style>
+			.img_item {
+				transition:transform 0.25s ease;
+			}
+			
+			.img_item:hover {
+				-webkit-transform:scale(2.0);
+				transform:scale(2.0);
+			}
 		</style>
 		<div class="table-responsive mb-4">
 			<table id="table_view_sale" class="table table-striped">
