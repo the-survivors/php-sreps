@@ -56,7 +56,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "dashboard") echo 'active'; ?>"  href="<?=base_url('items/Items');?>">
+            <a class="nav-link <?php if ($selected == "dashboard") echo 'active'; ?>"  href="<?=base_url('users/Dashboard/Manager');?>">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
             </a>

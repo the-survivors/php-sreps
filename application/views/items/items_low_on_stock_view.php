@@ -54,7 +54,7 @@
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                                <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">Items Running Low on Stock</li>
                         </ol>
@@ -62,7 +62,7 @@
                     <!-- Employee Dashboard -->
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                            <a type="button" href="<?= base_url('');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
+                            <a type="button" href="<?= base_url('users/Dashboard/Employee');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
                         </div>
                     </div>
                 </div>
