@@ -1,8 +1,8 @@
 <!-- Footer -->
 <footer class="sticky-footer">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; iJEES - Interactive Joint Education Employability System 2021</span>
+                    <div class="copyright text-center my-auto" style="color:black">
+                        <span><b> &copy; People Health Pharmacy - SRePS</b></span>
                     </div>
                 </div>
 </footer>

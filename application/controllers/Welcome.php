@@ -39,12 +39,11 @@ class Welcome extends CI_Controller {
 		$this->load->view('users/login_view');
 		$this->load->view('internal_templates/footer');
 
-        $this->load->view('external_templates/header');
+		$data['title'] = 'SRePS | Manager Dashboard';
+        $this->load->view('external_templates/header', $data);
         $this->load->view('external_templates/topnav');
-        
-		// $this->load->view('template_view');
-		
-		$this->load->view('users/employee_dashboard_view');
+        	
+		$this->load->view('users/manager_dashboard_view');
         $this->load->view('external_templates/footer');
 	}
 }
