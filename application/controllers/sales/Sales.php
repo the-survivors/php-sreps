@@ -10,17 +10,22 @@ class Sales extends CI_Controller
 			'sales_model'
 		]);
 		date_default_timezone_set("Asia/Kuala_Lumpur");
+
+		if (!$this->session->userdata('user_id') || !$this->session->userdata('user_role')) {
+			redirect('users/login/verify_users/');
+		}
+		$users['user_role'] = $this->session->userdata('user_role');
+
+		// check user role is IT
+		if ($users['user_role'] == "IT") {
+			redirect('items/Items');
+		}
 	}
 
 	public function index()
 	{
-		$this->session->set_userdata('user_id', 1);
-		$this->session->set_userdata('user_fname', 'Regis');
-		$this->session->set_userdata('user_lname', 'Thong');
-		$this->session->set_userdata('user_role', 'manager');
-
 		//directed to monthly sales if the user is the manager
-		if ($this->session->userdata('user_role') == 'manager') {
+		if ($this->session->userdata('user_role') == 'Manager') {
 			$this->daily_sales_list(date('Y-m-d'));
 		}
 		//directed to sales list page with if the user is a staff
@@ -28,6 +33,7 @@ class Sales extends CI_Controller
 			$data['title'] = 'Sales';
 			$data['include_js'] = 'sales_list';
 			$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
+			$data['selected'] = 'sales';
 
 			//loading views and passing data to view
 			$this->load->view('internal_templates/header', $data);
@@ -225,6 +231,7 @@ class Sales extends CI_Controller
 		$data['sales_item_data'] = $this->sales_model->select_sales_item($sale_id);
 		$data['no_sales_item_data'] = count($this->sales_model->select_sales_item($sale_id));
 		$data['sale_id'] = $sale_id;
+		$data['selected'] = 'sales';
 
 		//loading views and passing data to view
 		$this->load->view('internal_templates/header', $data);
@@ -296,12 +303,13 @@ class Sales extends CI_Controller
 	public function daily_sales_list($date)
 	{
 		//check if the user is the manager
-		if ($this->session->userdata('user_role') != 'manager') {
+		if ($this->session->userdata('user_role') != 'Manager') {
 			redirect('sales/sales/');
 		}
 
 		$data['title'] = 'Sales';
-		$data['selected'] = 'daily';
+		$data['selected'] = 'sales';
+		$data['selected_period'] = 'daily';
 		$data['sales_data'] = $this->sales_model->select_daily_sales($date);
 		$data['date'] = $date;
 		$data['include_js'] = 'sales_daily';
@@ -318,7 +326,7 @@ class Sales extends CI_Controller
 	{
 
 		//check if the user is the manager
-		if ($this->session->userdata('user_role') != 'manager') {
+		if ($this->session->userdata('user_role') != 'Manager') {
 			redirect('sales/sales/');
 		}
 
@@ -329,7 +337,8 @@ class Sales extends CI_Controller
 		}
 
 		$data['title'] = 'Sales';
-		$data['selected'] = 'weekly';
+		$data['selected'] = 'sales';
+		$data['selected_period'] = 'weekly';
 		$data['sales_data'] = $this->sales_model->select_weekly_sales($start_date, $end_date);
 		$data['start_date'] = $start_date;
 		$data['end_date'] = $end_date;
@@ -346,12 +355,13 @@ class Sales extends CI_Controller
 	public function monthly_sales_list($month = 0, $year = 0)
 	{
 		//check if the user is the manager
-		if ($this->session->userdata('user_role') != 'manager') {
+		if ($this->session->userdata('user_role') != 'Manager') {
 			redirect('sales/sales/');
 		}
 
 		$data['title'] = 'Sales';
-		$data['selected'] = 'monthly';
+		$data['selected'] = 'sales';
+		$data['selected_period'] = 'monthly';
 		$data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
 		$data['month'] = $month;
 		$data['year'] = $year;

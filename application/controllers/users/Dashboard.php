@@ -18,19 +18,15 @@ class Dashboard extends CI_Controller
             if ($users['user_role'] == "IT") {
                 redirect('items/Items');
             }
-            // check user role is Manager
-            else if ($users['user_role'] == "Manager") {
-                $this->Manager();
-            }
-            // check user role is Employee
-            else {
-                $this->Employee();
-            }
         }
     }
 
     public function Employee()
     {
+        if ($this->session->userdata('user_role') == "Manager") {
+            redirect('users/login/verify_users');
+        }
+
         $data['title'] = 'Employee | Dashboard';
         $data['include_js'] = 'employee_dashboard';
         $data['selected'] = 'dashboard';
@@ -55,6 +51,10 @@ class Dashboard extends CI_Controller
 
     public function Manager()
     {
+        if ($this->session->userdata('user_role') == "Employee") {
+            redirect('users/login/verify_users');
+        }
+
         $data['title'] = 'Manager | Dashboard';
         $data['include_js'] = 'manager_dashboard';
         $data['selected'] = 'dashboard';

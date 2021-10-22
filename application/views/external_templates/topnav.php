@@ -64,7 +64,7 @@
         </li>
 
         <li class="nav-item px-2">
-            <a class="nav-link <?php  if ($selected == 'sales') echo 'active'; ?>" href="<?= base_url('sales/sales/items_low_on_stock'); ?>">Sales</a>
+            <a class="nav-link <?php  if ($selected == 'sales') echo 'active'; ?>" href="<?= base_url('sales/sales/'); ?>">Sales</a>
         </li>
 
         <li class="nav-item px-2">

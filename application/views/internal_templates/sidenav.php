@@ -3,6 +3,9 @@
         font-size: 1.1rem;
         font-weight: 600;
     }
+    .nav-link:hover, .nav-link.active, .fas:hover, .fas.active {
+        color: #4D252A !important;
+    }
 
 </style>
 
@@ -54,15 +57,15 @@
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <a class="nav-link <?php if ($selected == "dashboard") echo 'active'; ?>"  href="<?=base_url('users/Dashboard/Manager');?>">
-            <i class="fas fa-tachometer-alt"></i>
+            <i class="fas fa-tachometer-alt <?php if ($selected == "dashboard") echo 'active'; ?>"></i>
             <span>Dashboard</span>
             </a>
         </li>
 
         <!-- Nav Item - Sales >-->
         <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "sales") echo 'active'; ?>" href="<?=base_url('items/Items/items_categories');?>">
-            <i class="fas fa-dollar-sign"></i>
+            <a class="nav-link <?php if ($selected == "sales") echo 'active'; ?>" href="<?=base_url('sales/sales');?>">
+            <i class="fas fa-dollar-sign <?php if ($selected == "sales") echo 'active'; ?>"></i>
                 <span>Sales</span>
             </a>
         </li>

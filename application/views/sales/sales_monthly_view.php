@@ -94,9 +94,9 @@
                             <div class="d-flex justify-content-end">
                                 <div class="btn-group" role="group" aria-label="page_chooser" ">
                                     <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
-                                    <a style="color:white; <?php if ($selected == 'daily') {echo 'background:#e04a51 !important ';} ?>" id = "period1" type="button" href="<?php echo base_url('sales/sales/daily_sales_list/' . date('Y-m-d')); ?>" class="btn btn-lg period">Daily</a>
-                                    <a style="color:white; <?php if ($selected == 'weekly') {echo 'background:#e04a51 !important ';} ?>" id = "period2" type="button" href="<?php echo base_url('sales/sales/weekly_sales_list/' . date('Y-m-d').'/40'); ?>" class="btn btn-lg period">Weekly</a>
-                                    <a style="color:white; <?php if ($selected == 'monthly') {echo 'background:#e04a51 !important ';} ?>" id = "period3" type="button" class="btn btn-lg period">Monthly</a>
+                                    <a style="color:white; <?php if ($selected_period == 'daily') {echo 'background:#e04a51 !important ';} ?>" id = "period1" type="button" href="<?php echo base_url('sales/sales/daily_sales_list/' . date('Y-m-d')); ?>" class="btn btn-lg period">Daily</a>
+                                    <a style="color:white; <?php if ($selected_period == 'weekly') {echo 'background:#e04a51 !important ';} ?>" id = "period2" type="button" href="<?php echo base_url('sales/sales/weekly_sales_list/' . date('Y-m-d').'/40'); ?>" class="btn btn-lg period">Weekly</a>
+                                    <a style="color:white; <?php if ($selected_period == 'monthly') {echo 'background:#e04a51 !important ';} ?>" id = "period3" type="button" class="btn btn-lg period">Monthly</a>
                                 </div>
                             </div>
                         </div>
