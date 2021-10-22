@@ -1,3 +1,14 @@
+<style>
+    .nav-link {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .nav-link:hover, .nav-link.active, .fas:hover, .fas.active {
+        color: #4D252A !important;
+    }
+</style>
+
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -19,42 +30,62 @@
     
     <php switch ($user_role) { 
 
-        case "IT": ?> -->
-
-            <!-- Nav Item - Dashboard <php echo base_url('');?> -->
-            <!-- <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span style="color: black">Dashboard</span>
-                </a>
-            </li>
-
-            <!- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
-
-            <div class="pt-2 sidebar-heading">Master Data</div>
-
-             <!-- Nav Item - Items -->
-             <li class="nav-item">
-                <a class="nav-link" href="<?=base_url('items/Items');?>">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Items</span>
-                </a>
-            </li>
-
-            <!-- Nav Item -Item Categories >-->
-            <li class="nav-item">
-                <a class="nav-link" href="<?=base_url('items/Items/items_categories');?>">
-                <i class="fas fa-tags"></i>
-                    <span>Item Categories</span>
-                </a>
-            </li>
+        case "manager": ?> -->
 
         <!-- <php break; 
         
         // Admin
         default: ?> -->
-    
+
+        <!-- Nav Item - Items -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "items") echo 'active'; ?>"  href="<?=base_url('items/Items/');?>">
+            <i class="fas fa-shopping-cart <?php if ($selected == "items") echo 'active'; ?>"></i>
+                <span>Items</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Item Categories -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "items_categories") echo 'active'; ?>" href="<?=base_url('items/Items/items_categories');?>">
+            <i class="fas fa-tags <?php if ($selected == "items_categories") echo 'active'; ?>"></i>
+                <span>Item Categories</span>
+            </a>
+        </li>
+
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "dashboard") echo 'active'; ?>"  href="<?=base_url('items/Items');?>">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Sales >-->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "sales") echo 'active'; ?>" href="<?=base_url('items/Items/items_categories');?>">
+            <i class="fas fa-dollar-sign"></i>
+                <span>Sales</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Inventory >-->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "inventory") echo 'active'; ?>"  href="<?=base_url('items/Items/items_categories');?>">
+            <i class="fas fa-dolly-flatbed"></i>
+                <span>Inventory</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Reports >-->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "reports") echo 'active'; ?>"  href="<?=base_url('items/Items/items_categories');?>">
+            <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
     <!-- <php break;
 
     } ?> -->

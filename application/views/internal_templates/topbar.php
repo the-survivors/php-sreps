@@ -3,10 +3,6 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 
 <style>
-.user_logo {
-    width: 60px;
-    height: 60px;
-}
 #nav_line {
     border: none;
     border-left: 1px solid hsla(200, 10%, 50%, 100);
@@ -40,7 +36,7 @@
                                    
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!-- <span class="mr-2 d-none d-lg-inline text-gray-800 font-weight-bold"><= $this->session->userdata['user_role']; ?></span> -->
-                            <img class="rounded-circle user_logo" src="<?= base_url('assets/img/php-logo.png') ?>">
+                            <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
                     </a>
                     
                     <!-- Dropdown - Logout -->

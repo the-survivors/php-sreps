@@ -81,18 +81,9 @@ $('#edit_item_category').on('show.bs.modal', function(e) {
 
                 <!-- Breadcrumb -->
                 <div class="row" >
-                    <div class="breadcrumb-wrapper col-xl-8">
-                        <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Item Categories</li>
-                        </ol>
-                    </div>
-                    <div class = "col-xl-4">
-                        <div class = "d-flex justify-content-end">
-                        <button type="button" class="btn" style="background-color: #FF545D; color: white;" data-toggle="modal" data-target="#add_item_category">Add New Item Category<i class="fas fa-plus pl-2"></i></button>
-                        <!-- <a type="button" href = "<= base_url('items/Items/add_item_category'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item Category<i class="fas fa-plus pl-2"></i></a> -->
+                    <div class = "col-xl-12">
+                        <div class = "d-flex justify-content-end mb-4">
+                        <button type="button" class="btn" style="background-color: #FF545D; color: white;" data-toggle="modal" data-target="#add_item_category">Add Item Category<i class="fas fa-plus pl-2"></i></button>
                         </div>
                     </div>
                 </div>
@@ -131,7 +122,7 @@ $('#edit_item_category').on('show.bs.modal', function(e) {
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header" style = "background-color:#e56b6f;">
-                            <h5 class="modal-title" id="add_item_categoryLabel" style ="color:white;">Add New Item Category</h5>
+                            <h5 class="modal-title" id="add_item_categoryLabel" style ="color:white;">Add Item Category</h5>
                             <button style ="color:white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>

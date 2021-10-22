@@ -54,10 +54,7 @@ label{
                     <div class="breadcrumb-wrapper col-xl-9">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items'); ?>"><i class="fas fa-tachometer-alt"></i> Home</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items'); ?>"></i>Items</a>
+                                <a href="<?= base_url('items/Items'); ?>"><i class="fas fa-shopping-cart mr-2"></i></i>Items</a>
                             </li>
                             <li class="breadcrumb-item active">Edit an Item</li>
                         </ol>

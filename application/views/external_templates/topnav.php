@@ -9,7 +9,7 @@
     }
 
     .nav-link:hover, .nav-link.active {
-        color: rgba(255, 237, 109, 1) !important;
+        color: #4D252A !important;
     }
 
     .dropdown-item {
@@ -51,54 +51,30 @@
     <!-- Logo Image-->
     <!-- <nav class="navbar navbar-light bg-light">   -->
     <a class="navbar-brand py-0 " href="<?php echo base_url('external/homepage'); ?>">
-        <img src="<?php echo base_url('assets/img/iJEES_Logo.png'); ?>" height="100" alt="">
+        <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
     </a>
     <!-- </nav> -->
 
     <!-- Float left Group -->
     <ul class="navbar-nav ml-auto">
 
-    <li class="nav-item px-2">
-            <a class="nav-link active" href="<?php echo base_url('items/Items/items_low_on_stock'); ?>">Low on Stock</a>
+        <li class="nav-item px-2">
+            <a class="nav-link <?php  if ($selected == 'dashboard') echo 'active'; ?>" href="<?= base_url('items/Items/items_low_on_stock'); ?>">Dashboard</a>
         </li>
 
         <li class="nav-item px-2">
-            <a class="nav-link" href="<?= base_url('items/Items/items_in_category/1'); ?>">Test</a>
+            <a class="nav-link <?php  if ($selected == 'sales') echo 'active'; ?>" href="<?= base_url('items/Items/items_low_on_stock'); ?>">Sales</a>
         </li>
 
-        <!-- If user is sign in. Will display user name and user logo -->
-        <?php if ($this->session->has_userdata('has_login')) { ?>
-            <!------------------------------------CHANGE THIS LATER------------------------------------------>
-            <!-- Nav Item - User Information -->
-
-            <hr id="nav_line">
-
-            <li class="nav-item dropdown no-arrow pl-1">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline small pr-2" style="color: white; font-weight:700; font-size:0.9em;"><?php echo $this->session->userdata('user_fname'); ?></span>
-                    <img class="img-profile rounded-circle" src="<?= base_url('assets/img/chat_user/profile_pic.png'); ?>">
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" style="background-color: #6B9080;" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="<?= base_url('user/profile'); ?>" style="color: white;">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Profile
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a onclick="logout()" class="dropdown-item" style="color: white; cursor: pointer;">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Log Out
-                    </a>
-                </div>
-            </li>
-            <!-- If user is not sign in -->
-        <?php } else { ?>
-            <li class="nav-item pl-1">
-                <a class="nav-link" href="<?= base_url('user/login/Auth/login'); ?>">
-                    <button type="button" id="register_btn" class="btn" style="background-color: white; color: #6B9080; font-size: 0.9em; border-radius:15px; font-weight: 800;">Login / Register</button>
-                </a>
-            </li>
-        <?php } ?>
+        <li class="nav-item px-2">
+            <a class="nav-link <?php  if ($selected == 'items') echo 'active'; ?>" href="<?= base_url('items/Items/items_in_category/1'); ?>">Items</a>
+        </li>
+            
+        <li class="nav-item pl-1">
+            <a class="nav-link" onclick="logout()"?>
+                <button type="button" id="register_btn" class="btn" style="background-color: white; color: #e56b6f; font-size: 0.9em; border-radius:15px; font-weight: 800;"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Logout</button>
+            </a>
+        </li>
 
     </ul>
 

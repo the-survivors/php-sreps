@@ -15,11 +15,11 @@
 .table-striped {
     color: black;
 }
-img {
+.img_item {
     transition:transform 0.25s ease;
 }
 
-img:hover {
+.img_item:hover {
     -webkit-transform:scale(2.0);
     transform:scale(2.0);
 }
@@ -66,23 +66,15 @@ img:hover {
                 <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
                     <h1 class="h3 mb-0 text-gray-800">Items</h1>
                 </div>
 
                 <!-- Breadcrumb -->
                 <div class="row" >
-                    <div class="breadcrumb-wrapper col-xl-8">
-                        <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Items</li>
-                        </ol>
-                    </div>
-                    <div class = "col-xl-4">
-                        <div class = "d-flex justify-content-end">
-                        <a type="button" href = "<?= base_url('items/Items/add_item'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add New Item<i class="fas fa-plus pl-2"></i></a>
+                    <div class = "col-xl-12">
+                        <div class = "d-flex justify-content-end mb-4">
+                        <a type="button" href = "<?= base_url('items/Items/add_item'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add Item<i class="fas fa-plus pl-2"></i></a>
                         </div>
                     </div>
                 </div>

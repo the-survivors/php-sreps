@@ -70,17 +70,14 @@
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tachometer-alt"></i> Home</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories');?>">Item Categories</a>
+                                <a href="<?= base_url('items/Items/items_categories');?>"><i class="fas fa-tags mr-2"></i>Item Categories</a>
                             </li>
                             <li class="breadcrumb-item active"><?= $item_category_data->item_category_name ?></li>
                         </ol>
                     </div>
                     <div class = "col-xl-4">
                         <div class = "d-flex justify-content-end">
-                            <button type="button" class="btn" style="background-color: #FF545D; color: white;" data-toggle="modal" data-target="#add_item_subcategory">Add New Item Subcategory<i class="fas fa-plus pl-2"></i></button>
+                            <button type="button" class="btn" style="background-color: #FF545D; color: white;" data-toggle="modal" data-target="#add_item_subcategory">Add Item Subcategory<i class="fas fa-plus pl-2"></i></button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +116,7 @@
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header" style = "background-color:#e56b6f;">
-                            <h5 class="modal-title" id="add_item_subcategoryLabel" style ="color:white;">Add New Item Subcategory</h5>
+                            <h5 class="modal-title" id="add_item_subcategoryLabel" style ="color:white;">Add Item Subcategory</h5>
                             <button style ="color:white;" type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>

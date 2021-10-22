@@ -14,6 +14,7 @@ class Items extends CI_Controller
     {
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
+        $data['selected'] = 'items';
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -78,7 +79,7 @@ class Items extends CI_Controller
         <table class="table table-striped" style = "border:0;">
             <tbody>
                 <tr style="text-align:center">
-                    <td colspan="2"><img src="'.base_url("assets/img/items/").$item_details->item_pic.'" style="width: 250px; height: 150px; object-fit:contain;">
+                    <td colspan="2"><img class="img_item" src="'.base_url("assets/img/items/").$item_details->item_pic.'" style="width: 250px; height: 150px; object-fit:contain;">
                     </td>  
                 </tr>
                 <tr>
@@ -127,11 +128,12 @@ class Items extends CI_Controller
 
     function add_item()
     {
-        $data['title'] = 'PHP-SRePS | Add New Item';
+        $data['title'] = 'PHP-SRePS | Add Item';
         $data['include_js'] = 'items_list';
         $data['item_data'] = $this->items_model->select_all_items();
         $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
         $data['item_categories_data'] = $this->items_model->select_all_item_categories();
+        $data['selected'] = 'items';
 
 		$this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -183,6 +185,7 @@ class Items extends CI_Controller
         $data['item_data'] = $this->items_model->select_item($item_id); 
         $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
         $data['item_categories_data'] = $this->items_model->select_all_item_categories();
+        $data['selected'] = 'items';
 
         //var_dump($item_id);
         //die;
@@ -257,6 +260,7 @@ class Items extends CI_Controller
     public function items_categories(){
         $data['title'] = 'PHP-SRePS | Item Categories';
         $data['include_js'] = 'items_list';
+        $data['selected'] = 'items_categories';
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -373,6 +377,7 @@ class Items extends CI_Controller
         $data['title'] = 'PHP-SRePS | Item Subcategories';
         $data['include_js'] = 'items_list';
         $data['item_category_data'] = $this->items_model->select_item_category($item_category_id);
+        $data['selected'] = 'items_categories';
        
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -497,6 +502,7 @@ class Items extends CI_Controller
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['item_subcategory_data'] = $this->items_model->select_item_subcategory($item_subcategory_id);
+        $data['selected'] = 'items_categories';
       
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -545,6 +551,7 @@ class Items extends CI_Controller
         $data['include_js'] = 'items_list';
         $data['items_data'] = $this->items_model->select_all_items_in_category($item_category_id);
         $data['items_category_data'] = $this->items_model->select_item_category($item_category_id);
+        $data['selected'] = 'items';
        
         //var_dump( $this->items_model->select_item_category());
         //die;
@@ -567,7 +574,7 @@ class Items extends CI_Controller
 
         foreach($items_in_category as $item) {
 
-            $item_pic = '<img src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
+            $item_pic = '<img class="img_item" src="'.base_url("assets/img/items/").$item->item_pic.'" style="width: 150px; height: 150px; object-fit:contain;">';
             $view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" style="color: black" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye"></span></button></span>';
             $restock_level = '<div class="badge badge-dark text-wrap" style="font-size: 0.9rem">'.$item->item_restock_level.'</div>';
 
@@ -599,6 +606,7 @@ class Items extends CI_Controller
         $data['title'] = 'PHP-SRePS | Items Running Low on Stock';
         $data['include_js'] = 'items_list';
         $data['items_data'] = $this->items_model->select_all_items_low_on_stock();
+        $data['selected'] = 'sales';
        
         // var_dump($this->items_model->select_all_items_low_in_stock());
         // die;

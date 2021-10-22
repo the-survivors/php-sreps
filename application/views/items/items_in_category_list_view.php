@@ -15,11 +15,11 @@
 .table-striped {
     color: black;
 }
-img {
+.img_item {
     transition:transform 0.25s ease;
 }
 
-img:hover {
+.img_item:hover {
     -webkit-transform:scale(2.0);
     transform:scale(2.0);
 }

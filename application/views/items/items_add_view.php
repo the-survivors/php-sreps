@@ -46,7 +46,7 @@ label{
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add New Item</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Add Item</h1>
                 </div>
 
                 <!-- Breadcrumb -->
@@ -54,12 +54,9 @@ label{
                     <div class="breadcrumb-wrapper col-xl-9">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items'); ?>"><i class="fas fa-tachometer-alt"></i> Home</a>
+                                <a href="<?= base_url('items/Items'); ?>"><i class="fas fa-shopping-cart mr-2"></i>Items</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items'); ?>"></i>Items</a>
-                            </li>
-                            <li class="breadcrumb-item active">Add New Item</li>
+                            <li class="breadcrumb-item active">Add Item</li>
                         </ol>
                     </div>
                     <div class = "col-xl-3">
