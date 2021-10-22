@@ -34,7 +34,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Card 1 - Total Sales -->
