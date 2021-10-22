@@ -39,7 +39,27 @@ class Login extends CI_Controller
         
         if($this->form_validation->run() ==false)
         {
-           redirect('Welcome');
+            $base_url = base_url();
+            $data['title'] = 'All Users | Login';
+            $data['bootstrap_css'] = '<link rel="icon" type="image/png" href="'.$base_url.'login/images/icons/favicon.ico"/>
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/bootstrap/css/bootstrap.min.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/animate/animate.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/css-hamburgers/hamburgers.min.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/select2/select2.min.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/css/util.css">
+                <link rel="stylesheet" type="text/css" href="'.$base_url.'login/css/main.css">';
+    
+            $data['bootstrap_js'] = '<script src="'.$base_url.'login/vendor/jquery/jquery-3.2.1.min.js"></script>
+                <script src="'.$base_url.'login/vendor/bootstrap/js/popper.js"></script>
+                <script src="'.$base_url.'login/vendor/bootstrap/js/bootstrap.min.js"></script>
+                <script src="'.$base_url.'login/vendor/select2/select2.min.js"></script>
+                <script src="'.$base_url.'login/vendor/tilt/tilt.jquery.min.js"></script>
+                <script src="'.$base_url.'login/js/main.js"></script>';	
+    
+            $this->load->view('internal_templates/header', $data);
+            $this->load->view('users/login_view');
+            $this->load->view('internal_templates/footer');
         }
         else
         {
@@ -68,6 +88,7 @@ class Login extends CI_Controller
                     'user_email'=>$users['user_email'],
                     'user_role'=>$users['user_role'],
                     'user_id'=>$users['user_id'],
+                    'has_login'=>1,
                 ];
                 
                 $this->session->set_userdata($data);
@@ -98,5 +119,18 @@ class Login extends CI_Controller
             Account does not exist!</div>');
             redirect('users/login/verify_users');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('user_email');
+        $this->session->unset_userdata('user_fname');
+        $this->session->unset_userdata('user_lname');
+        $this->session->unset_userdata('user_role');
+        $this->session->unset_userdata('has_login');
+        // $this->session->set_flashdata('message','<div class="alert alert-success" role="alert" id="alert_message">
+        // You have been log out!</div>');
+        redirect('users/login/verify_users');
     }
 }

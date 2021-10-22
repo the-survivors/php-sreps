@@ -3,14 +3,14 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 
 <style>
-#nav_line {
-    border: none;
-    border-left: 1px solid hsla(200, 10%, 50%, 100);
-    background-color: grey;
-    height: auto;
-    width: 1px;
-    margin-left: 4px;
-}
+    #nav_line {
+        border: none;
+        border-left: 1px solid hsla(200, 10%, 50%, 100);
+        background-color: grey;
+        height: auto;
+        width: 1px;
+        margin-left: 4px;
+    }
 </style>
 
 <!-- <php $user_role = $this->session->userdata['user_role'];?> -->
@@ -20,41 +20,34 @@
 
     <!-- Main Content -->
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #E4C2C1;">
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #E4C2C1;">
 
-            <!-- Sidebar Toggle (Topbar) -->
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                <i class="fa fa-bars"></i>
-            </button>
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
 
-            <!-- Topbar Navbar -->
-            <ul class="navbar-nav ml-auto">
-                
-                <!-- Nav Item - User Information -->
-                <li class="nav-item dropdown no-arrow">
-                                   
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <!-- <span class="mr-2 d-none d-lg-inline text-gray-800 font-weight-bold"><= $this->session->userdata['user_role']; ?></span> -->
-                            <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
-                    </a>
-                    
-                    <!-- Dropdown - Logout -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a onclick="logout()" style = "cursor: pointer;" class="dropdown-item">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Log Out
-                        </a>
-                    </div>
-                </li>
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item pl-1">
+                <a class="nav-link" onclick="logout()" ?>
+                    <button type="button" id="register_btn" class="btn" style="background-color: white; color: #e56b6f; font-size: 0.9em; border-radius:15px; font-weight: 800;"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Logout</button>
+                </a>
+            </li>
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link">
+                    <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
+                </a>
+            </li>
+        </ul>
 
-            </ul>
+    </nav>
+    <!-- End of Topbar -->
 
-        </nav>
-        <!-- End of Topbar -->
-
-        <script>
-            function logout(){
+    <script>
+        function logout() {
 
             Swal.fire({
                 text: 'Are you sure you want to Log Out?',
@@ -65,8 +58,8 @@
                 confirmButtonText: 'Log Out'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "<?php echo base_url('user/login/Auth/logout'); ?>";
+                    window.location.href = "<?php echo base_url('users/login/logout'); ?>";
                 }
             })
-            }
-        </script>
+        }
+    </script>

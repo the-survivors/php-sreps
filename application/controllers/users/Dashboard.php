@@ -9,9 +9,9 @@ class Dashboard extends CI_Controller
         $this->load->model(['sales_model', 'items_model']);
 
         if (!$this->session->userdata('user_id')||!$this->session->userdata('user_role')){  
-            redirect('users/login/Auth/login');
+            redirect('users/login/verify_users/');
         }
-        if ($this->session->has_userdata('has_login') && $this->session->userdata('user_role') != "Staff") {
+        if ($this->session->has_userdata('has_login') && $this->session->userdata('user_role') != "Employee") {
             $users['user_role'] = $this->session->userdata('user_role');
 
             // check user role is IT
@@ -20,11 +20,11 @@ class Dashboard extends CI_Controller
             }
             // check user role is Manager
             else if ($users['user_role'] == "Manager") {
-                redirect('users/Dashboard/Manager');
+                $this->Manager();
             }
             // check user role is Employee
             else {
-                redirect('users/Dashboard/Employee');
+                $this->Employee();
             }
         }
     }

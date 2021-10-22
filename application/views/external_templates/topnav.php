@@ -64,7 +64,7 @@
         </li>
 
         <li class="nav-item px-2">
-            <a class="nav-link <?php  if ($selected == 'sales') echo 'active'; ?>" href="<?= base_url('items/Items/items_low_on_stock'); ?>">Sales</a>
+            <a class="nav-link <?php  if ($selected == 'sales') echo 'active'; ?>" href="<?= base_url('sales/sales/items_low_on_stock'); ?>">Sales</a>
         </li>
 
         <li class="nav-item px-2">
@@ -97,7 +97,7 @@
                 confirmButtonText: 'Log Out'
                 }).then((result) => {
                     if(result.isConfirmed) {
-                        window.location.href = "<?php echo base_url('user/login/Auth/logout'); ?>"; }
+                        window.location.href = "<?php echo base_url('users/login/logout'); ?>"; }
                         })
                         }
         </script>

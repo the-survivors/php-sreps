@@ -23,7 +23,7 @@
                         <div class="container-login100">
                             <div class="wrap-login100">
                                 <div class="login100-pic js-tilt" data-tilt>
-                                    <img src="assets/img/logo-circle.png" alt="IMG">
+                                    <img src="<?=base_url('assets/img/logo-circle.png'); ?>" alt="IMG">
                                 </div>
 
                                 <form class="user" method="post" action=" <?=base_url('users/login/verify_users'); ?>">

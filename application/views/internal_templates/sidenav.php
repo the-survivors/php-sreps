@@ -4,9 +4,6 @@
         font-weight: 600;
     }
 
-    .nav-link:hover, .nav-link.active, .fas:hover, .fas.active {
-        color: #4D252A !important;
-    }
 </style>
 
 <body id="page-top">
