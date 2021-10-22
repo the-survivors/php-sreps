@@ -13,13 +13,32 @@ class Login extends CI_Controller
 
     public function verify_users()
     {
+
+         //Dont allow user to access login page
+         if ($this->session->userdata('has_login') ){  
+
+            // check user role is  IT
+            if($this->session->userdata('user_role') =="IT")
+            {
+                redirect('items/Items');
+            }
+            // check user role is  Manager
+            else if ($this->session->userdata('user_role')=="Manager")
+            {
+                redirect('users/Dashboard/Manager');
+            }
+            // check user role is Employee
+            else
+            {
+                redirect('users/Dashboard/Employee');
+            }
+        }
+
         $this->form_validation->set_rules('user_email','Email','trim|required|valid_email');
         $this->form_validation->set_rules('user_password','Password','trim|required');
         
         if($this->form_validation->run() ==false)
         {
-            
-           // $this->load->view('users/login_view');
            redirect('Welcome');
         }
         else
@@ -53,33 +72,23 @@ class Login extends CI_Controller
                 
                 $this->session->set_userdata($data);
         
-                // check user role is IT-admin
+                // check user role is IT
                 if($users['user_role']=="IT-admin")
                 {
-                    //redirect('internal/admin_panel/Admin_dashboard');
-                    echo "Hello, IT-admin";
+                    redirect('items/Items');
                 }
 
-                // check user role is  Manager
+                // check user role is Manager
                 else if ($users['user_role']=="Manager")
                 {
-                    //redirect('internal/level_2/education_agent/Ea_dashboard');
                     redirect('users/Dashboard/Manager');
                 }
-
-                //check user role is staff
+                //check user role is Employee
                 else 
                 {
                     redirect('users/Dashboard/Employee');
                 }
             }
-                // if password is incorrect
-                else
-                {
-                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
-                    Wrong password!</div>');
-                    redirect('users/login/verify_users');
-                }
         }
 
         // if user account does not exist

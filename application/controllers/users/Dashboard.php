@@ -6,29 +6,27 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model([
-            'sales_model', 'items_model'
+        $this->load->model(['sales_model', 'items_model']);
 
-        ]);
+        if (!$this->session->userdata('user_id')||!$this->session->userdata('user_role')){  
+            redirect('users/login/Auth/login');
+        }
+        if ($this->session->has_userdata('has_login') && $this->session->userdata('user_role') != "Staff") {
+            $users['user_role'] = $this->session->userdata('user_role');
 
-        // if ($this->session->has_userdata('has_login') && $this->session->userdata('user_role') != "Staff") {
-        //     $users['user_role'] = $this->session->userdata('user_role');
-
-        //     if ($users['user_role'] == "IT-admin") {
-        //         //redirect('internal/admin_panel/Admin_dashboard');
-        //         echo "Hello, IT-admin";
-        //     }
-
-        //     // check user role is  Manager
-        //     else if ($users['user_role'] == "Manager") {
-        //         //redirect('internal/level_2/education_agent/Ea_dashboard');
-        //         //echo "Hello, Manager";
-        //     }
-        //     // check user role is staff
-        //     else {
-        //         redirect('users/Dashboard/Staff');
-        //     }
-        // }
+            // check user role is IT
+            if ($users['user_role'] == "IT") {
+                redirect('items/Items');
+            }
+            // check user role is Manager
+            else if ($users['user_role'] == "Manager") {
+                redirect('users/Dashboard/Manager');
+            }
+            // check user role is Employee
+            else {
+                redirect('users/Dashboard/Employee');
+            }
+        }
     }
 
     public function Employee()
@@ -47,10 +45,8 @@ class Dashboard extends CI_Controller
    
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date=date('Y-m-d');
-
         // total sales in latest date
         $data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
-      
        
         $this->load->view('internal_templates/header', $data);
         $this->load->view('external_templates/topnav');
@@ -74,7 +70,6 @@ class Dashboard extends CI_Controller
    
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date=date('Y-m-d');
-
         // total sales in latest date
         $data['total_latest_sales'] = $this->sales_model->select_latest_sales($date);
 
@@ -106,18 +101,14 @@ class Dashboard extends CI_Controller
                  $Nov,
                  $Dec
              ];
-
+        
         $this->load->view('internal_templates/header', $data);
-        //$this->load->view('external_templates/topnav');
+        $this->load->view('internal_templates/sidenav');
+        $this->load->view('internal_templates/topbar');
         $this->load->view('users/manager_dashboard_view');
         $this->load->view('internal_templates/footer');
     }
 
-    // public function get_monthly_sales($date1, $date2) //total sales
-    // {
-    //     $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2,'sales','sale_date') ;
-    //     return $total_per_month;
-    // }
     public function get_monthly_sales($date1, $date2) //total sales
     {
         $total_per_month = $this->sales_model->get_monthly_sales($date1, $date2) ;

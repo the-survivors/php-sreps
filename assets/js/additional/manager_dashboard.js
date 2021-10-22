@@ -64,7 +64,7 @@ $(document).ready(function () {
         data: {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sept","Oct","Nov","Dec"],
             datasets: [{
-                label: "Total Sales Price (RM)",
+                label: "Total Sales (RM)",
                 lineTension: 0.3,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
                 borderColor: "rgba(78, 115, 223, 1)",
@@ -92,7 +92,7 @@ $(document).ready(function () {
             scales: {
                 xAxes: [{
                     time: {
-                        unit: 'date'
+                        unit: 'month'
                     },
                     gridLines: {
                         display: false,

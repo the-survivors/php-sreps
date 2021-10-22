@@ -15,7 +15,7 @@
                         <div class="col-xl-6 col-md-6">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between">
-                                <h1 class="h3 mb-0 mt-4 text-gray-800">Employee's Dashboard</h1>
+                                <h1 class="h3 mb-0 mt-4 font-weight-bold" style="color: black">Dashboard</h1>
                             </div>
                         </div>
                         

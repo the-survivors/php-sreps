@@ -29,14 +29,15 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content" style="background-color: #fef2f2">
+            <div id="content">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="row mb-4">
                         <div class="col-xl-6 col-md-6">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between">
-                                <h1 class="h3 mb-0 mt-4 text-gray-800">Manager's Dashboard</h1>
+                                
+                                <h1 class="h3 mb-5 font-weight-bold" style="color: black">Dashboard</h1>
                             </div>
                         </div>
 
@@ -143,7 +144,7 @@
                         <div class="col-xl-12 col-lg-12">
                             <div class="card h-100 shadow mb-4">
                                 <div class="card-header py-3" style="background-color: #e4c2c1">
-                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Total Sales In This Year</div>
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Total Sales In <?=date('Y')?></div>
                                 </div>
 
                                 <div class="card-body">
