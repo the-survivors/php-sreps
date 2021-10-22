@@ -33,8 +33,9 @@ class Dashboard extends CI_Controller
     {
         $data['title'] = 'Employee | Dashboard';
         $data['include_js'] = 'employee_dashboard';
-        $data['selected'] = 'dashboard';
 
+        //total sales
+        $data['total_sales'] = count($this->sales_model->select_all_sales());
         //total items
         $data['total_items'] = count($this->items_model->select_all_items());
         // total items by category
@@ -57,8 +58,9 @@ class Dashboard extends CI_Controller
     {
         $data['title'] = 'Manager | Dashboard';
         $data['include_js'] = 'manager_dashboard';
-        $data['selected'] = 'dashboard';
 
+        //total sales
+        $data['total_sales'] = count($this->sales_model->select_all_sales());
         //total items
         $data['total_items'] = count($this->items_model->select_all_items());
         //total items by category
