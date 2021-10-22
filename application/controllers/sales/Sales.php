@@ -31,6 +31,7 @@ class Sales extends CI_Controller
 
 			//loading views and passing data to view
 			$this->load->view('internal_templates/header', $data);
+			$this->load->view('external_templates/topnav');
 			$this->load->view('sales/sales_list_view');
 			$this->load->view('internal_templates/footer');
 		}
@@ -227,6 +228,7 @@ class Sales extends CI_Controller
 
 		//loading views and passing data to view
 		$this->load->view('internal_templates/header', $data);
+		$this->load->view('external_templates/topnav');
 		$this->load->view('sales/sales_edit_view');
 		$this->load->view('internal_templates/footer');
 	}
@@ -305,6 +307,8 @@ class Sales extends CI_Controller
 		$data['include_js'] = 'sales_daily';
 
 		$this->load->view('internal_templates/header', $data);
+		$this->load->view('internal_templates/sidenav');
+		$this->load->view('internal_templates/topbar');
 		$this->load->view('sales/sales_daily_view');
 		$this->load->view('internal_templates/footer');
 	}
@@ -332,6 +336,8 @@ class Sales extends CI_Controller
 		$data['include_js'] = 'sales_weekly';
 
 		$this->load->view('internal_templates/header', $data);
+		$this->load->view('internal_templates/sidenav');
+		$this->load->view('internal_templates/topbar');
 		$this->load->view('sales/sales_weekly_view');
 		$this->load->view('internal_templates/footer');
 	}
@@ -352,6 +358,8 @@ class Sales extends CI_Controller
 		$data['include_js'] = 'sales_monthly';
 
 		$this->load->view('internal_templates/header', $data);
+		$this->load->view('internal_templates/sidenav');
+		$this->load->view('internal_templates/topbar');
 		$this->load->view('sales/sales_monthly_view');
 		$this->load->view('internal_templates/footer');
 	}

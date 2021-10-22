@@ -30,7 +30,7 @@
     var base_url = "<?php echo base_url(); ?>";
 </script>
 
-<body id="page-top" style="background:#FEF2F2;">
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -42,14 +42,27 @@
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="background:#FEF2F2;">
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Weekly Sales</h1>
+                        <h1 class="h3 font-weight-bold" style="color: black">Weekly Sales</h1>
                     </div>
 
-                    <div class="row my-5">
+                     <!-- Breadcrumn -->
+                     <div class="row">
+                        <div class="breadcrumb-wrapper col-xl-9">
+                            <ol class="breadcrumb" style="background-color:rgba(0, 0, 0, 0);">
+                                <li class="breadcrumb-item">
+                                    <a href="<?php echo base_url(''); ?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Sales</li>
+                                <li class="breadcrumb-item active">Weekly Sales</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
                         <div class="col-xl-9">
                             <div class="" style="background-color:#FFE699; border-radius:10px; width:39.0em; height:auto;">
                                 <div class="px-3 py-2 "> <span style="color:white;">

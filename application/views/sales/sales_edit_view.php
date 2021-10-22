@@ -42,7 +42,7 @@ foreach ($subcategory as $s) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Sales</h1>
+                        <h1 class="h3 mt-5 font-weight-bold" style="color: black">Edit Sales</h1>
                     </div>
 
                     <!-- Breadcrumn -->
@@ -50,7 +50,7 @@ foreach ($subcategory as $s) {
                         <div class="breadcrumb-wrapper col-xl-9">
                             <ol class="breadcrumb" style="background-color:rgba(0, 0, 0, 0);">
                                 <li class="breadcrumb-item">
-                                    <a href="<?php echo base_url(''); ?>"><i class="fas fa-tachometer-alt"></i> Home</a>
+                                    <a href="<?php echo base_url(''); ?>"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="<?= base_url('sales/sales/'); ?>"></i>Sales</a>
