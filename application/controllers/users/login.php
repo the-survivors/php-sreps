@@ -41,7 +41,7 @@ class Login extends CI_Controller
         {
             $base_url = base_url();
             $data['title'] = 'All Users | Login';
-            $data['bootstrap_css'] = '<link rel="icon" type="image/png" href="'.$base_url.'login/images/icons/favicon.ico"/>
+            $data['bootstrap_css'] = '
                 <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/bootstrap/css/bootstrap.min.css">
                 <link rel="stylesheet" type="text/css" href="'.$base_url.'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
                 <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/animate/animate.css">
