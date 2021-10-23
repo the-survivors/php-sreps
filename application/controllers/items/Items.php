@@ -7,18 +7,21 @@ class Items extends CI_Controller
     {
         parent::__construct();
         $this->load->model('items_model');
+
+        // checks if user is signed in
+        if (!$this->session->userdata('user_id') || !$this->session->userdata('user_role')) {
+			redirect('users/login/verify_users/');
+		}
+		$users['user_role'] = $this->session->userdata('user_role');
     }
 
     // --------------------- ITEM --------------------------// 
     public function index()
     {
-        // $user_id = $this->session->userdata('user_id');
-        // $data['user_role'] = $this->session->userdata('user_role');
-        // if ($data['user_role'] == 'Student') {
-        //     // From the User ID, get Student ID  
-        //     $student_details = $this->user_student_model->student_details($user_id);
-        //     $data['student_id'] = $student_details['student_id'];
-        // }
+        // check if the user is not IT and not Manager
+		if ($this->session->userdata('user_role') != 'IT' && $this->session->userdata('user_role') != 'Manager') {
+			redirect('items/Items/items_categories_log');
+		}
 
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
@@ -33,14 +36,6 @@ class Items extends CI_Controller
 
     function items_list()
     {
-        // $user_id = $this->session->userdata('user_id');
-        // $data['user_role'] = $this->session->userdata('user_role');
-        // if ($data['user_role'] == 'employee') {
-        //     // From the User ID, get Student ID  
-        //     $student_details = $this->user_student_model->student_details($user_id);
-        //     $data['student_id'] = $student_details['student_id'];
-        // }
-
         // Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -53,15 +48,18 @@ class Items extends CI_Controller
 
         foreach($items as $item) {
 
+            $view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye" style="color: black"></span></button></span>';
             $edit_link = $base_url."items/Items/edit_item/".$item->item_id;
-			$view = '<span><button type="button" onclick="view_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light" data-toggle="modal" data-target="#view_item"><span class="fas fa-eye" style="color: black"></span></button></span>';
             $edit_opt = '<span class="px-1"><a type="button" href="'.$edit_link.'"class="btn icon-btn btn-xs btn-white waves-effect waves-light"><span class="fas fa-pencil-alt" style="color: black"></span></a></span>';
             $delete = '<span><button type="button" onclick="delete_item('.$item->item_id.')" class="btn icon-btn btn-xs btn-white waves-effect waves-light delete" ><span class="fas fa-trash" style="color: black"></span></button></span>';
-			$function = $view.$edit_opt.$delete;
-
-            // if ($data['user_role'] == 'manager') { $function = $view; }
-
-			$data [] = [ 
+			
+            if (($this->session->userdata('user_role') == 'IT' )) { 
+                $function = $view.$edit_opt.$delete;
+            } else {
+                $function = $view;
+            }
+            
+            $data [] = [ 
 				// '',
 				$item->item_id,
 				$item->item_category_name,
@@ -145,6 +143,11 @@ class Items extends CI_Controller
 
     function add_item()
     {
+        // check if the user is not IT
+		if ($this->session->userdata('user_role') != 'IT') {
+			redirect('items/Items/');
+		}
+
         $data['title'] = 'PHP-SRePS | Add Item';
         $data['include_js'] = 'items_list';
         $data['item_data'] = $this->items_model->select_all_items();
@@ -197,6 +200,11 @@ class Items extends CI_Controller
 
     function edit_item($item_id)
     {
+        // check if the user is not IT
+		if ($this->session->userdata('user_role') != 'IT') {
+			redirect('items/Items/');
+		}
+
         $data['title'] = 'PHP-SRePS | Edit an Item';
         $data['include_js'] = 'items_list';
         $data['item_data'] = $this->items_model->select_item($item_id); 
@@ -275,6 +283,11 @@ class Items extends CI_Controller
 
     // --------------------- ITEM CATEGORIES --------------------------// 
     function items_categories(){
+        // check if the user is not IT
+		if ($this->session->userdata('user_role') != 'IT') {
+			redirect('items/Items/');
+		}
+
         $data['title'] = 'PHP-SRePS | Item Categories';
         $data['include_js'] = 'items_list';
         $data['selected'] = 'items_categories';
@@ -391,6 +404,11 @@ class Items extends CI_Controller
 
     // --------------------- ITEM SUBCATEGORIES --------------------------// 
     function items_subcategories($item_category_id){
+        // check if the user is not IT
+		if ($this->session->userdata('user_role') != 'IT') {
+			redirect('items/Items/');
+		}
+        
         $data['title'] = 'PHP-SRePS | Item Subcategories';
         $data['include_js'] = 'items_list';
         $data['item_category_data'] = $this->items_model->select_item_category($item_category_id);
@@ -516,6 +534,11 @@ class Items extends CI_Controller
 
     // --------------------- ITEMS IN A SPECIFIC SUBCATEGORY (IT ADMIN) --------------------------// 
     function items_in_subcategory($item_subcategory_id){
+        // check if the user is not IT
+		if ($this->session->userdata('user_role') != 'IT') {
+			redirect('items/Items/');
+		}
+
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['item_subcategory_data'] = $this->items_model->select_item_subcategory($item_subcategory_id);
@@ -566,7 +589,12 @@ class Items extends CI_Controller
 
     // --------------------- ITEMS IN A SPECIFIC CATEGORY (EMPLOYEE) --------------------------// 
     function items_categories_log(){
-        $data['title'] = 'PHP-SRePS | Item by Category';
+        // check if the user is not Employee
+		if ($this->session->userdata('user_role') != 'Employee') {
+			redirect('items/Items/');
+		}
+
+        $data['title'] = 'PHP-SRePS | Items by Category';
         $data['include_js'] = 'items_list';
         $data['items_categories_data'] = $this->items_model->select_all_item_categories();
         $data['selected'] = 'items';
@@ -578,6 +606,10 @@ class Items extends CI_Controller
     }
 
     function items_in_category($item_category_id){
+        // check if the user is not Employee
+		if ($this->session->userdata('user_role') != 'Employee') {
+			redirect('items/Items/');
+		}
         $data['title'] = 'PHP-SRePS | Items';
         $data['include_js'] = 'items_list';
         $data['items_data'] = $this->items_model->select_all_items_in_category($item_category_id);
@@ -634,24 +666,29 @@ class Items extends CI_Controller
 
      // --------------------- ITEMS LOW ON STOCK (EMPLOYEE) --------------------------// 
      function items_low_on_stock(){
-        
-        // $user_id = $this->session->userdata('user_id');
-        // $data['user_role'] = $this->session->userdata('user_role');
-        // if ($data['user_role'] == 'employee') {
-        //     // From the User ID, get Student ID  
-        //     $student_details = $this->user_student_model->student_details($user_id);
-        //     $data['student_id'] = $student_details['student_id'];
-        // }
-
+       // check if the user is not Manager and not Employee
+		if ($this->session->userdata('user_role') != 'Manager' && $this->session->userdata('user_role') != 'Employee') {
+			redirect('items/Items/');
+		}
         $data['title'] = 'PHP-SRePS | Items Running Low on Stock';
         $data['include_js'] = 'items_list';
         $data['items_data'] = $this->items_model->select_all_items_low_on_stock();
         $data['selected'] = 'stock';
 
-        $this->load->view('internal_templates/header', $data);
-        $this->load->view('external_templates/topnav');
-        $this->load->view('items/items_low_on_stock_view');
-        $this->load->view('internal_templates/footer');
+        // manager and employee are sharing the same low on stock page. 
+        // if user is manager, sidenav is shown. for employee, topnav.
+        if (($this->session->userdata('user_role') == 'Manager' )) {
+            $this->load->view('internal_templates/header', $data);
+            $this->load->view('internal_templates/sidenav');
+            $this->load->view('internal_templates/topbar');
+            $this->load->view('items/items_low_on_stock_view');
+            $this->load->view('internal_templates/footer');
+        } else {
+            $this->load->view('internal_templates/header', $data);
+            $this->load->view('external_templates/topnav');
+            $this->load->view('items/items_low_on_stock_view');
+            $this->load->view('external_templates/footer');
+        }
     }
 
     function items_low_on_stock_list(){

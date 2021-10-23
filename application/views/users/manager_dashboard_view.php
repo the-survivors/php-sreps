@@ -123,23 +123,6 @@
                         </div>
                     </div>
 
-                    <!-- Bar Chart -->
-                    <div class="row mb-4">
-                        <div class="col-xl-12 col-lg-12">
-                            <div class="card h-100 shadow mb-4">
-                                <div class="card-header py-3" style="background-color: #e4c2c1">
-                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Items By Category</div>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="item_by_category_barChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Line Chart -->
                     <div class="row mb-4">
                         <div class="col-xl-12 col-lg-12">
@@ -157,6 +140,23 @@
                         </div>
                     </div>
 
+                    <!-- Bar Chart -->
+                    <div class="row mb-4">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card h-100 shadow mb-4">
+                                <div class="card-header py-3" style="background-color: #e4c2c1">
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Items By Category</div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="chart-bar">
+                                        <canvas id="item_by_category_barChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
 
             </div>

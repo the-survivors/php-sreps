@@ -65,19 +65,37 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                <?php if (($this->session->userdata('user_role') == 'IT' )) { ?>
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-2">
                     <h1 class="h3 font-weight-bold" style="color: black">Items</h1>
                 </div>
-
                 <!-- Breadcrumb -->
-                <div class="row" >
+                <div class="row">
                     <div class = "col-xl-12">
                         <div class = "d-flex justify-content-end mb-4">
                         <a type="button" href = "<?= base_url('items/Items/add_item'); ?>" class="btn" style="background-color: #FF545D; color: white;">Add Item<i class="fas fa-plus pl-2"></i></a>
                         </div>
                     </div>
                 </div>
+                <?php } else { ?>
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                    <h1 class="h3 font-weight-bold" style="color: black">All Items</h1>
+                </div>
+                <!-- Breadcrumb -->
+                <div class="row" >
+                    <div class="breadcrumb-wrapper col-xl-8">
+                        <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
+                            <li class="breadcrumb-item">
+                                <a href="<?= base_url('users/Dashboard/Manager');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">All Items</li>
+                        </ol>
+                    </div>
+                </div>
+                <?php } ?>
+                
                 <!-- Content Row (Start here)-->
                 <div class="row">
                     <div class="col-xl-12">

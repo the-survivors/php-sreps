@@ -42,30 +42,38 @@
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="background:#FEF2F2;">
+                <div class="container-fluid" style="<?php  if ($this->session->userdata('user_role') == 'Employee') echo 'background:#FEF2F2;'; ?>">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mt-5 mb-2 font-weight-bold" style="color: black">Items Running Low on Stock</h1>
+                 <!-- Page Heading -->
+                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 <?php  if ($this->session->userdata('user_role') == 'Employee') echo 'mt-5'; ?> mb-2 font-weight-bold" style="color: black">Items Running Low on Stock</h1>
                 </div>
 
-                <!-- Breadcrumb -->
-                <div class="row" >
-                    <div class="breadcrumb-wrapper col-xl-8">
-                        <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
-                            <li class="breadcrumb-item">
-                                <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
-                            </li>
-                            <li class="breadcrumb-item active">Items Running Low on Stock</li>
-                        </ol>
-                    </div>
-                    <!-- Employee Dashboard -->
-                    <div class = "col-xl-4">
-                        <div class = "d-flex justify-content-end">
-                            <a type="button" href="<?= base_url('users/Dashboard/Employee');?>" class="btn" style="background-color: #B6666F; color: white;">Back<i class="fas fa-undo pl-1"></i></a>
+                <?php if (($this->session->userdata('user_role') == 'Employee' )) { ?>
+                    <!-- Breadcrumb -->
+                    <div class="row" >
+                        <div class="breadcrumb-wrapper col-xl-12">
+                            <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
+                                <li class="breadcrumb-item">
+                                    <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Items Running Low on Stock</li>
+                            </ol>
                         </div>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <!-- Breadcrumb -->
+                    <div class="row" >
+                        <div class="breadcrumb-wrapper col-xl-12">
+                            <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
+                                <li class="breadcrumb-item">
+                                    <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Items Running Low on Stock</li>
+                            </ol>
+                        </div>
+                    </div>
+                <?php } ?>
 
                 <!-- Content Row (Start here)-->
                 <div class="row">

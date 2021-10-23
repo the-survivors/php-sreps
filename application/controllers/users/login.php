@@ -40,7 +40,7 @@ class Login extends CI_Controller
         if($this->form_validation->run() ==false)
         {
             $base_url = base_url();
-            $data['title'] = 'All Users | Login';
+            $data['title'] = 'PHP-SRePS | Login';
             $data['bootstrap_css'] = '
                 <link rel="stylesheet" type="text/css" href="'.$base_url.'login/vendor/bootstrap/css/bootstrap.min.css">
                 <link rel="stylesheet" type="text/css" href="'.$base_url.'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">

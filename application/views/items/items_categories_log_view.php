@@ -27,8 +27,23 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
                     <!-- Page Heading -->
-                    <h1 class="h3 mt-5 mb-5 font-weight-bold" style="color: black">Items by Category</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mt-5 font-weight-bold" style="color: black">Items by Category</h1>
+                    </div>
+
+                     <!-- Breadcrumb -->
+                     <div class="row" >
+                        <div class="breadcrumb-wrapper col-xl-12">
+                            <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
+                                <li class="breadcrumb-item">
+                                    <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Items by Category</li>
+                            </ol>
+                        </div>
+                    </div>
 
                     <!-- Content Row. 1 row = 4 cards -->
                     <div class="row px-4">

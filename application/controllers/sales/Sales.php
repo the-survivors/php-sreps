@@ -30,7 +30,7 @@ class Sales extends CI_Controller
 		}
 		//directed to sales list page with if the user is a staff
 		else {
-			$data['title'] = 'Sales';
+			$data['title'] = 'PHP-SRePS | Sales';
 			$data['include_js'] = 'sales_list';
 			$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
 			$data['selected'] = 'sales';
@@ -234,7 +234,7 @@ class Sales extends CI_Controller
 	//Function is loaded when user clicked on the pencil icon in the sales table
 	function load_edit_page($sale_id)
 	{
-		$data['title'] = 'Edit Sales';
+		$data['title'] = 'PHP-SRePS | Edit Sales';
 		$data['include_js'] = 'sales_edit';
 		$data['subcategory_data'] = $this->sales_model->select_all_item_subcategory();
 		$data['sales_data'] = $this->sales_model->select_one_sale($sale_id);
@@ -317,7 +317,7 @@ class Sales extends CI_Controller
 			redirect('sales/sales/');
 		}
 
-		$data['title'] = 'Sales';
+		$data['title'] = 'PHP-SRePS | Daily Sales';
 		$data['selected'] = 'sales';
 		$data['selected_period'] = 'daily';
 		$data['sales_data'] = $this->sales_model->select_daily_sales($date);
@@ -346,7 +346,7 @@ class Sales extends CI_Controller
 			$end_date = date('Y-m-d', $end);
 		}
 
-		$data['title'] = 'Sales';
+		$data['title'] = 'PHP-SRePS | Weekly Sales';
 		$data['selected'] = 'sales';
 		$data['selected_period'] = 'weekly';
 		$data['sales_data'] = $this->sales_model->select_weekly_sales($start_date, $end_date);
@@ -369,7 +369,7 @@ class Sales extends CI_Controller
 			redirect('sales/sales/');
 		}
 
-		$data['title'] = 'Sales';
+		$data['title'] = 'PHP-SRePS | Monthly Sales';
 		$data['selected'] = 'sales';
 		$data['selected_period'] = 'monthly';
 		$data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);

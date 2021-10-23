@@ -25,37 +25,14 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- set $data = ['user_role' == session->userdata('user_role')] in controller-->
-    <!-- <php $user_role = $this->session->userdata['user_role'];?>
-    
-    <php switch ($user_role) { 
+    <?php $user_role = $this->session->userdata['user_role'];?>
+    <?php switch ($user_role) { 
 
-        case "manager": ?> -->
+        case "Manager": ?>
 
-        <!-- <php break; 
-        
-        // Admin
-        default: ?> -->
-
-        <!-- Nav Item - Items -->
-        <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "items") echo 'active'; ?>"  href="<?=base_url('items/Items/');?>">
-            <i class="fas fa-shopping-cart <?php if ($selected == "items") echo 'active'; ?>"></i>
-                <span>Items</span>
-            </a>
-        </li>
-
-        <!-- Nav Item - Item Categories -->
-        <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "items_categories") echo 'active'; ?>" href="<?=base_url('items/Items/items_categories');?>">
-            <i class="fas fa-tags <?php if ($selected == "items_categories") echo 'active'; ?>"></i>
-                <span>Item Categories</span>
-            </a>
-        </li>
-
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
+        <!---------- MANAGER'S SIDENAV ---------->
+         <!-- Nav Item - Dashboard -->
+         <li class="nav-item">
             <a class="nav-link <?php if ($selected == "dashboard") echo 'active'; ?>"  href="<?=base_url('users/Dashboard/Manager');?>">
             <i class="fas fa-tachometer-alt <?php if ($selected == "dashboard") echo 'active'; ?>"></i>
             <span>Dashboard</span>
@@ -72,15 +49,15 @@
 
         <!-- Nav Item - Inventory Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventory_collapse"
+            <a class="nav-link collapsed <?php if ($selected == "items" || $selected == "stock") echo 'active'; ?>" href="#" data-toggle="collapse" data-target="#inventory_collapse"
                 aria-expanded="true" aria-controls="accounts_collapse">
-                <i class="fas fa-dolly-flatbed"></i>
+                <i class="fas fa-dolly-flatbed <?php if ($selected == "items" || $selected == "stock") echo 'active'; ?>"></i>
                 <span>Inventory</span>
             </a>
             <div id="inventory_collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="<?=base_url('items/Items');?>">All Items</a>
-                    <a class="collapse-item <?php if ($selected == "inventory") echo 'active'; ?>"  href="<?=base_url('items/Items/items_low_on_stock');?>">Items Low on Stock</a>
+                    <a class="collapse-item"  href="<?=base_url('items/Items/items_low_on_stock');?>">Items Low on Stock</a>
                 </div>
             </div>
         </li>
@@ -93,9 +70,31 @@
             </a>
         </li>
 
-    <!-- <php break;
+        <?php break; 
+        
+        // Admin
+        default: ?>
 
-    } ?> -->
+        <!---------- IT'S SIDENAV ---------->
+        <!-- Nav Item - Items -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "items") echo 'active'; ?>"  href="<?=base_url('items/Items/');?>">
+            <i class="fas fa-shopping-cart <?php if ($selected == "items") echo 'active'; ?>"></i>
+                <span>Items</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Item Categories -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "items_categories") echo 'active'; ?>" href="<?=base_url('items/Items/items_categories');?>">
+            <i class="fas fa-tags <?php if ($selected == "items_categories") echo 'active'; ?>"></i>
+                <span>Item Categories</span>
+            </a>
+        </li>
+
+    <?php break;
+
+    } ?>
 
 <!-- Sidebar Toggler (Sidebar) -->
 <div class="text-center d-none d-md-inline">

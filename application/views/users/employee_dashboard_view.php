@@ -15,7 +15,7 @@
                         <div class="col-xl-6 col-md-6">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between">
-                                <h1 class="h3 mb-0 mt-4 font-weight-bold" style="color: black">Dashboard</h1>
+                                <h1 class="h3 mb-0 mt-4 font-weight-bold mt-5" style="color: black">Dashboard</h1>
                             </div>
                         </div>
                         
@@ -24,7 +24,7 @@
                             <div class="align-baseline float-right">
                                 <div class="mt-4" style="background-color:#1dd3b0; border-radius:10px; width:13.0em; height:auto;">
                                     <div class="px-1 py-auto mb-2">
-                                        <h5 class="py-1" style="font-weight:600;">
+                                        <h5 class="py-1 mt-5" style="font-weight:600;">
                                             <span style="color:white;">
                                                 <center>DATE: <?php date_default_timezone_set("Asia/Kuala_Lumpur"); echo date('Y-m-d'); ?></center>
                                             </span>

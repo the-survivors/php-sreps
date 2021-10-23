@@ -28,17 +28,15 @@
             <i class="fa fa-bars"></i>
         </button>
 
+        <a class="navbar-brand py-0">
+            <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
+        </a>
+
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item pl-1">
                 <a class="nav-link" onclick="logout()" ?>
                     <button type="button" id="register_btn" class="btn" style="background-color: white; color: #e56b6f; font-size: 0.9em; border-radius:15px; font-weight: 800;"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Logout</button>
-                </a>
-            </li>
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link">
-                    <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
                 </a>
             </li>
         </ul>

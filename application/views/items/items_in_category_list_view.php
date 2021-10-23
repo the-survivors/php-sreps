@@ -54,7 +54,10 @@
                     <div class="breadcrumb-wrapper col-xl-8">
                         <ol class="breadcrumb" style = "background-color:rgba(0, 0, 0, 0);">
                             <li class="breadcrumb-item">
-                                <a href="<?= base_url('items/Items/items_categories_log');?>"><i class="fas fa-tags pr-2"></i>Item Categories</a>
+                                <a href="<?= base_url('users/Dashboard/Employee');?>"><i class="fas fa-tachometer-alt pr-2"></i>Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="<?= base_url('items/Items/items_categories_log');?>"></i>Item Categories</a>
                             </li>
                             <li class="breadcrumb-item active"><?= $items_category_data->item_category_name ?></li>
                         </ol>
