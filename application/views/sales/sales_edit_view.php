@@ -151,7 +151,12 @@ foreach ($subcategory as $s) {
                                                         <tr id="row<?= $counter ?>" class="dynamic-added">
                                                             <td style="width:8%;"><input type="number" name="item_id[]" class="form-control item_id1" value="<?= $row->item_id ?>" readonly /></td>
                                                             <td><input type="text" class="form-control item_name" value="<?= $row->item_name ?>" readonly /></td>
-                                                            <td style="width:10%;"><input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max="<?= $row->item_quantity ?>" value="<?= $row->sale_item_quantity ?>" required /></td>
+                                                            <td style="width:10%;">
+                                                                <div class="input-group-prepend">
+                                                                    <input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max="<?= $row->item_quantity ?>" value="<?= $row->sale_item_quantity ?>" required />
+                                                                    <span class="input-group-text" id="basic-addon1">/ <?= $row->item_quantity ?></span>
+                                                                </div>
+                                                            </td>
                                                             <td style="width:10%;"><input type="number" name="sale_item_discount[]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max="100" value="<?= $row->sale_item_discount ?>" required /></td>
                                                             <td style="width:15%;">
                                                                 <div class="input-group-prepend">

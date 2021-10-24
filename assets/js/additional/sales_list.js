@@ -74,7 +74,11 @@ $(document).ready(function () {
             $('#table_body').append('<tr id="row' + i + '" class="dynamic-added">' +
                 '<td style = "width:8%;"><input type="number" name="item_id[]" class="form-control item_id1" value = "' + item_id + '" readonly/></td>' +
                 '<td><input type="text" class="form-control item_name" value = "' + item_name + '" readonly/></td>' +
-                '<td style = "width:10%;"><input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max = "' + item_quantity + '" value = "1" required/></td>' +
+                '<td style = "width:12%;">'+
+                '<div class="input-group-prepend">' +
+                '<input type="number" name="sale_item_quantity[]" placeholder="Enter quantity" class="form-control sale_item_quantity" min="1" max = "' + item_quantity + '" value = "1" required/>'+
+                '<span class="input-group-text" id="basic-addon">/ '+item_quantity+'</span></div>' +
+                '</td>' +
                 '<td style = "width:10%;"><input type="number" name="sale_item_discount[]" placeholder="Enter discount" class="form-control sale_item_discount" min="0" max = "100" value = "0" required/></td>' +
                 '<td style = "width:15%;">' +
                 '<div class="input-group-prepend">' +
