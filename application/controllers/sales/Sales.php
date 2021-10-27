@@ -383,27 +383,4 @@ class Sales extends CI_Controller
 		$this->load->view('sales/sales_monthly_view');
 		$this->load->view('internal_templates/footer');
 	}
-
-	//loads monthly sales report page
-	public function monthly_sales_report($month = 0, $year = 0)
-	{
-		//check if the user is the manager
-		if ($this->session->userdata('user_role') != 'Manager') {
-			redirect('sales/sales/');
-		}
-
-		$data['title'] = 'PHP-SRePS | Monthly Sales';
-		$data['selected'] = 'sales';
-		$data['selected_period'] = 'monthly';
-		$data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
-		$data['month'] = $month;
-		$data['year'] = $year;
-		$data['include_js'] = 'sales_monthly';
-
-		$this->load->view('internal_templates/header', $data);
-		$this->load->view('internal_templates/sidenav');
-		$this->load->view('internal_templates/topbar');
-		$this->load->view('sales/sales_monthly_view');
-		$this->load->view('internal_templates/footer');
-	}
 }
