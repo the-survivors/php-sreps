@@ -330,27 +330,6 @@ class Sales extends CI_Controller
 		$this->load->view('sales/sales_daily_view');
 		$this->load->view('internal_templates/footer');
 	}
-// Later remove it 
-	public function daily_sales_lists($date)
-	{
-		//check if the user is the manager
-		if ($this->session->userdata('user_role') != 'Manager') {
-			redirect('sales/sales/');
-		}
-
-		$data['title'] = 'PHP-SRePS | Daily Sales';
-		$data['selected'] = 'sales';
-		$data['selected_period'] = 'daily';
-		$data['sales_data'] = $this->sales_model->select_daily_sales($date);
-		$data['date'] = $date;
-		$data['include_js'] = 'sales_daily';
-
-		$this->load->view('internal_templates/header', $data);
-		$this->load->view('internal_templates/sidenav');
-		$this->load->view('internal_templates/topbar');
-		$this->load->view('sales/sales_daily_view');
-		$this->load->view('internal_templates/footer');
-	}
 
 	//loads weekly sales page
 	public function weekly_sales_list($start_date = 0, $end_date = 0)
