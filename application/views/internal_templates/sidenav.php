@@ -64,7 +64,7 @@
 
         <!-- Nav Item - Reports >-->
         <li class="nav-item">
-            <a class="nav-link <?php if ($selected == "reports") echo 'active'; ?>"  href="<?=base_url('items/Items/items_categories');?>">
+            <a class="nav-link <?php if ($selected == "reports") echo 'active'; ?>"  href="<?=base_url('sales/sales_report/weekly_sales_report/' . date('Y-m-d') . '/40')?>">
             <i class="fas fa-chart-bar"></i>
                 <span>Reports</span>
             </a>
