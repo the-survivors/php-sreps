@@ -33,7 +33,7 @@ class Sales_report extends CI_Controller
         }
 
         $data['title'] = 'PHP-SRePS | Weekly Sales';
-        $data['selected'] = 'sales';
+        $data['selected'] = 'sales_report';
         $data['selected_period'] = 'weekly';
         $data['sales_data'] = $this->sales_model->select_weekly_sales($start_date, $end_date);
         $data['start_date'] = $start_date;
@@ -52,7 +52,7 @@ class Sales_report extends CI_Controller
     {
 
         $data['title'] = 'PHP-SRePS | Monthly Sales';
-        $data['selected'] = 'sales';
+        $data['selected'] = 'sales_report';
         $data['selected_period'] = 'monthly';
         $data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
         $data['month'] = $month;
