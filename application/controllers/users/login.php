@@ -110,6 +110,12 @@ class Login extends CI_Controller
                     redirect('users/Dashboard/Employee');
                 }
             }
+            else
+            {
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
+                Wrong password!</div>');
+                redirect('users/login/verify_users');
+            }
         }
 
         // if user account does not exist
