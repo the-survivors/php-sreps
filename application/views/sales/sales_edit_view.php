@@ -2,6 +2,45 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
+    /* Make it possible for the item image list to scroll */
+    .scroll {
+        max-height: 14.0em;
+        overflow-y: auto;
+    }
+
+    /* Enlarge image upon hovering over it*/
+    .img_item {
+        transition: transform 0.25s ease;
+    }
+
+    .img_item:hover {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        border: 2px solid rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* CSS for individual item image and image text labelling */
+    .image_container {
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .image_container .img_item {
+        vertical-align: middle;
+    }
+
+    .image_container .content {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        /* Fallback color */
+        background: rgba(0, 0, 0, 0.5);
+        /* Black background with 0.5 opacity */
+        color: #f1f1f1;
+        padding: 0.5em;
+        height: auto;
+        width: 100%;
+    }
 </style>
 
 <?php
@@ -97,7 +136,7 @@ foreach ($subcategory as $s) {
                                                             <div class="px-3 py-auto ">
                                                                 <h5 class=" pt-1" style=" font-weight:600; ">
                                                                     <span style="color:white;">
-                                                                        <center>Updated by: <?=$sales_data->user_fname.' '.$sales_data->user_lname?></center>
+                                                                        <center>Updated by: <?= $sales_data->user_fname . ' ' . $sales_data->user_lname ?></center>
                                                                     </span>
                                                                 </h5>
                                                             </div>
@@ -105,33 +144,40 @@ foreach ($subcategory as $s) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-1" style="color: black;">
-                                                <div class="col-xl-4">
-                                                    <h6>Subcategory</h6>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <h6>Item</h6>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-5">
-                                                <div class="col-xl-4">
-                                                    <select id="item_subcategory_id" class="form-control form-select form-select-md item_subcategory_id">
-                                                        <?php
-                                                        foreach ($subcategory as $s) {
-                                                            echo '<option value="' . $s->item_subcategory_id . '">' . $s->item_subcategory_name . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <select id="item_id" class="form-control form-select form-select-md item_id">
 
-                                                    </select>
-                                                </div>
-                                                <div class="col-xl-3">
-                                                    <button type="button" name="add" id="add" class="btn btn-success">Add Item <span class="fas fa-plus"></span></button>
+                                            <!-- Subcategory selector and item image picker -->
+                                            <div class="row mb-3">
+                                                <div class="col-xl-12">
+                                                    <div class="card shadow" style="border: 2px solid rgba(0, 0, 0, 0.5);">
+                                                        <div class="card-header" style="background-color:rgba(0, 0, 0, 0.1);">
+                                                            <div class="row">
+                                                                <div class="col-xl-7">
+
+                                                                </div>
+                                                                <div class="col-xl-1">
+                                                                    <label style="color:black; font-weight:500; " class="pt-1" for="item_subcategory_id">Subcategory</label>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <select id="item_subcategory_id" class="form-control form-select form-select-sm ml-2 item_subcategory_id">
+                                                                        <?php
+                                                                        foreach ($subcategory as $s) {
+                                                                            echo '<option value="' . $s->item_subcategory_id . '">' . $s->item_subcategory_name . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body" style="background-color:white;">
+                                                            <div class="row scroll py-2" id="item_box">
+                                                                <!-- Item images will be implemented here with ajax -->
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <!-- Item table -->
                                             <table class="table" id="item_list">
                                                 <thead style="color: black;">
                                                     <tr>
