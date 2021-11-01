@@ -144,7 +144,7 @@ class sales_model extends CI_Model
             
             foreach ($query->result() as $row) {
                 $item_pic = '<img id = "'.$row->item_id.'" onclick="add_image('.$row->item_id.')" class="img_item" src="'.base_url("assets/img/items/").$row->item_pic.'" data-quantity = "' . $row->item_quantity . '"  data-price ="'.$row->item_price .'"  data-name ="'.$row->item_name.'" style="width: 100%;  object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
-                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div class="content"><center>'.$row->item_name.'</center></div></div></div>';
+                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div onclick="add_image('.$row->item_id.')" class="content"><center>'.$row->item_name.'</center></div></div></div>';
                 $counter++;
             }
         } else {
@@ -166,7 +166,7 @@ class sales_model extends CI_Model
             
             foreach ($query->result() as $row) {
                 $item_pic = '<img id = "'.$row->item_id.'" onclick="add_image('.$row->item_id.')" class="img_item" src="'.base_url("assets/img/items/").$row->item_pic.'" data-quantity = "' . $row->item_quantity . '"  data-price ="'.$row->item_price .'"  data-name ="'.$row->item_name.'" style="width: 100%; height:12.0em; object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
-                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div class="content"><center>'.$row->item_name.'</center></div></div></div>';
+                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div onclick="add_image('.$row->item_id.')" class="content"><center>'.$row->item_name.'</center></div></div></div>';
                 $counter++;
             }
         } else {

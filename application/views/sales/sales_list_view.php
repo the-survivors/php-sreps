@@ -118,9 +118,6 @@ foreach ($subcategory as $s) {
                     <!-- Content Row (Start here)-->
                     <div class="row">
                         <div class="col-xl-12">
-                            <!-- Display no item message if it exist-->
-                            <?= $this->session->userdata('no_item_message') ?>
-                            <?php $this->session->unset_userdata('no_item_message'); ?>
                             <!-- Card-->
                             <div class="card " style="color:black;">
                                 <div class="card-body">
@@ -328,3 +325,14 @@ foreach ($subcategory as $s) {
                 </script>
             <?php }
             $this->session->unset_userdata('edit_sale_message'); ?>
+
+            <!-- Check if session is set. If yes, display message-->
+            <?php if ($this->session->userdata('no_item_message')) { ?>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'No item found, please try again.'
+                    })
+                </script>
+            <?php }
+            $this->session->unset_userdata('no_item_message'); ?>
