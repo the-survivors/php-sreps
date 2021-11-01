@@ -253,7 +253,7 @@ foreach ($subcategory as $s) {
                                             <div class="col-xl-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">RM</span>
-                                                    <input type="number" id="sale_total_price" name="sale_total_price" style="font-weight:600; float:right;" class="form-control sale_total_price" min="0" value="0" readonly />
+                                                    <input type="number" id="sale_total_price" name="sale_total_price" style="font-weight:600; float:right;" step='0.01' class="form-control sale_total_price" min="0" value="0" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -263,7 +263,7 @@ foreach ($subcategory as $s) {
                                             <div class="col-xl-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon2">RM</span>
-                                                    <input type="number" id="sale_discounted_price" name="sale_discounted_price" style="font-weight:600; float:right;" class="form-control sale_discounted_price" min="0" value="0" readonly />
+                                                    <input type="number" id="sale_discounted_price" name="sale_discounted_price" style="font-weight:600; float:right;" step='0.01' class="form-control sale_discounted_price" min="0" value="0" readonly />
                                                 </div>
                                             </div>
                                         </div>

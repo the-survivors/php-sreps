@@ -80,14 +80,11 @@ $(document).ready(function () {
             var sale_item_quantity = row.find(".sale_item_quantity").val();
 
             //update sale_item_price when quantity and discount input field in any row is changed
-            var sale_item_price = sale_item_quantity * one_item_price * ((100 - sale_item_discount) / 100);
-            sale_item_price = sale_item_price.toFixed(2);
+            var sale_item_price = (sale_item_quantity * one_item_price * ((100 - sale_item_discount) / 100)).toFixed(2);
             $('.sale_item_price', row).val(sale_item_price);
 
             //update original sale_item_price when quantity and discount input field in any row is changed
-            var ori_total_sale_item_price = sale_item_quantity * one_item_price;
-            console.log(ori_total_sale_item_price);
-            ori_total_sale_item_price = ori_total_sale_item_price.toFixed(2);
+            var ori_total_sale_item_price = (sale_item_quantity * one_item_price).toFixed(2);
             $('.ori_sale_item_price', row).val(ori_total_sale_item_price);
 
             update_total_sales_price();
@@ -97,27 +94,6 @@ $(document).ready(function () {
 
 
 }); // end of ready function
-
-//update sale_total_price & sale_discounted_price  when quantity and discount input field in any row is changed
-function update_total_sales_price() {
-
-    //update sale_total_price when quantity and discount input field in any row is changed
-    var total_discounted_price = 0;
-    $("#item_list .sale_item_price").each(function () {
-        var get_value = $(this).val();
-        total_discounted_price += parseFloat(get_value);
-    });
-    $("#sale_discounted_price").val(total_discounted_price);
-
-    //update sale_discounted_price  when quantity and discount input field in any row is changed
-    var total_sales_price = 0;
-    $("#item_list .ori_sale_item_price").each(function () {
-        var get_value = $(this).val();
-        total_sales_price += parseFloat(get_value);
-    });
-    $("#sale_total_price").val(total_sales_price);
-
-}
 
 //function to add item row upon clicking an item image
 var i = 0;
@@ -190,3 +166,26 @@ function view_sale(sale_id) {
     });
 }
 
+
+//update sale_total_price & sale_discounted_price  when quantity and discount input field in any row is changed
+function update_total_sales_price() {
+
+    //update sale_total_price when quantity and discount input field in any row is changed
+    var total_discounted_price = 0;
+    $("#item_list .sale_item_price").each(function () {
+        var get_value = $(this).val();
+        total_discounted_price += parseFloat(get_value);
+    });
+    total_discounted_price = total_discounted_price.toFixed(2);
+    $("#sale_discounted_price").val(total_discounted_price);
+
+    //update sale_discounted_price  when quantity and discount input field in any row is changed
+    var total_sales_price = 0;
+    $("#item_list .ori_sale_item_price").each(function () {
+        var get_value = $(this).val();
+        total_sales_price += parseFloat(get_value);
+    });
+    total_sales_price = total_sales_price.toFixed(2);
+    $("#sale_total_price").val(total_sales_price);
+
+}

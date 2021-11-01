@@ -132,25 +132,6 @@ class sales_model extends CI_Model
         return $this->db->get('items_subcategory')->result();
     }
 
-
-    function fetch_item($item_subcategory_id)
-    {
-        $this->db->where('item_subcategory_id', $item_subcategory_id);
-        $this->db->where('item_quantity !=', 0);
-        $query = $this->db->get('items');
-
-        if ($query->num_rows() > 0) {
-            $output = '';
-            foreach ($query->result() as $row) {
-                $output .= '<option data-quantity = "' . $row->item_quantity . '" data-price = "' . $row->item_price . '" data-id="' . $row->item_id . '" value="' . $row->item_name . '">' . $row->item_name . '</option>';
-            }
-        } else {
-            $output = '<option value="" selected disabled>No item available</option>';
-        }
-
-        return $output;
-    }
-
     function fetch_item_image($item_subcategory_id)
     {
         $this->db->where('item_subcategory_id', $item_subcategory_id);
