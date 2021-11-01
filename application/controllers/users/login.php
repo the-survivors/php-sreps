@@ -112,7 +112,7 @@ class Login extends CI_Controller
             }
             else
             {
-                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
+                $this->session->set_userdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
                 Wrong password!</div>');
                 redirect('users/login/verify_users');
             }
@@ -121,7 +121,7 @@ class Login extends CI_Controller
         // if user account does not exist
         else
         {
-            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
+            $this->session->set_userdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
             Account does not exist!</div>');
             redirect('users/login/verify_users');
         }
@@ -135,8 +135,7 @@ class Login extends CI_Controller
         $this->session->unset_userdata('user_lname');
         $this->session->unset_userdata('user_role');
         $this->session->unset_userdata('has_login');
-        // $this->session->set_flashdata('message','<div class="alert alert-success" role="alert" id="alert_message">
-        // You have been log out!</div>');
+        $this->session->set_userdata('message','<div class="alert alert-success" role="alert" id="alert_message">You have been log out!</div>');
         redirect('users/login/verify_users');
     }
 }
