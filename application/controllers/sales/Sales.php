@@ -153,7 +153,7 @@ class Sales extends CI_Controller
 	function fetch_item_image_for_edit()
 	{
 		$image_row = $this->sales_model->fetch_item_image_for_edit($this->input->post('item_subcategory_id'));
-		echo $image_row.$image_row.$image_row;
+		echo $image_row;
 	}
 
 
