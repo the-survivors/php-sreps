@@ -113,7 +113,7 @@ class Login extends CI_Controller
             else
             {
                 $this->session->set_userdata('message','<div class="alert alert-danger" role="alert" id="alert_message">
-                Wrong password!</div>');
+                Invalid password!</div>');
                 redirect('users/login/verify_users');
             }
         }
@@ -135,7 +135,7 @@ class Login extends CI_Controller
         $this->session->unset_userdata('user_lname');
         $this->session->unset_userdata('user_role');
         $this->session->unset_userdata('has_login');
-        $this->session->set_userdata('message','<div class="alert alert-success" role="alert" id="alert_message">You have been log out!</div>');
+        $this->session->set_userdata('message','<div class="alert alert-success" role="alert" id="alert_message">You have been logged out!</div>');
         redirect('users/login/verify_users');
     }
 }
