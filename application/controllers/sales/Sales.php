@@ -142,10 +142,20 @@ class Sales extends CI_Controller
 		redirect('sales/sales/');
 	}
 
-	function fetch_item()
+	//Fetching item images to add sales modal based on selected subcategory
+	function fetch_item_image()
 	{
-		echo $this->sales_model->fetch_item($this->input->post('item_subcategory_id'));
+		$image_row = $this->sales_model->fetch_item_image($this->input->post('item_subcategory_id'));
+		echo $image_row;
 	}
+
+	//Fetching item images to edit sales page based on selected subcategory
+	function fetch_item_image_for_edit()
+	{
+		$image_row = $this->sales_model->fetch_item_image_for_edit($this->input->post('item_subcategory_id'));
+		echo $image_row;
+	}
+
 
 	//function for viewing a single sale after user click on the view button
 	function view_sale()
@@ -164,7 +174,7 @@ class Sales extends CI_Controller
 			} else {
 				$style = '';
 			}
-			$item_pic = '<img class="img_item" src="'.base_url("assets/img/items/").$r->item_pic.'" style="width: 50px; height: 50px; object-fit:contain;">';
+			$item_pic = '<img class="view_img_item" src="'.base_url("assets/img/items/").$r->item_pic.'" style="width: 60px; height: 60px; object-fit:contain;">';
 
 			$sale_row_html .= '<tr ' . $style . '>
 								<td>' . $counter . '</td>
@@ -179,13 +189,14 @@ class Sales extends CI_Controller
 
 		$output = '
 		<style>
-			.img_item {
+			.view_img_item {
 				transition:transform 0.25s ease;
 			}
 			
-			.img_item:hover {
-				-webkit-transform:scale(2.0);
-				transform:scale(2.0);
+			.view_img_item:hover {
+					-webkit-transform:scale(2.0);
+					transform:scale(2.0);
+					border: 2px solid rgba(0, 0, 0, 0.5) !important;
 			}
 		</style>
 		<div class="table-responsive mb-4">

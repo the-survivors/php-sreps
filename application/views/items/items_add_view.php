@@ -77,7 +77,7 @@ label{
                                    <div class="form-row pt-4">
                                         <div class="form-group col-md-6 px-4 pr-5">
                                             <div class = "pb-3" style = "color:black;">Item Picture</div>
-                                            <input type="file" name="item_pic" id = "inpFile" accept="image/*">
+                                            <input type="file" name="item_pic" id = "inpFile" accept="image/*" required>
                                             <div class="image-preview" id = "imagePreview">
                                                 <img src="" alt="Image Preview" class="image-preview__image">
                                                 <span class = "image-preview__default-text">Image Preview</span>
