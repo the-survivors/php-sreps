@@ -7,7 +7,7 @@ class Sales_report extends CI_Controller
     {
         parent::__construct();
         $this->load->model([
-            'sales_model'
+            'sales_report_model'
         ]);
         date_default_timezone_set("Asia/Kuala_Lumpur");
 
@@ -16,7 +16,7 @@ class Sales_report extends CI_Controller
         }
         $users['user_role'] = $this->session->userdata('user_role');
 
-        // check user role is IT
+        // check user role is manager
         if ($users['user_role'] != "Manager") {
             redirect('users/login/verify_users/');
         }
@@ -35,7 +35,7 @@ class Sales_report extends CI_Controller
         $data['title'] = 'PHP-SRePS | Weekly Sales';
         $data['selected'] = 'sales_report';
         $data['selected_period'] = 'weekly';
-        $data['sales_data'] = $this->sales_model->select_weekly_sales($start_date, $end_date);
+        $data['sales_report_data'] = $this->sales_report_model->select_weekly_sales_report($start_date, $end_date);
         $data['start_date'] = $start_date;
         $data['end_date'] = $end_date;
         $data['include_js'] = 'sales_weekly_report';
@@ -54,7 +54,7 @@ class Sales_report extends CI_Controller
         $data['title'] = 'PHP-SRePS | Monthly Sales';
         $data['selected'] = 'sales_report';
         $data['selected_period'] = 'monthly';
-        $data['sales_data'] = $this->sales_model->select_monthly_sales($month, $year);
+        $data['sales_report_data'] = $this->sales_report_model->select_monthly_sales_report($month, $year);
         $data['month'] = $month;
         $data['year'] = $year;
         $data['include_js'] = 'sales_monthly_report';

@@ -9,6 +9,18 @@
     .period:hover {
         background-color: #e04a51 !important;
     }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background: #E8BCBC;
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background: #F8DCDC;
+    }
+
+    .table-striped thead tr:nth-of-type(odd) {
+        background: #C04C4C;
+    }
 </style>
 
 <!-- Set base url to javascript variable-->
@@ -80,7 +92,7 @@
                             <div class="d-flex justify-content-end">
                                 <div class="btn-group" role="group" aria-label="page_chooser" ">
                                     <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
-                                    <a style="color:white; <?php if ($selected_period == 'weekly') {
+                                    <a style=" color:white; <?php if ($selected_period == 'weekly') {
                                                                 echo 'background:#e04a51 !important ';
                                                             } ?>" id="period2" type="button" href="<?php echo base_url('sales/sales_report/weekly_sales_report/' . date('Y-m-d') . '/40'); ?>" class="btn btn-lg period">Weekly</a>
                                     <a style="color:white; <?php if ($selected_period == 'monthly') {
@@ -148,6 +160,58 @@
                     <div class="row">
                         <div class="col-xl-12">
 
+                            <div class="card">
+                                <div class="card-header" style="background-color:#FF545D; color:white;">
+                                    <h3 class="pt-2" style="font-weight: 800;">
+                                        <?php
+                                        $monthNum  = $month;
+                                        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+                                        $monthName = $dateObj->format('F'); // March
+                                        ?>
+                                        <center>Sales Report for <?= $monthName ?></center>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="table-responsive">
+                                        <table id="table_monthly_sales_report" class="table table-striped">
+                                            <thead style="color:white;">
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Item ID</th>
+                                                    <th>Item Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total Sales (RM)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color:black;">
+                                                <?php
+                                                $total_sales = 0;
+                                                foreach ($sales_report_data as $row) {  ?>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td><?= $row->item_id ?></td>
+                                                        <td><?= $row->item_name ?></td>
+                                                        <td><?= $row->item_total_quantity ?></td>
+                                                        <td><?= $row->item_total_sale ?></td>
+                                                    </tr>
+                                                <?php
+                                                    $total_sales += $row->item_total_sale;
+                                                }  ?>
+                                            </tbody>
+                                            <tfoot style="color:white;">
+                                                <tr>
+                                                    <td colspan="4"></td>
+                                                    <td style="background: #C04C4C;">
+                                                        <center>Total: RM <?= $total_sales ?></center>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
 
                         </div>
                     </div>

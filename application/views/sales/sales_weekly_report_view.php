@@ -9,6 +9,18 @@
     .period:hover {
         background-color: #e04a51 !important;
     }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background: #E8BCBC;
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background: #F8DCDC;
+    }
+
+    .table-striped thead tr:nth-of-type(odd) {
+        background: #C04C4C;
+    }
 </style>
 
 <!-- Set base url to javascript variable-->
@@ -91,6 +103,50 @@
                     <div class="row">
                         <div class="col-xl-12">
 
+                            <div class="card">
+                                <div class="card-header" style="background-color:#C04C4C; color:white;">
+                                    <h3 class="pt-2" style="font-weight: 800;">
+                                        <center>Sales Report between <?= $start_date ?> and <?= $end_date ?></center>
+                                    </h3>
+                                </div>
+                                <div class="card-body" style="background-color: #F8DCDC; color:black;">
+                                    <div class="table-responsive">
+                                        <table id="table_weekly_sales_report" class="table table-striped">
+                                            <thead style="color:white;">
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Item ID</th>
+                                                    <th>Item Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total Sales (RM)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color:black;">
+                                                <?php 
+                                                    $total_sales = 0;
+                                                    foreach ($sales_report_data as $row) {  ?>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td><?= $row->item_id ?></td>
+                                                        <td><?= $row->item_name ?></td>
+                                                        <td><?= $row->item_total_quantity ?></td>
+                                                        <td><?= $row->item_total_sale ?></td>
+                                                    </tr>
+                                                <?php
+                                                    $total_sales += $row->item_total_sale; 
+                                                    }  ?>
+                                            </tbody>
+                                            <tfoot style="color:white;">
+                                                <tr>
+                                                    <td colspan="4"></td>
+                                                    <td style="background: #C04C4C;"><center>Total: RM <?=$total_sales?></center></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
 
                         </div>
                     </div>
