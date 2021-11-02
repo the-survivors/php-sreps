@@ -32,6 +32,14 @@
             <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
         </a>
 
+        <li class="nav-item px-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-secondary badge-counter text-dark" style="background-color: #FFF1F3;">3+</span>
+            </a>
+        </li>
+
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item pl-1">
