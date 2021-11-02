@@ -141,10 +141,10 @@ class sales_model extends CI_Model
         $counter = 1;
         if ($query->num_rows() > 0) {
             $output = '';
-            
+
             foreach ($query->result() as $row) {
-                $item_pic = '<img id = "'.$row->item_id.'" onclick="add_image('.$row->item_id.')" class="img_item" src="'.base_url("assets/img/items/").$row->item_pic.'" data-quantity = "' . $row->item_quantity . '"  data-price ="'.$row->item_price .'"  data-name ="'.$row->item_name.'" style="width: 100%;  object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
-                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div onclick="add_image('.$row->item_id.')" class="content"><center>'.$row->item_name.'</center></div></div></div>';
+                $item_pic = '<img id = "' . $row->item_id . '" onclick="add_image(' . $row->item_id . ')" class="img_item" src="' . base_url("assets/img/items/") . $row->item_pic . '" data-quantity = "' . $row->item_quantity . '"  data-price ="' . $row->item_price . '"  data-name ="' . $row->item_name . '" style="width: 100%;  object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
+                $output .= '<div class="col-xl-2 my-2"><div class="image_container">' . $item_pic . '<div onclick="add_image(' . $row->item_id . ')" class="content"><center>' . $row->item_name . '</center></div></div></div>';
                 $counter++;
             }
         } else {
@@ -163,10 +163,10 @@ class sales_model extends CI_Model
         $counter = 1;
         if ($query->num_rows() > 0) {
             $output = '';
-            
+
             foreach ($query->result() as $row) {
-                $item_pic = '<img id = "'.$row->item_id.'" onclick="add_image('.$row->item_id.')" class="img_item" src="'.base_url("assets/img/items/").$row->item_pic.'" data-quantity = "' . $row->item_quantity . '"  data-price ="'.$row->item_price .'"  data-name ="'.$row->item_name.'" style="width: 100%; height:12.0em; object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
-                $output .= '<div class="col-xl-2 my-2"><div class="image_container">'.$item_pic.'<div onclick="add_image('.$row->item_id.')" class="content"><center>'.$row->item_name.'</center></div></div></div>';
+                $item_pic = '<img id = "' . $row->item_id . '" onclick="add_image(' . $row->item_id . ')" class="img_item" src="' . base_url("assets/img/items/") . $row->item_pic . '" data-quantity = "' . $row->item_quantity . '"  data-price ="' . $row->item_price . '"  data-name ="' . $row->item_name . '" style="width: 100%; height:12.0em; object-fit:contain; border: 1px solid rgba(0, 0, 0, 0.5);">';
+                $output .= '<div class="col-xl-2 my-2"><div class="image_container">' . $item_pic . '<div onclick="add_image(' . $row->item_id . ')" class="content"><center>' . $row->item_name . '</center></div></div></div>';
                 $counter++;
             }
         } else {
@@ -181,8 +181,8 @@ class sales_model extends CI_Model
         $this->db->select('*');
         $this->db->from('sales');
         $this->db->join('users', 'users.user_id = sales.user_id');
-        $this->db->where('sale_date >=', $date.' 00:00:00');
-        $this->db->where('sale_date <=', $date.' 23:59:59');
+        $this->db->where('sale_date >=', $date . ' 00:00:00');
+        $this->db->where('sale_date <=', $date . ' 23:59:59');
         $query = $this->db->get()->result();
 
         return $query;
@@ -197,8 +197,7 @@ class sales_model extends CI_Model
         $this->db->where('sale_date <=', $end_date);
         $query = $this->db->get()->result();
         return $query;
-
-    }    
+    }
 
     function select_monthly_sales($month, $year)
     {
@@ -213,9 +212,15 @@ class sales_model extends CI_Model
         $this->db->where('sale_date <=', $end_date);
         $query = $this->db->get()->result();
         return $query;
+    }
 
-    }    
-
-
-
+    function select_popular_item_sold($date1,$date2)
+    {
+        $this->db->select('SUM(sale_item_quantity) as total_quantity, item_name')
+            ->from('items')
+            ->join('sales_item', 'sales_item.item_id =items.item_id')
+            ->join('sales', 'sales.sale_id =sales_item.sale_id')
+            ->where('sale_date' . " BETWEEN '" . $date1 . " 00:00:00 'AND '" . $date2 . " 23:59:59'");
+        return $this->db->get()->result();
+    }
 }
