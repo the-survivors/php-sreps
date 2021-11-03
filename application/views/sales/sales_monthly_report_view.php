@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-                        <div class="col-xl-12">
+                        <div class="col-xl-9">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" onclick="load_table(<?php if ($month == 1) {
                                                                                 echo $month;
@@ -154,6 +154,18 @@
                                                                             } ?>)" class="btn btn-dark month"><span style="" class="fas fa-chevron-right"></span></button>
                             </div>
                         </div>
+                        <div class="col-xl-3">
+                            <div class="d-flex justify-content-end">
+                                <form method="post" action=" <?= base_url('sales/sales_report/export_monthly_report/'.$month.'/'.$year.'/'); ?>">
+                                    <button type="submit" style="border-radius:10px; background-color:#1dd3b0; color:white; height:auto; width:auto;" class="btn btn-icon-split pr-1">
+                                        <span class="icon text-white-600">
+                                            <i class="fas fa-download p-1"></i>
+                                        </span>
+                                        <span class="text">Export CSV</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Content Row (Start here)-->
@@ -161,17 +173,18 @@
                         <div class="col-xl-12">
 
                             <div class="card">
-                                <div class="card-header" style="background-color:#FF545D; color:white;">
+                                <div class="card-header" style="background-color:#C04C4C; color:white;">
                                     <h3 class="pt-2" style="font-weight: 800;">
                                         <?php
+                                        //Get full name of month based on number of the month
                                         $monthNum  = $month;
                                         $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-                                        $monthName = $dateObj->format('F'); // March
+                                        $monthName = $dateObj->format('F'); 
                                         ?>
                                         <center>Sales Report for <?= $monthName ?></center>
                                     </h3>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" style="background-color: #F8DCDC; color:black;">
 
                                     <div class="table-responsive">
                                         <table id="table_monthly_sales_report" class="table table-striped">
@@ -180,6 +193,7 @@
                                                     <th>No.</th>
                                                     <th>Item ID</th>
                                                     <th>Item Name</th>
+                                                    <th>Item Subcategory</th>
                                                     <th>Quantity</th>
                                                     <th>Total Sales (RM)</th>
                                                 </tr>
@@ -192,6 +206,7 @@
                                                         <td></td>
                                                         <td><?= $row->item_id ?></td>
                                                         <td><?= $row->item_name ?></td>
+                                                        <td><?= $row->item_subcategory_name ?></td>
                                                         <td><?= $row->item_total_quantity ?></td>
                                                         <td><?= $row->item_total_sale ?></td>
                                                     </tr>
@@ -201,7 +216,7 @@
                                             </tbody>
                                             <tfoot style="color:white;">
                                                 <tr>
-                                                    <td colspan="4"></td>
+                                                    <td colspan="5"></td>
                                                     <td style="background: #C04C4C;">
                                                         <center>Total: RM <?= $total_sales ?></center>
                                                     </td>

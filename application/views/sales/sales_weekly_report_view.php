@@ -99,6 +99,23 @@
                         </div>
                     </div>
 
+                    <div class="row mb-4">
+                        <div class="col-xl-9">
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="d-flex justify-content-end">
+                                <form method="post" action=" <?= base_url('sales/sales_report/export_weekly_report/'.$start_date.'/'.$end_date.'/'); ?>">
+                                    <button type="submit" style="border-radius:10px; background-color:#1dd3b0; color:white; height:auto; width:auto;" class="btn btn-icon-split pr-1">
+                                        <span class="icon text-white-600">
+                                            <i class="fas fa-download p-1"></i>
+                                        </span>
+                                        <span class="text">Export CSV</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Content Row (Start here)-->
                     <div class="row">
                         <div class="col-xl-12">
@@ -117,29 +134,33 @@
                                                     <th>No.</th>
                                                     <th>Item ID</th>
                                                     <th>Item Name</th>
+                                                    <th>Item Subcategory</th>
                                                     <th>Quantity</th>
                                                     <th>Total Sales (RM)</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="color:black;">
-                                                <?php 
-                                                    $total_sales = 0;
-                                                    foreach ($sales_report_data as $row) {  ?>
+                                                <?php
+                                                $total_sales = 0;
+                                                foreach ($sales_report_data as $row) {  ?>
                                                     <tr>
                                                         <td></td>
                                                         <td><?= $row->item_id ?></td>
                                                         <td><?= $row->item_name ?></td>
+                                                        <td><?= $row->item_subcategory_name ?></td>
                                                         <td><?= $row->item_total_quantity ?></td>
                                                         <td><?= $row->item_total_sale ?></td>
                                                     </tr>
                                                 <?php
-                                                    $total_sales += $row->item_total_sale; 
-                                                    }  ?>
+                                                    $total_sales += $row->item_total_sale;
+                                                }  ?>
                                             </tbody>
                                             <tfoot style="color:white;">
                                                 <tr>
-                                                    <td colspan="4"></td>
-                                                    <td style="background: #C04C4C;"><center>Total: RM <?=$total_sales?></center></td>
+                                                    <td colspan="5"></td>
+                                                    <td style="background: #C04C4C;">
+                                                        <center>Total: RM <?= $total_sales ?></center>
+                                                    </td>
                                                 </tr>
                                             </tfoot>
                                         </table>

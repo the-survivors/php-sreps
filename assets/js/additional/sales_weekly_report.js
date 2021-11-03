@@ -2,6 +2,7 @@ $(document).ready(function() {
     var t = $("#table_weekly_sales_report").DataTable({
         //make table responsive
         "bAutoWidth": false,
+        "lengthMenu": [[25, 50, 75, 100,-1], [25, 50, 75, 100, "All"]]
     });
 
     t.on('order.dt search.dt', function() {
