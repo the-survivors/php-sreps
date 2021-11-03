@@ -79,6 +79,10 @@ class Sales_report extends CI_Controller
         $sales_report_data = $this->sales_report_model->export_weekly_sales_report($start_date, $end_date);
 
         //insert title row
+        $title = array("From:", $start_date, "To: ", $end_date);
+        fputcsv($handle, $title);
+
+        //insert header row
         $header = array("Item ID", "Item Name", "Item Subcategory", "Quantity", "Total Sales (RM)");
         fputcsv($handle, $header);
 
@@ -109,7 +113,7 @@ class Sales_report extends CI_Controller
 
         header("Content-type: application/csv");
         //set file name
-        header("Content-Disposition: attachment; filename=\"Sales Report for ".$monthName.".csv\"");
+        header("Content-Disposition: attachment; filename=\"Sales Report for ".$monthName." ".$year.".csv\"");
         header("Content-Description: File Transfer"); 
 
         $handle = fopen('php://output', 'w');
@@ -118,6 +122,10 @@ class Sales_report extends CI_Controller
         $sales_report_data = $this->sales_report_model->export_monthly_sales_report($month, $year);
 
         //insert title row
+        $title = array("Month:", $monthName, "Year: ", $year);
+        fputcsv($handle, $title);
+
+        //insert header row
         $header = array("Item ID", "Item Name", "Item Subcategory", "Quantity", "Total Sales (RM)");
         fputcsv($handle, $header);
 

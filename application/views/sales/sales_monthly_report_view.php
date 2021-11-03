@@ -181,7 +181,7 @@
                                         $dateObj   = DateTime::createFromFormat('!m', $monthNum);
                                         $monthName = $dateObj->format('F'); 
                                         ?>
-                                        <center>Sales Report for <?= $monthName ?></center>
+                                        <center>Sales Report for <?= $monthName ?> <?= $year ?> </center>
                                     </h3>
                                 </div>
                                 <div class="card-body" style="background-color: #F8DCDC; color:black;">
