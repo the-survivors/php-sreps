@@ -213,14 +213,4 @@ class sales_model extends CI_Model
         $query = $this->db->get()->result();
         return $query;
     }
-
-    function select_popular_item_sold($date1,$date2)
-    {
-        $this->db->select('SUM(sale_item_quantity) as total_quantity, item_name')
-            ->from('items')
-            ->join('sales_item', 'sales_item.item_id =items.item_id')
-            ->join('sales', 'sales.sale_id =sales_item.sale_id')
-            ->where('sale_date' . " BETWEEN '" . $date1 . " 00:00:00 'AND '" . $date2 . " 23:59:59'");
-        return $this->db->get()->result();
-    }
 }
