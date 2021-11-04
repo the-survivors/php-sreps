@@ -34,6 +34,61 @@
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
+
+            <!-- Notification button -->
+            <li class="nav-item px-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+                    <span class="badge badge-secondary badge-counter text-dark" style="background-color: #FFF1F3;">3+</span>
+                </a>
+
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header background-danger">
+                        Alerts Center
+                    </h6>
+                    <?php
+                        $notifcation_data = $this->items_model->show_item_low_on_stock();
+                    ?>
+                    <a class="dropdown-item d-flex align-items-center">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div class="text-dark">
+                            <div class="text-primary">Item Name 1</div>
+                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-success">
+                                <i class="fas fa-donate text-white"></i>
+                            </div>
+                        </div>
+                        <div class="text-dark">
+                            <div class="text-primary">Item Name 2</div>
+                            $290.29 has been deposited into your account!
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-warning">
+                                <i class="fas fa-exclamation-triangle text-white"></i>
+                            </div>
+                        </div>
+                        <div class="text-dark">
+                            <div class="text-primary">Item Name 3</div>
+                            Spending Alert: We've noticed unusually high spending for your account.
+                        </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
+                </div>
+            </li>
+
+            <!-- Logout button -->
             <li class="nav-item pl-1">
                 <a class="nav-link" onclick="logout()" ?>
                     <button type="button" id="register_btn" class="btn" style="background-color: white; color: #e56b6f; font-size: 0.9em; border-radius:15px; font-weight: 800;"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Logout</button>
