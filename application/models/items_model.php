@@ -164,7 +164,10 @@ class items_model extends CI_Model
    
     function select_all_item_subcategories()
     {
-        return $this->db->get('items_subcategory')->result();
+        $this->db->from('items_subcategory')
+        ->order_by('item_subcategory_name', 'asc');
+        return $this->db->get()->result();
+        //return $this->db->get('items_subcategory')->result();
     }
 
     function select_all_items_in_subcategory($item_subcategory_id){
@@ -242,6 +245,24 @@ class items_model extends CI_Model
             }
         } else {
             $output = '<option value="" selected disabled>No item subcategories available</option>';
+        }
+
+        return $output;
+    }
+
+    function fetch_items($item_subcategory_id)  //new function
+    {
+        $this->db->where('item_subcategory_id', $item_subcategory_id)
+        ->order_by('item_name', 'ASC');
+        $query = $this->db->get('items');
+
+        if ($query->num_rows() > 0) {
+            $output = '<option value="all_items" selected>All Items</option>';
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->item_id . '">' . '#' . $row->item_id . ' - ' . $row->item_name . '</option>';
+            }
+        } else {
+            $output = '<option value="" selected disabled>No items available</option>';
         }
 
         return $output;

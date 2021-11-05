@@ -70,6 +70,14 @@
             </a>
         </li>
 
+        <!-- Nav Item - Predictions -->
+        <li class="nav-item">
+            <a class="nav-link <?php if ($selected == "sales_prediction") echo 'active'; ?>"  href="<?=base_url('sales/Sales_prediction/')?>">
+            <i class="fas fa-hourglass-half <?php if ($selected == "sales_prediction") echo 'active'; ?>"></i>
+                <span>Predictions</span>
+            </a>
+        </li>
+
         <?php break; 
         
         // Admin
