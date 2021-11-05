@@ -82,32 +82,35 @@
         </li>
 
         <?php
-        $notifcation_data = $this->items_model->select_all_items_low_on_stock();
+        //get notification data
+        $notifcation_data = $this->items_model->select_all_sorted_items_low_on_stock();
         $no_notifcation_data = count($notifcation_data);
         ?>
+        <!-- Notification button -->
         <li class="nav-item px-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
+                <!-- Counter - notification -->
                 <span class="badge badge-secondary badge-counter text-dark" style="background-color: #FFF1F3;"><?= $no_notifcation_data ?>+</span>
             </a>
 
-            <!-- Dropdown - Alerts -->
+            <!-- Dropdown - notification -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header bg-danger">
-                    Alerts Center
+                    Notification
                 </h6>
                 <div id="scroll_notification">
                     <?php foreach ($notifcation_data as $row) { ?>
                         <a class="dropdown-item d-flex align-items-center" style="height: 5.0em;">
                             <div class="text-dark">
-                                <div class="text-primary"><?=$row->item_name?></div>
-                                <span class="small" >Quantity: <div class="badge badge-danger text-wrap"><?=$row->item_quantity?></div>Restock: </span>
+                                <div class="text-primary mb-2" style="font-weight: 800;"><?=$row->item_name?></div>
+                                <span class="small" >Quantity: <div class="badge badge-danger text-wrap mr-3" style="font-size: 1.0em;"><?=$row->item_quantity?></div><?php if($row->item_quantity<10){echo " ";}?><i class="fas fa-chevron-left fa-lg mr-2"></i>
+                                Restock: <div class="badge badge-dark text-wrap" style="font-size: 1.0em"><?=$row->item_restock_level?></div></span>
                             </div>
                         </a>
                     <?php } ?>
                 </div>
-                <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('items/Items/items_low_on_stock');?>">Show All Notification</a>
+                <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('items/Items/items_low_on_stock');?>">Show All</a>
             </div>
         </li>
 

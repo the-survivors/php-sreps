@@ -247,6 +247,17 @@ class items_model extends CI_Model
         return $output;
     }
 
+    function select_all_sorted_items_low_on_stock()
+    {
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('item_quantity = item_restock_level OR item_quantity < item_restock_level')
+        ->order_by('item_quantity');
+        return $this->db->get()->result();
+    }
+
     // function select_condition($condition)
     // {
     //     $this->db->where($condition);
