@@ -80,7 +80,7 @@
                         <div class="col-xl-4 col-md-6 mb-4">
                         <a href = "" style = "text-decoration:none">
                             <a href="<?php echo base_url('items/Items/items_low_on_stock'); ?>" style="text-decoration:none">
-                            <div class="card border-left-danger shadow h-100 py-2" style="background-color: #f9bec7">
+                            <div class="card border-left-danger shadow h-100 py-2" style="background-color: #ff8080">
                                 <div class="card-body" href="">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
