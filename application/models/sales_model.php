@@ -219,14 +219,32 @@ class sales_model extends CI_Model
     // -------- PREDICTION  -------- //
 
     // FOR 1 MONTH (NO RANGE)
-    function select_item_sale_details_by_month($item_id, $month) // no. of units sold, price per unit and total sales (units sold * price per unit) for a specific month
+    function select_item_sale_details_by_month($item_id, $start_date) // no. of units sold, price per unit and total sales (units sold * price per unit) for a specific month
     {
+        $d = new DateTime($start_date);
+        $end_date = $d->format('Y-m-t');
         $this->db->select('SUM(sales_item.sale_item_quantity) as units_sold, items.item_price, (SUM(sales_item.sale_item_quantity) * items.item_price) AS total_sales')
         ->from('sales_item')
         ->join('sales', 'sales.sale_id = sales_item.sale_id')
         ->join('items', 'items.item_id = sales_item.item_id')
         ->where('sales_item.item_id', $item_id)
-        ->where('MONTH(sales.sale_date)', $month);
+        ->where('sales.sale_date >=', $start_date)
+        ->where('sales.sale_date <=', $end_date);
+        return $this->db->get()->result();
+    }
+
+    function select_items_sale_details_by_month($item_subcategory_id, $start_date) // no. of units sold, price per unit and total sales (units sold * price per unit) for a specific month
+    {
+        $d = new DateTime($start_date);
+        $end_date = $d->format('Y-m-t');
+        $this->db->select('items.item_id, items.item_name, SUM(sales_item.sale_item_quantity) as units_sold, items.item_price, (SUM(sales_item.sale_item_quantity) * items.item_price) AS total_sales')
+        ->from('items')
+        ->join('sales_item', 'sales_item.item_id = items.item_id')
+        ->join('sales', 'sales.sale_id = sales_item.sale_id')
+        ->group_by('items.item_id')
+        ->where('items.item_subcategory_id', $item_subcategory_id)
+        ->where('sales.sale_date >=', $start_date)
+        ->where('sales.sale_date <=', $end_date);
         return $this->db->get()->result();
     }
 

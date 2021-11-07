@@ -7,6 +7,20 @@
     var base_url = "<?php echo base_url(); ?>";
 </script>
 
+<style>
+    /* .table-striped tbody tr:nth-of-type(odd) {
+        background: #E8BCBC;
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background: #F8DCDC;
+    }
+
+    .table-striped thead tr:nth-of-type(odd) {
+        background: #C04C4C;
+    } */
+</style>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -43,68 +57,189 @@
                     <!-- <div class="row">
                     </div> -->
                     <div class="row" style="color: black">
-                    <!-- <php foreach ($item_sale_data as $item_d): echo $item_d->sale_month;?><php endforeach ?> -->
-                        <h6 class="col-xl-4 font-weight-bold">Item Subcategory</h6>
-                        <h6 class="col-xl-5 font-weight-bold">Item</h6>
-                        <h6 class="col-xl-3 font-weight-bold">Start Date</h6>
+                        <!-- <php foreach ($item_sale_data as $item_d): echo $item_d->sale_month;?><php endforeach ?> -->
+                        <h6 class="col-xl-3 font-weight-bold">Item Subcategory</h6>
+                        <h6 class="col-xl-7 font-weight-bold">Item</h6>
+                        <h6 class="col-xl-2 font-weight-bold">Start Date</h6>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-xl-4">
-                            <input type="text" readonly class="form-control-plaintext" style="background-color: #9B9B9B; color:white;" value=" <?= $item_subcategory_data[0]->item_subcategory_name ?>">
-                        </div>
-                        <div class="col-xl-5">
-                            <input type="text" readonly class="form-control-plaintext" style="background-color: #9B9B9B; color:white;" <?php if ($item_id != "all_items") { ?>value=" #<?= $item_data->item_id ?> - <?= $item_data->item_name?>" <?php } else { ?>value=" All Items"<?php } ?>>
-                        </div>
                         <div class="col-xl-3">
-                            <input type="text" readonly class="form-control-plaintext" style="background-color: #9B9B9B; color:white;" id="staticEmail" value=" November 2021">
+                            <input type="text" readonly class="form-control-plaintext font-weight-bold" style="background-color: #706868; color:white;" value=" <?= $item_subcategory_data[0]->item_subcategory_name ?>">
+                        </div>
+                        <div class="col-xl-7">
+                            <input type="text" readonly class="form-control-plaintext" style="background-color: #706868; color:white;" <?php if ($item_id != "all_items") { ?>value=" #<?= $item_data->item_id ?> - <?= $item_data->item_name ?>" <?php } else { ?>value=" All Items" <?php } ?>>
+                        </div>
+                        <div class="col-xl-2">
+                            <input type="text" readonly class="form-control-plaintext" style="background-color: #706868; color:white;" id="staticEmail" value=" November 2021">
                         </div>
                     </div>
                     <div class="row">
                         <h5 class="mt-3 font-weight-bold" style="color: black;">Prediction based on Sales from the past 3 months</h5>
                     </div>
                     <div class="row">
-                        <table class="table table-bordered" width="100%" style="background-color: white;">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <!--the foreach must begin here. foreach month-->
-                                    <!-- <th scope="col">January</th>
-                                    <th scope="col">February</th>
-                                    <th scope="col" style="background-color:#FF545D">March</th>
-                                    <th scope="col">April</th>
-                                    <th scope="col">May</th> -->
-                                    <?php $grand_total_units = 0; $grand_total_sales = 0;?>
-                                    <?php foreach($item_sale_data as $item_s_d): ?>
-                                        <th scope="col"><?= $item_s_d->sale_month?></th>
-                                    <?php endforeach ?>
-                                    <th scope="col">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Number of Units Sold</th>
-                                    <?php foreach($item_sale_data as $item_s_d): ?>
-                                        <td><?= $item_s_d->units_sold?></td>
-                                        <?php $grand_total_units += $item_s_d->units_sold?></td>
-                                    <?php endforeach ?>
-                                    <td><?= $grand_total_units ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Price per Unit</th>
-                                    <?php foreach($item_sale_data as $item_s_d): ?>
-                                        <td><?= $item_s_d->item_price?></td>
-                                    <?php endforeach ?>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Total Sales</th>
-                                    <?php foreach($item_sale_data as $item_s_d): ?>
-                                        <td><?= $item_s_d->total_sales?></td>
-                                        <?php $grand_total_sales += $item_s_d->total_sales?></td>
-                                    <?php endforeach ?>
-                                    <td><?= $grand_total_sales ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <!-- <?php var_dump($value_of_date); ?> -->
+                            <?php if ($item_id == "all_items") {
+                                $x = 0;
+                                $y = 0;
+                                $f_m = 0;
+                                //$average_total_units = 0;                        
+                                foreach ($all_items as $item) : ?>
+                                    <?php
+                                    $total_units = 0;
+                                    $average_total_units = 0;
+                                    $grand_total_sales = 0;
+                                    ?>
+                                    <hr>
+                                    <div class="mt-3 mb-4" style="color:black; background-color:pink">
+                                        <h5 class="font-weight-bold">Item: <?php echo "#" . $item->item_id . " - " . $item->item_name; ?></h5>
+                                    </div>
+                                    <table class="table table-bordered table-striped mb-5" style="background-color: white;">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <?php foreach ($date_within_range as $item_d) : ?>
+                                                    <?php $month_year = date('Y-m', strtotime($item_d)) ?>
+                                                    <th scope="col">
+                                                        <?php echo date('F Y', strtotime($item_d)) ?>
+                                                    </th>
+                                                <?php endforeach ?>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="color:black">
+                                            <tr>
+                                                <th scope="row">Number of Units Sold<?= count($value_of_date) ?></th>
+                                                <?php for ($count = 0; $count < 3; $count++) { ?>
+                                                    <?php if ($value_of_date[$x][0]->units_sold == null) { ?>
+                                                        <td>0</td>
+                                                    <?php } else { ?>
+                                                        <td><?= $value_of_date[$x][0]->units_sold ?></td>
+                                                <?php }
+                                                    $average_total_units += $value_of_date[$x][0]->units_sold;
+                                                    $x++;
+                                                } ?>
+                                                <!-- <php if ($value_of_date[$f][0]->units_sold != null) { $first_m []= $value_of_date[$f][0]->units_sold; } else { $first_m [] = 0; } $f +=3;} ?> -->
+                                                <!-- <td><= $average_total_units ?></td> -->
+                                                <?php $future_month_1_units = round($average_total_units / 3); ?>
+                                                <td><?= $future_month_1_units; ?></td>
+
+                                                <?php for ($count = 0; $count < 1; $count++) { ?>
+                                                    <?php if ($value_of_date[$f_m][0]->units_sold == null) { ?>
+                                                        <td><?= $future_month_2_units = round(($average_total_units + $future_month_1_units) / 3); ?></td>
+                                                    <?php } else { ?>
+                                                        <td><?= $future_month_2_units = round(($average_total_units - $value_of_date[$f_m][0]->units_sold + $future_month_1_units) / 3);
+                                                        }
+                                                        $f_m += 3;
+                                                    } ?></td>
+                                                        <td><?= ($average_total_units + $future_month_1_units + $future_month_2_units) ?></td>
+                                                        <!-- <php $future_month_2_units = round(($average_total_units - $first_m + $future_month_1_units) / 3); ?> -->
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Price per Unit (RM)</th>
+                                                <?php for ($count = 0; $count < 5; $count++) { ?>
+                                                    <td><?= $item->item_price ?></td>
+                                                <?php } ?>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Total Sales (RM)</th>
+                                                <?php for ($count = 0; $count < 3; $count++) { ?>
+                                                    <?php if ($value_of_date[$y][0]->total_sales == null) { ?>
+                                                        <td>0.00</td>
+                                                    <?php } else { ?>
+                                                        <td><?= number_format($value_of_date[$y][0]->total_sales, 2, '.', '') ?></td>
+                                                <?php }
+                                                    $grand_total_sales += $value_of_date[$y][0]->total_sales;
+                                                    $y++;
+                                                } ?>
+                                                <?php $future_month_1_sales = ($future_month_1_units * $item->item_price) ?>
+                                                <td><?= number_format($future_month_1_sales, 2, '.', '') ?></td>
+                                                <?php $future_month_2_sales = ($future_month_2_units * $item->item_price) ?>
+                                                <td><?= number_format($future_month_2_sales, 2, '.', '') ?></td>
+                                                <?php $grand_total_sales = $grand_total_sales + $future_month_1_sales + $future_month_2_sales ?>
+                                                <td><?= number_format($grand_total_sales, 2, '.', '') ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--All items table-->
+
+                                <?php endforeach;
+                            } else { ?>
+
+                                <table class="table table-bordered table-striped" style="background-color: white;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <?php
+                                            $grand_total_units = 0;
+                                            $grand_total_sales = 0;
+                                            $average_total_units = 0;
+                                            $current_month_year = date('Y-m');
+                                            ?>
+                                            <?php foreach ($date_within_range as $item_d) : ?>
+                                                <?php $month_year = date('Y-m', strtotime($item_d)) ?>
+                                                <th scope="col" <?php if ($month_year == $current_month_year) {
+                                                                    echo "style='background-color:#FF545D'";
+                                                                } elseif ($month_year > $current_month_year) {
+                                                                    echo "style='background-color:#B6666F'";
+                                                                } ?>>
+                                                    <?php echo date('F Y', strtotime($item_d)) ?>
+                                                </th>
+                                            <?php endforeach ?>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:black">
+                                        <tr>
+                                            <th scope="row">Number of Units Sold</th>
+                                            <?php foreach ($value_of_date as $item_s_d) : ?>
+                                                <td><?php if ($item_s_d[0]->units_sold == null) {
+                                                        echo '0';
+                                                    } else {
+                                                        echo $item_s_d[0]->units_sold;
+                                                    } ?></td>
+                                                <?php $average_total_units += $item_s_d[0]->units_sold ?>
+                                            <?php endforeach ?>
+                                            <?php $future_month_1_units = round($average_total_units / count($value_of_date)); ?>
+                                            <td><?= $future_month_1_units; ?></td>
+                                            <?php $future_month_2_units = round(($average_total_units - $value_of_date[0][0]->units_sold + $future_month_1_units) / (count($value_of_date))); ?>
+                                            <td><?= $future_month_2_units; ?></td>
+                                            <td><?= ($average_total_units + $future_month_1_units + $future_month_2_units) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Price per Unit (RM)</th>
+                                            <?php foreach ($value_of_date as $item_s_d) : ?>
+                                                <td><?= $item_data->item_price; ?>
+                                                    <!--ya -->
+                                                </td>
+                                            <?php endforeach ?>
+                                            <td><?= $item_data->item_price ?></td>
+                                            <td><?= $item_data->item_price ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Total Sales (RM)</th>
+                                            <?php foreach ($value_of_date as $item_s_d) : ?>
+                                                <td><?php if ($item_s_d[0]->total_sales == null) {
+                                                        echo '0.00';
+                                                    } else {
+                                                        echo number_format($item_s_d[0]->total_sales, 2, '.', '');
+                                                    } ?></td>
+                                                <?php $grand_total_sales += $item_s_d[0]->total_sales ?>
+                                            <?php endforeach ?>
+                                            <?php $future_month_1_sales = ($future_month_1_units * $item_data->item_price) ?>
+                                            <td><?= number_format($future_month_1_sales, 2, '.', '') ?></td>
+                                            <?php $future_month_2_sales = ($future_month_2_units * $item_data->item_price) ?>
+                                            <td><?= number_format($future_month_2_sales, 2, '.', '') ?></td>
+                                            <?php $grand_total_sales = $grand_total_sales + $future_month_1_sales + $future_month_2_sales ?>
+                                            <td><?= number_format($grand_total_sales, 2, '.', '') ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--Specfic item table-->
+
+                            <?php } ?>
+
+                        </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
