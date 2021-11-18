@@ -48,9 +48,6 @@ class items_model extends CI_Model
         ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
         ->where('item_id', $item_id);
         return $this->db->get()->row();
-
-        // $this->db->where('item_id',$item_id);
-        // return $this->db->get('items')->row();
     }
 
     function insert_item($data)
@@ -92,6 +89,35 @@ class items_model extends CI_Model
         ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
         ->where('item_quantity = item_restock_level OR item_quantity < item_restock_level');
         return $this->db->get()->result();
+    }
+
+    function select_all_sorted_items_low_on_stock()
+    {
+        $this->db->select('')
+        ->from('items')
+        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
+        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
+        ->where('item_quantity = item_restock_level OR item_quantity < item_restock_level')
+        ->order_by('item_quantity');
+        return $this->db->get()->result();
+    }
+    
+    function fetch_items($item_subcategory_id) // dropdown for prediction
+    {
+        $this->db->where('item_subcategory_id', $item_subcategory_id)
+        ->order_by('item_name', 'ASC');
+        $query = $this->db->get('items');
+
+        if ($query->num_rows() > 0) {
+            $output = '<option value="all_items" selected>All Items</option>';
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->item_id . '">' . '#' . $row->item_id . ' - ' . $row->item_name . '</option>';
+            }
+        } else {
+            $output = '<option value="" selected disabled>No items available</option>';
+        }
+
+        return $output;
     }
 
     // -------- ITEM CATEGORIES -------- //
@@ -164,7 +190,9 @@ class items_model extends CI_Model
    
     function select_all_item_subcategories()
     {
-        return $this->db->get('items_subcategory')->result();
+        $this->db->from('items_subcategory')
+        ->order_by('item_subcategory_name', 'asc');
+        return $this->db->get()->result();
     }
 
     function select_all_items_in_subcategory($item_subcategory_id){
@@ -229,7 +257,7 @@ class items_model extends CI_Model
         }
     }
 
-    function fetch_item_subcategories($item_category_id)  //new function
+    function fetch_item_subcategories($item_category_id) 
     {
         $this->db->where('item_category_id', $item_category_id)
         ->order_by('item_subcategory_name', 'ASC');
@@ -246,21 +274,4 @@ class items_model extends CI_Model
 
         return $output;
     }
-
-    function select_all_sorted_items_low_on_stock()
-    {
-        $this->db->select('')
-        ->from('items')
-        ->join('items_subcategory', 'items_subcategory.item_subcategory_id = items.item_subcategory_id')
-        ->join('items_category', 'items_category.item_category_id = items_subcategory.item_category_id')
-        ->where('item_quantity = item_restock_level OR item_quantity < item_restock_level')
-        ->order_by('item_quantity');
-        return $this->db->get()->result();
-    }
-
-    // function select_condition($condition)
-    // {
-    //     $this->db->where($condition);
-    //     return $this->db->get('universities')->result();
-    // }
 }
