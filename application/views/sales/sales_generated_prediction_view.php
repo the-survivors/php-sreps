@@ -57,20 +57,19 @@
                     <!-- <div class="row">
                     </div> -->
                     <div class="row" style="color: black">
-                        <!-- <php foreach ($item_sale_data as $item_d): echo $item_d->sale_month;?><php endforeach ?> -->
                         <h6 class="col-xl-3 font-weight-bold">Item Subcategory</h6>
                         <h6 class="col-xl-7 font-weight-bold">Item</h6>
                         <h6 class="col-xl-2 font-weight-bold">Start Date</h6>
                     </div>
                     <div class="row mb-4">
                         <div class="col-xl-3">
-                            <input type="text" readonly class="form-control-plaintext font-weight-bold" style="background-color: #706868; color:white;" value=" <?= $item_subcategory_data[0]->item_subcategory_name ?>">
+                            <input type="text" readonly class="form-control-plaintext" style="background-color: #E4C2C1; color:black;" value=" <?= $item_subcategory_data[0]->item_subcategory_name ?>">
                         </div>
                         <div class="col-xl-7">
-                            <input type="text" readonly class="form-control-plaintext" style="background-color: #706868; color:white;" <?php if ($item_id != "all_items") { ?>value=" #<?= $item_data->item_id ?> - <?= $item_data->item_name ?>" <?php } else { ?>value=" All Items" <?php } ?>>
+                            <input type="text" readonly class="form-control-plaintext" style="background-color: #E4C2C1; color:black;" <?php if ($item_id != "all_items") { ?>value=" #<?= $item_data->item_id ?> - <?= $item_data->item_name ?>" <?php } else { ?>value=" All Items" <?php } ?>>
                         </div>
                         <div class="col-xl-2">
-                            <input type="text" readonly class="form-control-plaintext" style="background-color: #706868; color:white;" id="staticEmail" value=" November 2021">
+                            <input type="text" readonly class="form-control-plaintext" style="background-color: #E4C2C1; color:black;" value="<?= date('F Y') ?>">
                         </div>
                     </div>
                     <div class="row">
@@ -89,10 +88,11 @@
                                     $total_units = 0;
                                     $average_total_units = 0;
                                     $grand_total_sales = 0;
+                                    $current_month_year = date('Y-m')
                                     ?>
                                     <hr>
-                                    <div class="mt-3 mb-4" style="color:black; background-color:pink">
-                                        <h5 class="font-weight-bold">Item: <?php echo "#" . $item->item_id . " - " . $item->item_name; ?></h5>
+                                    <div class="mt-3 mb-4">
+                                        <h4 class="font-weight-bold" style="color:white;"><span class="badge" style="background-color:#FE6E76;">Item: <?php echo "#" . $item->item_id . " - " . $item->item_name; ?></span></h4>
                                     </div>
                                     <table class="table table-bordered table-striped mb-5" style="background-color: white;">
                                         <thead class="thead-dark">
@@ -100,7 +100,11 @@
                                                 <th scope="col"></th>
                                                 <?php foreach ($date_within_range as $item_d) : ?>
                                                     <?php $month_year = date('Y-m', strtotime($item_d)) ?>
-                                                    <th scope="col">
+                                                    <th scope="col" <?php if ($month_year == $current_month_year) {
+                                                                        echo "style='background-color:#FF545D'";
+                                                                    } elseif ($month_year > $current_month_year) {
+                                                                        echo "style='background-color:#B6666F'";
+                                                                    } ?>>
                                                         <?php echo date('F Y', strtotime($item_d)) ?>
                                                     </th>
                                                 <?php endforeach ?>
@@ -109,7 +113,7 @@
                                         </thead>
                                         <tbody style="color:black">
                                             <tr>
-                                                <th scope="row">Number of Units Sold<?= count($value_of_date) ?></th>
+                                                <th scope="row">Number of Units Sold</th>
                                                 <?php for ($count = 0; $count < 3; $count++) { ?>
                                                     <?php if ($value_of_date[$x][0]->units_sold == null) { ?>
                                                         <td>0</td>
@@ -119,8 +123,6 @@
                                                     $average_total_units += $value_of_date[$x][0]->units_sold;
                                                     $x++;
                                                 } ?>
-                                                <!-- <php if ($value_of_date[$f][0]->units_sold != null) { $first_m []= $value_of_date[$f][0]->units_sold; } else { $first_m [] = 0; } $f +=3;} ?> -->
-                                                <!-- <td><= $average_total_units ?></td> -->
                                                 <?php $future_month_1_units = round($average_total_units / 3); ?>
                                                 <td><?= $future_month_1_units; ?></td>
 
@@ -133,7 +135,6 @@
                                                         $f_m += 3;
                                                     } ?></td>
                                                         <td><?= ($average_total_units + $future_month_1_units + $future_month_2_units) ?></td>
-                                                        <!-- <php $future_month_2_units = round(($average_total_units - $first_m + $future_month_1_units) / 3); ?> -->
                                             </tr>
                                             <tr>
                                                 <th scope="row">Price per Unit (RM)</th>
@@ -209,9 +210,7 @@
                                         <tr>
                                             <th scope="row">Price per Unit (RM)</th>
                                             <?php foreach ($value_of_date as $item_s_d) : ?>
-                                                <td><?= $item_data->item_price; ?>
-                                                    <!--ya -->
-                                                </td>
+                                                <td><?= $item_data->item_price; ?></td>
                                             <?php endforeach ?>
                                             <td><?= $item_data->item_price ?></td>
                                             <td><?= $item_data->item_price ?></td>
