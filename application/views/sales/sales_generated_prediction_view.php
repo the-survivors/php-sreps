@@ -7,20 +7,6 @@
     var base_url = "<?php echo base_url(); ?>";
 </script>
 
-<style>
-    /* .table-striped tbody tr:nth-of-type(odd) {
-        background: #E8BCBC;
-    }
-
-    .table-striped tbody tr:nth-of-type(even) {
-        background: #F8DCDC;
-    }
-
-    .table-striped thead tr:nth-of-type(odd) {
-        background: #C04C4C;
-    } */
-</style>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->

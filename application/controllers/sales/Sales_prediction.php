@@ -25,7 +25,12 @@ class Sales_prediction extends CI_Controller
         $data['include_js'] = 'sales_prediction';
         $data['selected'] = 'sales_prediction';
 
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date = date('m');
+
         $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
+        $data['most_sold_item'] = MAX($this->sales_model->select_most_sold_item($date));
+        $data['most_sold_item_subcategory'] = MAX($this->sales_model->select_most_sold_item_subcategory($date));
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
@@ -103,4 +108,5 @@ class Sales_prediction extends CI_Controller
         $this->load->view('sales/sales_generated_prediction_view');
         $this->load->view('internal_templates/footer');
     }
+
 }

@@ -105,16 +105,16 @@
                         <div class="col-xl-4 col-md-6 mb-4">
                             <a href="" style="text-decoration:none">
                         <a href="<?php echo base_url('items/Items/items_low_on_stock'); ?>" style="text-decoration:none">
-                                <div class="card border-left-danger shadow h-100 py-2" style="background-color: #f9bec7">
+                                <div class="card border-left-danger shadow h-100 py-2" style="background-color: #ED495D">
                                     <div class="card-body" href="">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Items Running Low on Stock</div>
-                                                <div id="items_low_on_stock" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
+                                                <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:white">Items Running Low on Stock</div>
+                                                <div id="items_low_on_stock" class="h5 mb-0 font-weight-bold counting_number" style="color:white">0</div>
                                             </div>
 
                                             <div class="col-auto">
-                                                <i class="fas fa-cart-arrow-down fa-2x" style="color: #ff0a54"></i>
+                                                <i class="fas fa-cart-arrow-down fa-2x" style="color: #ffffff"></i>
                                             </div>
                                         </div>
                                     </div>
