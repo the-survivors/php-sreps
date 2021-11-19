@@ -57,7 +57,7 @@
 
     <!-- Logo Image-->
     <!-- <nav class="navbar navbar-light bg-light">   -->
-    <a class="navbar-brand py-0 " href="<?php echo base_url('external/homepage'); ?>">
+    <a class="navbar-brand py-0 ">
         <img src="<?php echo base_url('assets/img/php_logo.png'); ?>" height="70" width="160" alt="">
     </a>
     <!-- </nav> -->

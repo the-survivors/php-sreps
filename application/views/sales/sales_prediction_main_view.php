@@ -40,8 +40,8 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #EB6612">Most Popular Item Sold In This Month</div>
-                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800 " style="float: left;" >#<?php echo $most_sold_item->item_id ?> - <?php echo $most_sold_item->item_name ?></div>
-                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800 " style="float: left;" >Units Sold: </div><div id="most_sold_items_counter" style="float: left;" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
+                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800" style="float: left;" >#<?php echo $most_sold_item->item_id ?> - <?php echo $most_sold_item->item_name ?></div><br>
+                                                <div class = "mr-2 h5 mb-0 font-weight-bold text-gray-800" style="float: left;">Units Sold: </div><div id="most_sold_items_counter" style="float: left;" class="h5 mb-0 font-weight-bold text-gray-800 counting_number">0</div>
                                             </div>
                                             
                                             <div class="col-auto">
