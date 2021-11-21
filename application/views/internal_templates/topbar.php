@@ -40,6 +40,8 @@
         <ul class="navbar-nav ml-auto">
 
             <?php
+            //hide notification if the user is IT
+            if($this->session->userdata('user_role') != 'IT'){
             //get notification data
             $notifcation_data = $this->items_model->select_all_sorted_items_low_on_stock();
             $no_notifcation_data = count($notifcation_data);
@@ -73,6 +75,7 @@
                     <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('items/Items/items_low_on_stock'); ?>">Show All</a>
                 </div>
             </li>
+            <?php } ?> 
 
             <!-- Logout button -->
             <li class="nav-item pl-1">

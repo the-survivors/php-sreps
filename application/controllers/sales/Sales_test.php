@@ -13,6 +13,7 @@ class Sales_test extends CI_Controller
 
 	public function index()
 	{
+		//--- Uncomment the following function to run unit test
 		// $this->test_sales_in_array();
 		// $this->test_count_of_sales();
 		// $this->test_insert_sale();
