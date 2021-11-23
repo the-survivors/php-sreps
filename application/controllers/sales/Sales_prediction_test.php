@@ -47,23 +47,23 @@ class Sales_prediction_test extends CI_Controller
 
             switch ($x) {
                 case 0:
-                    $this->unit->run($this_date, '2021-09-01', 'First month is September 2021');
+                    $this->unit->run($this_date, '2021-09-01', 'Test Date Range: First month is September 2021');
                     break;
 
                 case 1:
-                    $this->unit->run($this_date, '2021-10-01', 'Second month is October 2021');
+                    $this->unit->run($this_date, '2021-10-01', 'Test Date Range: Second month is October 2021');
                     break;
 
                 case 2:
-                    $this->unit->run($this_date, '2021-11-01', 'This month is November 2021');
+                    $this->unit->run($this_date, '2021-11-01', 'Test Date Range: This month is November 2021');
                     break;
 
                 case 3:
-                    $this->unit->run($this_date, '2021-12-01', 'Next month is December 2021');
+                    $this->unit->run($this_date, '2021-12-01', 'Test Date Range: Next month is December 2021');
                     break;
 
                 case 4:
-                    $this->unit->run($this_date, '2022-01-01', 'Next next month is January 2022');
+                    $this->unit->run($this_date, '2022-01-01', 'Test Date Range: Next next month is January 2022');
                     break;
 
                 default:
@@ -79,9 +79,9 @@ class Sales_prediction_test extends CI_Controller
     {
         // using item with ID #21 and getting its sales details from the start and end of November 2021
         $result = $this->sales_model->select_item_sale_details_by_month(21, '2021-11-01');
-        $this->unit->run($result[0]->item_price, 36, 'Price of item #21 is 36');
-        $this->unit->run($result[0]->units_sold, 11, 'Units sold for item #21 in November 2021 is 11');
-        $this->unit->run($result[0]->total_sales, 396, 'Total sales for item #21 in November 2021 is 396');
+        $this->unit->run($result[0]->item_price, 36, 'Test Select Item Monthly Sales: Price of item #21 is 36');
+        $this->unit->run($result[0]->units_sold, 11, 'Test Select Item Monthly Sales: Units sold for item #21 in November 2021 is 11');
+        $this->unit->run($result[0]->total_sales, 396, 'Test Select Item Monthly Sales: Total sales for item #21 in November 2021 is 396');
     }
 
     // checks whether sales records for a group of items in a particular month is being returned (throughout the start and end of month x)
@@ -96,23 +96,23 @@ class Sales_prediction_test extends CI_Controller
 
                 case 7:
                     $result = $this->sales_model->select_item_sale_details_by_month(7, '2021-11-01');
-                    $this->unit->run($result[0]->item_price, 41.2, 'Price of item #7 is 41.2');
-                    $this->unit->run($result[0]->units_sold, 0, 'Units sold for item #7 in November 2021 is 0');
-                    $this->unit->run($result[0]->total_sales, 0, 'Total sales for item #7 in November 2021 is 0');
+                    $this->unit->run($result[0]->item_price, 41.2, 'Test Select Group of Items Monthly Sales: Price of item #7 is 41.2');
+                    $this->unit->run($result[0]->units_sold, 0, 'Test Select Group of Items Monthly Sales: Units sold for item #7 in November 2021 is 0');
+                    $this->unit->run($result[0]->total_sales, 0, 'Test Select Group of Items Monthly Sales: Total sales for item #7 in November 2021 is 0');
                     break;
 
                 case 20:
                     $result = $this->sales_model->select_item_sale_details_by_month(20, '2021-11-01');
-                    $this->unit->run($result[0]->item_price, 42.5, 'Price of item #20 is 42.5');
-                    $this->unit->run($result[0]->units_sold, 3, 'Units sold for item #20 in November 2021 is 3');
-                    $this->unit->run($result[0]->total_sales, 127.50, 'Total sales for item #20 in November 2021 is 127.50');
+                    $this->unit->run($result[0]->item_price, 42.5, 'Test Select Group of Items Monthly Sales: Price of item #20 is 42.5');
+                    $this->unit->run($result[0]->units_sold, 3, 'Test Select Group of Items Monthly Sales: Units sold for item #20 in November 2021 is 3');
+                    $this->unit->run($result[0]->total_sales, 127.50, 'Test Select Group of Items Monthly Sales: Total sales for item #20 in November 2021 is 127.50');
                     break;
 
                 case 21:
                     $result = $this->sales_model->select_item_sale_details_by_month(21, '2021-11-01');
-                    $this->unit->run($result[0]->item_price, 36, 'Price of item #21 is 36');
-                    $this->unit->run($result[0]->units_sold, 11, 'Units sold for item #21 in November 2021 is 11');
-                    $this->unit->run($result[0]->total_sales, 396, 'Total sales for item #21 in November 2021 is 396');
+                    $this->unit->run($result[0]->item_price, 36, 'Test Select Group of Items Monthly Sales: Price of item #21 is 36');
+                    $this->unit->run($result[0]->units_sold, 11, 'Test Select Group of Items Monthly Sales: Units sold for item #21 in November 2021 is 11');
+                    $this->unit->run($result[0]->total_sales, 396, 'Test Select Group of Items Monthly Sales: Total sales for item #21 in November 2021 is 396');
                     break;
 
                 default:
@@ -153,15 +153,15 @@ class Sales_prediction_test extends CI_Controller
 
             switch ($x) {
                 case 0:
-                    $this->unit->run($value_of_date[$x][0]->units_sold, 12, 'Units sold for item #21 in September 2021 is 12');
+                    $this->unit->run($value_of_date[$x][0]->units_sold, 12, 'Test Select Item Past Monthly Sales: Units sold for item #21 in September 2021 is 12');
                     break;
 
                 case 1:
-                    $this->unit->run($value_of_date[$x][0]->units_sold, 1, 'Units sold for item #21 in October 2021 is 1');
+                    $this->unit->run($value_of_date[$x][0]->units_sold, 1, 'Test Select Item Past Monthly Sales: Units sold for item #21 in October 2021 is 1');
                     break;
 
                 case 2:
-                    $this->unit->run($value_of_date[$x][0]->units_sold, 11, 'Units sold for item #21 in November 2021 is 11');
+                    $this->unit->run($value_of_date[$x][0]->units_sold, 11, 'Test Select Item Past Monthly Sales: Units sold for item #21 in November 2021 is 11');
                     break;
 
                 default:
@@ -209,7 +209,7 @@ class Sales_prediction_test extends CI_Controller
             $x++;
         }
 
-        $this->unit->run($total_units_sold, 24, 'Total units sold for item #21 from Sept 2021 - Nov 2021 is 24');
+        $this->unit->run($total_units_sold, 24, 'Test Moving Average: Total units sold for item #21 from Sept 2021 - Nov 2021 is 24');
 
         // getting the predicted units to be sold for item #21 in the first future month (December 2021) based on the average units sold of the past 3 months
         $predicted_units_first_month = round($total_units_sold / 3);
@@ -217,15 +217,15 @@ class Sales_prediction_test extends CI_Controller
         // getting the predicted sales for item #21 in the first future month (December 2021) based on the predicted units to be sold
         $predicted_sales_first_month = number_format($predicted_units_first_month * $value_of_date[0][0]->item_price, 2, '.', '');
 
-        $this->unit->run($predicted_units_first_month, 8, 'First monthly prediction of units sold for item #21 is 8');
-        $this->unit->run($predicted_sales_first_month, 288, 'First monthly prediction of sales for item #21 is 288');
+        $this->unit->run($predicted_units_first_month, 8, 'Test Moving Average: First monthly prediction of units sold for item #21 is 8');
+        $this->unit->run($predicted_sales_first_month, 288, 'Test Moving Average: First monthly prediction of sales for item #21 is 288');
 
         /* to get the predicted units sold for the second future month, the average calculation will move forward.
            the predictions are now based from Oct 2021 - Dec 2021 (first future month), where values from the first month used previously (Sept 2021) will be discarded */
         $predicted_units_second_month = round(($total_units_sold + 8 - $value_of_date[0][0]->units_sold)/3);
         $predicted_sales_second_month = number_format($predicted_units_second_month * $value_of_date[0][0]->item_price, 2, '.', '');
 
-        $this->unit->run($predicted_units_second_month, 7, 'Second monthly prediction of units sold for item #21 is 7');
-        $this->unit->run($predicted_sales_second_month, 252, 'Second monthly prediction of sales for item #21 is 252');
+        $this->unit->run($predicted_units_second_month, 7, 'Test Moving Average: Second monthly prediction of units sold for item #21 is 7');
+        $this->unit->run($predicted_sales_second_month, 252, 'Test Moving Average: Second monthly prediction of sales for item #21 is 252');
     }
 }
