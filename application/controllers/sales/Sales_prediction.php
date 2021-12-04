@@ -29,8 +29,26 @@ class Sales_prediction extends CI_Controller
         $date = date('m');
 
         $data['item_subcategories_data'] = $this->items_model->select_all_item_subcategories();
-        $data['most_sold_item'] = MAX($this->sales_model->select_most_sold_item($date));
-        $data['most_sold_item_subcategory'] = MAX($this->sales_model->select_most_sold_item_subcategory($date));
+        
+        $most_sold_item = $this->sales_model->select_most_sold_item($date);
+        $most_sold_item_subcategory = $this->sales_model->select_most_sold_item_subcategory($date);
+
+        // checks if current month has items sold. if yes, what is the most sold item
+        if ($most_sold_item) {
+            $most_sold_item = MAX($this->sales_model->select_most_sold_item($date));
+        } else{
+            $most_sold_item = null;
+        }
+
+        // checks if current month has items sold. if yes, what is the most sold item subcategory
+        if ($most_sold_item_subcategory) {
+            $most_sold_item_subcategory = MAX($this->sales_model->select_most_sold_item_subcategory($date));
+        } else {
+            $most_sold_item_subcategory = null;
+        }
+
+        $data['most_sold_item'] = $most_sold_item;
+        $data['most_sold_item_subcategory'] = $most_sold_item_subcategory;
 
         $this->load->view('internal_templates/header', $data);
         $this->load->view('internal_templates/sidenav');
