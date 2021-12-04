@@ -216,6 +216,22 @@ class sales_model extends CI_Model
 
     }    
 
+    function select_monthly_sales_item($month, $year)
+    {
+        $start_date = $year . "-" . $month . "-01";
+        $d = new DateTime($start_date);
+        $end_date = $d->format('Y-m-t');
+
+        $this->db->select('*');
+        $this->db->from('sales_item');
+        $this->db->join('sales', 'sales.sale_id = sales_item.sale_id');
+        $this->db->where('sales.sale_date >=', $start_date);
+        $this->db->where('sales.sale_date <=', $end_date);
+        $query = $this->db->get()->result();
+        return $query;
+
+    }    
+
     // -------- PREDICTION  -------- //
 
     // FOR 1 MONTH (NO RANGE)

@@ -18,6 +18,7 @@ class Items_test extends CI_Controller
         $this->test_items_list();
        // $this->test_update_item();
         $this->test_delete_item();
+        $this->test_notification_list();
         echo $this->unit->report();
         //echo phpinfo();
     }
@@ -114,5 +115,20 @@ class Items_test extends CI_Controller
         $this->items_model->delete(65);
         $this->unit->run(count($this->items_model->select_all()), 25, 'After deleting an item, total count is: 24');
         echo count($this->items_model->select_all());
+    }
+
+    // --------------------- NOTIFICATION FUNCTION TESTING --------------------------//
+
+    //check if the notification list matches the item low on stock list
+    public function test_notification_list(){
+
+        //Get total count in item low on stock list
+        $num_item_low_stock = count($this->items_model->select_all_items_low_on_stock());
+
+        //Get total count in notification list
+        $num_notification = count($this->items_model->select_all_sorted_items_low_on_stock());
+
+        $this->unit->run($num_notification, $num_item_low_stock, 'Notification list matches item low on stock list');
+
     }
 }
